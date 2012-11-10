@@ -1,0 +1,59 @@
+\documentclass[a4paper, 14pt]{extarticle}
+\usepackage[utf8]{inputenc}
+\usepackage[paper=a4paper, top=1cm, right=1cm, bottom=1.5cm, left=2cm]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+
+\usepackage{graphicx}
+
+\parindent=1.25cm
+
+\usepackage[square, numbers, sort&compress]{natbib}
+\makeatletter
+\bibliographystyle{unsrt}
+\renewcommand{\@biblabel}[1]{#1.} 
+\makeatother
+
+
+\newcommand{\maketitlepage}[4]{
+    \begin{titlepage}
+        \singlespacing
+        \newpage
+        \begin{center}
+            Министерство образования и науки Российской Федерации \\
+            Федеральное государственное бюджетное образовательное \\
+            учреждение высшего профессионального образования \\
+            <<Волгоградский государственный технический университет>> \\
+            Факультет электроники и вычислительной техники \\
+            Кафедра физики
+        \end{center}
+
+
+        \vspace{14em}
+
+        \begin{center}
+            \large Семестровая работа #1 по дисциплине
+            \\ <<#2>>
+        \end{center}
+
+        \vspace{5em}
+
+        \begin{flushright}
+            \begin{minipage}{.3\textwidth}
+                Выполнил:#3
+                \vspace{1em}\\        
+                Проверил:\\#4
+                \\
+                \\ Оценка \underline{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+            \end{minipage}
+        \end{flushright}
+
+        \vspace{\fill}
+
+        \begin{center}
+            Волгоград, 2012
+        \end{center}
+
+    \end{titlepage}
+    \setcounter{page}{2}
+}
