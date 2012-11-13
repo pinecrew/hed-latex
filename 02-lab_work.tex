@@ -1,0 +1,55 @@
+\documentclass[a4paper]{article}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8x]{inputenc}
+\usepackage[english,russian]{babel}
+
+\usepackage{amssymb,amsfonts,amsmath}
+\usepackage{enumerate}
+\usepackage{indentfirst}
+\usepackage{array}
+
+\usepackage{graphicx}
+\graphicspath{{plots/}, {images/}}%путь к рисункам
+
+\usepackage{pscyr}
+\usepackage{multirow}
+
+\makeatletter
+\renewcommand{\@biblabel}[1]{#1.}  % Заменяем библиографию
+\makeatother                       % с квадратных скобок на точку.
+
+\usepackage{geometry} % Меняем поля страницы
+\geometry{left=2cm}% левое поле
+\geometry{right=1.5cm}% правое поле
+\geometry{top=2cm}% верхнее поле
+\geometry{bottom=2cm}% нижнее поле
+
+\renewcommand{\theenumi}{\arabic{enumi}}
+\renewcommand{\labelenumi}{\arabic{enumi}.}
+\renewcommand{\theenumii}{.\arabic{enumii}}
+\renewcommand{\labelenumii}{\arabic{enumi}.\arabic{enumii}.}
+\renewcommand{\theenumiii}{.\arabic{enumiii}}
+\renewcommand{\labelenumiii}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.}
+
+\renewcommand{\phi}{\varphi}
+\renewcommand{\theta}{\vartheta}
+\renewcommand{\epsilon}{\varepsilon}
+\renewcommand{\arraystretch}{1.2}
+\newcommand{\midnum}[1]{\langle#1\rangle}
+
+\newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1\textwidth}}
+
+\usepackage{titlesec}
+
+\titleformat{\section}[block]
+{\normalfont\large\bfseries\center}{}{.5em}{}
+
+\titleformat{\subsection}[block]
+{\normalfont\bfseries\center}{}{.5em}{}
+
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{caption}
+\captionsetup{labelsep=period}
+\usepackage{tocvsec2}
+\pagestyle{empty}
