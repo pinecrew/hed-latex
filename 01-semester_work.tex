@@ -8,6 +8,22 @@
 
 \parindent=1.25cm
 
+\usepackage{titlesec}
+
+\titleformat{\section}
+    {\normalsize\bfseries}
+    {\thesection}
+    {1em}{}
+
+\titleformat{\subsection}
+    {\normalsize\bfseries}
+    {\thesubsection}
+    {1em}{}
+
+% Настройка вертикальных и горизонтальных отступов
+\titlespacing*{\chapter}{0pt}{-30pt}{8pt}
+\titlespacing*{\section}{\parindent}{*4}{*4}
+\titlespacing*{\subsection}{\parindent}{*4}{*4}
 \usepackage[square, numbers, sort&compress]{natbib}
 \makeatletter
 \bibliographystyle{unsrt}
@@ -15,7 +31,7 @@
 \makeatother
 
 
-\newcommand{\maketitlepage}[4]{
+\newcommand{\maketitlepage}[5]{
     \begin{titlepage}
         \singlespacing
         \newpage
@@ -25,14 +41,14 @@
             учреждение высшего профессионального образования \\
             <<Волгоградский государственный технический университет>> \\
             Факультет электроники и вычислительной техники \\
-            Кафедра физики
+            Кафедра #1
         \end{center}
 
 
         \vspace{14em}
 
         \begin{center}
-            \large Семестровая работа #1 по дисциплине
+            \large Семестровая работа #5 по дисциплине
             \\ <<#2>>
         \end{center}
 
