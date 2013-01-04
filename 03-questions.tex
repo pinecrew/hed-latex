@@ -11,6 +11,11 @@
 
 \usepackage{titlesec, blindtext, color}
 \newcommand{\hsp}{\hspace{20pt}}
-\titleformat{\chapter}[hang]{\normalsize\bfseries}{Вопрос \thechapter.\hsp}{0pt}
+\titleformat{\chapter}{\normalsize\bfseries}{Вопрос \thechapter.\hsp}{0pt}
 {\normalsize\bfseries}
 \titlespacing*{\chapter}{0pt}{0pt}{1em}
+\titleformat{\section}{\normalsize\bfseries}{\thesection. }{0pt}
+{\normalsize\bfseries}
+\titlespacing*{\section}{0pt}{0pt}{1em}
+
+\setcounter{tocdepth}{0} 
