@@ -2,3 +2,10 @@
 \newcommand{\Ezero}{\varepsilon_0}
 \newcommand{\EDS}{\mathcal{E}}
 \newcommand{\AtomicTerm}[3]{\vphantom{#2}^{#1}#2_{#3}}
+\newcommand{\nucleus}[3]{
+\ensuremath{
+    \phantom{\ensuremath{^{#2}_{#3}}}
+    \llap{\ensuremath{^{#2}}}
+    \llap{\ensuremath{_{\rule{0pt}{.75em}#3}}}
+    \mbox{#1}}
+}
