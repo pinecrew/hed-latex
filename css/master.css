@@ -1,0 +1,52 @@
+html {
+    height: 100%;
+}
+
+body {
+    font-family: Cuprum, sans-serif;
+    font-size: 12pt;
+    margin: 0;
+}
+
+header {
+    padding-left: 10%;
+    width: 90%;
+    background: #ffeab5;
+    font-size: 20pt;
+    line-height: 100px
+}
+header img {
+    vertical-align: middle;
+    margin-top: -5px;
+}
+.container {
+    width: 80%;
+    margin: 0 auto 10px;
+}
+
+.wo-border {
+    border: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
+}
+
+ul {
+    list-style-type: none;
+}
+
+ul li {
+    margin: .7em auto;
+}
+
+a {
+    text-decoration: none;
+    color: #4d4d4d;
+    border-bottom: 1px dotted #4d4d4d;
+}
+
+pre, code {
+    background: #f0f0f0;
+    border: 1px solid #aaaaaa;
+}
