@@ -2,6 +2,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[paper=a4paper, top=1cm, right=1cm, bottom=1.5cm, left=2cm]{geometry}
 \usepackage{setspace}
+\usepackage{ifthen}
 \onehalfspacing
 
 \usepackage{graphicx}
@@ -31,8 +32,11 @@
 \renewcommand{\@biblabel}[1]{#1.} 
 \makeatother
 
-
-\newcommand{\maketitlepage}[6]{
+% \maketitlepage{факультет}{кафедра}{дисциплина}{номер работы}{номер варианта}
+% {студент}{пол студента}{преподаватель}{пол преподавателя}
+% Пол: f -- женский, всё остальное -- мужской.
+% Вариант: если варианта нет -- оставить пустым.
+\newcommand{\maketitlepage}[9]{
     \begin{titlepage}
         \singlespacing
         \newpage
@@ -44,77 +48,32 @@
             #1 \\
             Кафедра #2
         \end{center}
-
-
-        \vspace{14em}
-
+        \vspace{9em}
         \begin{center}
-            \large Семестровая работа #6 по дисциплине
+            \large Семестровая работа #4 по дисциплине
             \\ <<#3>>
         \end{center}
-
-        \vspace{5em}
-
-        \begin{flushright}
-            \begin{minipage}{.3\textwidth}
-                Выполнил:\\#4
-                \vspace{1em}\\
-                Проверил:\\#5
-                \\
-                \\ Оценка \underline{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
-            \end{minipage}
-        \end{flushright}
-
-        \vspace{\fill}
-
-        \begin{center}
-            Волгоград, \the\year
-        \end{center}
-
-    \end{titlepage}
-    \setcounter{page}{2}
-}
-
-\newcommand{\maketitlepagewithvariant}[7]{
-    \begin{titlepage}
-        \singlespacing
-        \newpage
-
-        \begin{center}
-            Министерство образования и науки Российской Федерации \\
-            Федеральное государственное бюджетное образовательное \\
-            учреждение высшего профессионального образования \\
-            <<Волгоградский государственный технический университет>> \\
-            #1 \\
-            Кафедра #2
-        \end{center}
-
-
-        \vspace{8em}
-
-        \begin{center}
-            \large Семестровая работа #6 по дисциплине
-            \\ <<#3>>
-        \end{center}
-
+        \ifthenelse{\equal{#5}{}}{\vspace{5em}}{
         \vspace{1em}
         \begin{center}
-            Вариант №#7
+           Вариант №#5
         \end{center}
-        \vspace{4em}
+        \vspace{3em}
+        }
 
         \begin{flushright}
-            \begin{minipage}{.3\textwidth}
-                Выполнил:\\#4
+            \begin{minipage}{.40\textwidth}
+                Выполнил\ifthenelse{\equal{#7}{f}}{а}{}:\\#6\\
                 \vspace{1em}\\
-                Проверил:\\#5
-                \\
-                \\ Оценка \underline{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+                Проверил\ifthenelse{\equal{#9}{f}}{а}{}:\\#8
+                \vspace{1em}\\
+                Дата сдачи\\семестровой\\
+                на проверку: \hrulefill
+                \vspace{1em}\\
+                Оценка \rule{2cm}{0.5pt} б, \hrulefill
             \end{minipage}
         \end{flushright}
-
         \vspace{\fill}
-
         \begin{center}
             Волгоград, \the\year
         \end{center}
