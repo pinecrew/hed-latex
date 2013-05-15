@@ -1,11 +1,13 @@
 \documentclass[a4paper]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[english,russian]{babel}
+\usepackage[T2A]{fontenc}
 
 \usepackage{amssymb,amsfonts,amsmath}
 \usepackage{enumerate}
 \usepackage{indentfirst}
 \usepackage{array}
+\usepackage{ifthen}
 
 \usepackage{graphicx}
 \graphicspath{{plots/}, {images/}} %путь к рисункам
@@ -37,3 +39,26 @@
 \captionsetup{labelsep=period}
 \usepackage{tocvsec2}
 \pagestyle{empty}
+
+\newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1\textwidth}}
+\renewcommand{\arraystretch}{1.2}
+
+
+% \makeheader{номер работы}{тема}{студент}{группа}{дата выполнения}
+\newcommand{\makeheader}[5]{
+    \begin{table}[h!]
+        \center
+        \begin{tabular}{|C{.5}|C{.2}|C{.25}|}
+            \hline
+            \multicolumn{1}{|c|}{\multirow{4}{*}{Лабораторная работа
+            \ifthenelse{\equal{#1}{}}{\!\!}{№#1}}} &
+            Студент, группа & #3, #4 \\ \cline{2-3}
+            & Дата выполнения & #5 \\ \cline{2-3}
+            & Подпись &  \\ \cline{2-3}
+            \multicolumn{1}{|c|}{\multirow{3}{*}{#2}}
+            & Дата отчёта & \\ \cline{2-3}
+            & Оценка &  \\ \cline{2-3}
+            & Подпись &  \\ \hline
+        \end{tabular}
+    \end{table}
+}

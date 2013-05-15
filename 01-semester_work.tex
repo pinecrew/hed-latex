@@ -3,6 +3,7 @@
 \usepackage[paper=a4paper, top=1cm, right=1cm, bottom=1.5cm, left=2cm]{geometry}
 \usepackage{setspace}
 \usepackage{ifthen}
+\usepackage{array}
 \onehalfspacing
 
 \usepackage{graphicx}
@@ -32,6 +33,9 @@
 \bibliographystyle{unsrt}
 \renewcommand{\@biblabel}[1]{#1.} 
 \makeatother
+
+\newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1\textwidth}}
+\renewcommand{\arraystretch}{1.2}
 
 % \maketitlepage{факультет}{кафедра}{дисциплина}{номер работы}{номер варианта}
 % {студент}{пол студента}{преподаватель}{пол преподавателя}
