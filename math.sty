@@ -1,0 +1,79 @@
+\NeedsTeXFormat{LaTeX2e}[1995/06/01]                                            
+\ProvidesPackage{premath}[2012/08/08 0.1]
+
+\RequirePackage{amsmath, amssymb}
+\RequirePackage{wasysym}
+\RequirePackage{multirow}
+\RequirePackage{array}
+
+% переобозначение символов
+\renewcommand{\phi}{\varphi}
+\renewcommand{\theta}{\vartheta}
+\renewcommand{\kappa}{\varkappa}
+\newcommand{\eps}{\varepsilon}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\renewcommand{\geq}{\geqslant}
+\renewcommand{\Gamma}{\varGamma}
+
+
+% работа с комплексными числами
+\DeclareOption{complex}{%
+    \renewcommand{\Re}{\mathbf{Re\,}}
+    \renewcommand{\Im}{\mathbf{Im\,}}
+}
+
+% производные и дифференциал
+\DeclareOption{derivative}{%
+    \renewcommand{\d}{\, d}
+    \newcommand{\pder}[2]{\frac{\partial #1}{\partial #2}}
+    \newcommand{\ppder}[2]{\frac{\partial^2 #1}{\partial #2^2}}
+    \newcommand{\pcder}[3]{\frac{\partial^2 #1}{\partial #2 \partial #3}}
+    \newcommand{\der}[2]{\frac{d #1}{d #2}}
+    \newcommand{\dder}[2]{\frac{d^2 #1}{d #2^2}}
+}
+
+% упрощение набора пределов
+\DeclareOption{shortcuts}{%
+    \newcommand{\limni}{\lim_{n\to\infty}}
+    \newcommand{\lni}{\limits_0^\infty}
+    \newcommand{\lii}{\limits_{-\infty}^\infty}
+    \newcommand{\midnum}[1]{\left\langle#1\right\rangle}
+}
+
+\DeclireOption{environments}{%
+    \RequirePackage{amsthm}
+    \newtheorem{theorem}{Теорема}
+    \newtheorem{lemma}{Лемма}
+    \newtheorem{proposition}{Утверждение}
+    \newtheorem{corollary}{Следствие}
+    \renewenvironment{proof}[1][Доказательство.]{\begin{trivlist}
+        \item[\hskip \labelsep {\bfseries #1}] 
+            \setlength{\parindent}{0cm}}{\end{trivlist}\hrulefill}
+    \newenvironment{solution}[1][Решение.]{\begin{trivlist}
+        \item[\hskip \labelsep {\bfseries #1}] 
+            \setlength{\parindent}{0cm}}{\end{trivlist}\hrulefill}
+    \newenvironment{definition}[1][Определение.]{\begin{quote}\begin{trivlist}
+        \item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}\end{quote}}
+    \newenvironment{remark}[1][Замечание.]{\begin{quote}\begin{trivlist}
+        \item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}\end{quote}}
+    \newtheorem{comment}{Комментарий}[chapter]
+        \newtheorem{example}{Пример}[chapter]
+        \renewenvironment{appendix}[1][Приложение.]{\begin{trivlist}
+            \item[\hskip \labelsep {\bfseries #1}]
+                \setlength{\parindent}{0cm}}{\end{trivlist}}
+    \newenvironment{conclusion}{\itshape}{}
+}
+
+\DeclareOption{vectors}{%
+    \nevcommand{\divide}{\div}
+    \renewcommand{\div}{\mathrm{div\,}}
+    \newcommand{\grad}{\mathrm{grad\,}}
+    \newcommand{\rot}{\mathrm{rot\,}}
+    \newcommand{\const}{\mathrm{const}}
+    \renewcommand{\det}{\mathrm{det\,}}
+}
+
+% прочие обозначения и команды
+\newcommand{\e}{\mathrm{e}} % экспонента

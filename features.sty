@@ -1,0 +1,10 @@
+\NeedsTeXFormat{LaTeX2e}[1995/06/01]                                            
+\ProvidesPackage{prefeatures}[2012/08/08 0.1]
+
+\DeclareOption{column}{%
+    \RequirePackage{array}
+    \newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1\textwidth}}
+    \renewcommand{\arraystretch}{1.2}
+}
+
+

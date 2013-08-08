@@ -1,0 +1,15 @@
+\NeedsTeXFormat{LaTeX2e}[1995/06/01]                                            
+\ProvidesPackage{prephysics}[2012/08/08 0.1]
+
+\RequirePackage{amsmath}
+\newcommand{\ImUn}{\mathrm{j}}
+% \newcommand{\Ezero}{\varepsilon_0} :: \eps_0 has the same length 
+\newcommand{\eds}{\mathcal{E}}
+\newcommand{\term}[3]{\vphantom{#2}^{#1}#2_{#3}}
+\newcommand{\nucleus}[3]{
+\ensuremath{
+    \phantom{\ensuremath{^{#1}_{#2}}}
+    \llap{\ensuremath{^{#1}}}
+    \llap{\ensuremath{_{\rule{0pt}{.75em}#2}}}
+    \mbox{#3}}
+}
