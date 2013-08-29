@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{preport}[2012/08/08 v0.1
+\ProvidesClass{hedlectures}[2012/08/08 v0.1
 Non Standard LaTeX document class for reports]
 \newcommand\@ptsize{}
 \newif\if@restonecol
