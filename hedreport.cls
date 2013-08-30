@@ -1,6 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{hedreport}[2012/08/08 v0.1
-Non Standard LaTeX document class for reports]
+\ProvidesClass{hedreport}[2013/08/30 v0.1.9]
 \newcommand\@ptsize{}
 \newif\if@restonecol
 \newif\if@titlepage
@@ -718,5 +717,5 @@ Non Standard LaTeX document class for reports]
   \onecolumn
 \fi
 \endinput
-%% 
+%%
 %% End of file `extreport.cls'.
