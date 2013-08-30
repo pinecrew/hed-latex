@@ -8,7 +8,7 @@ clean:
 
 install: clean
 	@echo "Create directory..."
-	@mkdir -p $(INSTALL_PATH)/hed
+	install -dm 755 $(INSTALL_PATH)/hed
 	@echo "Install files..."
-	@cp *.{sty,cls} $(INSTALL_PATH)/hed
+	install -m 644 *.{sty,cls} $(INSTALL_PATH)/hed/
 
