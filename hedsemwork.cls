@@ -1,27 +1,6 @@
-%% This is file `extarticle.cls',
-%% (new: size options 9pt, 14pt, 17pt, 20pt)
-%% generated from `report.cls' by Wolfgang May, Inst.f.Informatik,
-%%                Universitaet freiburg, Germany.
-%%
-%%		  Some modifications (mainly for size and new font sizes) 
-%%	   	  by James Kilfiger.
-%%		  mapdn@csv.warwick.ac.uk % 
-%% 
-%% The original source files were:
-%% Copyright 1993 1994 1995 1996 1999
-%% The LaTeX3 Project and any individual authors listed elsewhere 
-%% in this file. 
-%% 
-%% This file may be distributed under the terms of the Latex Project
-%% public licence
-%% 
-%% This system is distributed in the hope that it will be useful, 
-%% but WITHOUT ANY WARRANTY; without even the implied warranty of 
-%% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+% copied from extarticle.cls
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{extarticle}
-              [1996/10/08 v1.0
- Non Standard LaTeX document class]
+\ProvidesClass{hedsemwork}[2013/08/30 v0.1.9]
 \newcommand\@ptsize{}
 \newif\if@restonecol
 \newif\if@titlepage
@@ -378,10 +357,10 @@
 \renewcommand\p@enumii{\theenumi}
 \renewcommand\p@enumiii{\theenumi(\theenumii)}
 \renewcommand\p@enumiv{\p@enumiii\theenumiii}
-\newcommand\labelitemi{\textbullet}                       
+\newcommand\labelitemi{\textbullet}
 \newcommand\labelitemii{\normalfont\bfseries \textendash}
-\newcommand\labelitemiii{\textasteriskcentered}          
-\newcommand\labelitemiv{\textperiodcentered}             
+\newcommand\labelitemiii{\textasteriskcentered}
+\newcommand\labelitemiv{\textperiodcentered}
 \newenvironment{description}
                {\list{}{\labelwidth\z@ \itemindent-\leftmargin
                         \let\makelabel\descriptionlabel}}
@@ -638,43 +617,93 @@
   \onecolumn
 \fi
 \endinput
-%% 
+%%
 %% End of file `extarticle.cls'.
-\renewcommand{\@biblabel}[1]{#1.} % Заменяем библиографию
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[paper=a4paper, top=1cm, right=1cm, bottom=1.5cm, left=2cm]{geometry}
+\RequirePackage{setspace}
+\RequirePackage{ifthen}
+\RequirePackage{array}
+\onehalfspacing
 
-\RequirePackage{geometry}  % Меняем поля страницы
-\geometry{left=2cm}    % левое поле
-\geometry{right=1.5cm} % правое поле
-\geometry{top=2cm}     % верхнее поле
-\geometry{bottom=2cm}  % нижнее поле
+\RequirePackage{graphicx}
+\graphicspath{{plots/}, {images/}}
+
+\parindent=1.25cm
 
 \RequirePackage{titlesec}
 
-\titleformat{\section}[block]
-{\normalfont\large\bfseries\center}{}{.5em}{}
+\titleformat{\section}
+{\normalsize\bfseries}
+{\thesection}
+{1em}{}
 
-\titleformat{\subsection}[block]
-{\normalfont\bfseries\center}{}{.5em}{}
+\titleformat{\subsection}
+{\normalsize\bfseries}
+{\thesubsection}
+{1em}{}
 
-\RequirePackage{multirow}
-\RequirePackage[column]{prefeatures}
+% Настройка вертикальных и горизонтальных отступов
+\titlespacing*{\chapter}{0pt}{-30pt}{8pt}
+\titlespacing*{\section}{\parindent}{*4}{*4}
+\titlespacing*{\subsection}{\parindent}{*4}{*4}
 
-% \makeheader{номер работы}{тема}{студент}{группа}{дата выполнения}
-\newcommand{\makeheader}[5]{
-    \begin{table}[h!]
-        \center
-        \begin{tabular}{|C{.5}|C{.2}|C{.25}|}
-    \hline
-        \multicolumn{1}{|c|}{\multirow{4}{*}{Лабораторная работа
-            \ifthenelse{\equal{#1}{}}{\!\!}{№#1}}} &
-            Студент, группа & #3, #4 \\ \cline{2-3}
-    & Дата выполнения & #5 \\ \cline{2-3}
-    & Подпись &  \\ \cline{2-3}
-    \multicolumn{1}{|c|}{\multirow{3}{*}{#2}}
-    & Дата отчёта & \\ \cline{2-3}
-    & Оценка &  \\ \cline{2-3}
-    & Подпись &  \\ \hline
-        \end{tabular}
-    \end{table}
+\RequirePackage[square, numbers, sort&compress]{natbib}
+\makeatletter
+\bibliographystyle{unsrt}
+\renewcommand{\@biblabel}[1]{#1.}
+\makeatother
+
+\newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1\textwidth}}
+\renewcommand{\arraystretch}{1.2}
+
+% \maketitlepage{факультет}{кафедра}{дисциплина}{номер работы}{номер варианта}
+% {студент}{пол студента}{преподаватель}{пол преподавателя}
+% Пол: f -- женский, всё остальное -- мужской.
+% Вариант: если варианта нет -- оставить пустым.
+\newcommand{\maketitlepage}[9]{
+    \begin{titlepage}
+    \singlespacing
+        \newpage
+        \begin{center}
+    Министерство образования и науки Российской Федерации \\
+        Федеральное государственное бюджетное образовательное \\
+        учреждение высшего профессионального образования \\
+        <<Волгоградский государственный технический университет>> \\
+#1 \\
+        Кафедра #2
+        \end{center}
+    \vspace{9em}
+    \begin{center}
+    \large Семестровая работа
+        \ifthenelse{\equal{#4}{}}{\!\!}{№#4} по дисциплине
+        \\ <<#3>>
+        \end{center}
+    \ifthenelse{\equal{#5}{}}{\vspace{5em}}{
+        \vspace{1em}
+        \begin{center}
+        Вариант №#5
+            \end{center}
+        \vspace{3em}
+    }
+
+    \begin{flushright}
+    \begin{minipage}{.40\textwidth}
+    Выполнил\ifthenelse{\equal{#7}{f}}{а}{}:\\#6\\
+        \vspace{1em}\\
+        Проверил\ifthenelse{\equal{#9}{f}}{а}{}:\\#8
+        % \vspace{1em}\\
+        % Дата сдачи\\семестровой\\
+        % на проверку: \hrulefill
+        % \vspace{1em}\\
+        % Оценка \rule{2cm}{0.5pt} б, \hrulefill
+        \end{minipage}
+    \end{flushright}
+    \vspace{\fill}
+    \begin{center}
+    Волгоград, \the\year
+        \end{center}
+
+    \end{titlepage}
+    \setcounter{page}{2}
 }
-
