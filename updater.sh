@@ -17,7 +17,7 @@ fi
 for i in $added $modified; do
     name=$(echo $i | cut -d . -f 1)
     ext=$(echo $i | cut -d . -f 2)
-    if [[ $ext == "cls" ]]; then 
+    if [[ $ext == "cls" ]]; then
         echo "Обновление даты в $i"
         sed -i "/ProvidesClass/ s:\[[0-9/ A-Za-z.]\+\]:\[$day v$version\]:" $i
     elif [[ $ext == "sty" ]]; then

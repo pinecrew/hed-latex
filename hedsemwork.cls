@@ -2,31 +2,19 @@
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 \ProvidesClass{hedsemwork}[2013/08/30 v0.1.9]
 \newcommand\@ptsize{}
+
+% зачем нужны следующие 2 строчки?
 \newif\if@restonecol
 \newif\if@titlepage
+
 \@titlepagefalse
-\DeclareOption{a4paper}
-   {\setlength\paperheight {297mm}%
-    \setlength\paperwidth  {210mm}}
-\DeclareOption{a5paper}
-   {\setlength\paperheight {210mm}%
-    \setlength\paperwidth  {148mm}}
-\DeclareOption{b5paper}
-   {\setlength\paperheight {250mm}%
-    \setlength\paperwidth  {176mm}}
-\DeclareOption{letterpaper}
-   {\setlength\paperheight {11in}%
-    \setlength\paperwidth  {8.5in}}
-\DeclareOption{legalpaper}
-   {\setlength\paperheight {14in}%
-    \setlength\paperwidth  {8.5in}}
-\DeclareOption{executivepaper}
-   {\setlength\paperheight {10.5in}%
-    \setlength\paperwidth  {7.25in}}
-\DeclareOption{landscape}
-   {\setlength\@tempdima   {\paperheight}%
-    \setlength\paperheight {\paperwidth}%
-    \setlength\paperwidth  {\@tempdima}}
+% Жёстко задаём размер бумаги (А4), одностороннюю печать и расположение
+% текста в 1 колонку
+\setlength\paperheight{297mm} \setlength\paperwidth{210mm}
+\@twosidefalse \@mparswitchfalse
+\@twocolumnfalse
+
+% Размер шрифта как опция
 \DeclareOption{8pt}{\renewcommand\@ptsize{8}}
 \DeclareOption{9pt}{\renewcommand\@ptsize{9}}
 \DeclareOption{10pt}{\renewcommand\@ptsize{10}}
@@ -36,14 +24,11 @@
 \DeclareOption{17pt}{\renewcommand\@ptsize{17}}
 \DeclareOption{20pt}{\renewcommand\@ptsize{20}}
 
-\DeclareOption{oneside}{\@twosidefalse \@mparswitchfalse}
-\DeclareOption{twoside}{\@twosidetrue  \@mparswitchtrue}
+% теперь остальные опции
 \DeclareOption{draft}{\setlength\overfullrule{5pt}}
 \DeclareOption{final}{\setlength\overfullrule{0pt}}
 \DeclareOption{titlepage}{\@titlepagetrue}
 \DeclareOption{notitlepage}{\@titlepagefalse}
-\DeclareOption{onecolumn}{\@twocolumnfalse}
-\DeclareOption{twocolumn}{\@twocolumntrue}
 \DeclareOption{leqno}{\input{leqno.clo}}
 \DeclareOption{fleqn}{\input{fleqn.clo}}
 \DeclareOption{openbib}{%
@@ -56,7 +41,11 @@
       }%
    \renewcommand\newblock{\par}}%
 }
-\ExecuteOptions{letterpaper,10pt,oneside,onecolumn,final}
+
+% опции по умолчанию
+\ExecuteOptions{14pt,final}
+
+% что тут происходит?
 \ProcessOptions
 \def\EC@family#1#2#3#4#5{%
   \DeclareFontShape{#1}{#2}{#3}{#4}%
@@ -115,8 +104,9 @@
       {<5><6><7><8><9>%
       <10><10.95><12><14.4><17.28><20.74><24.88><29.86><35.83><42.99><51.59>cmbxti10%
       }{}
-\input{size\@ptsize.clo}
+\input{size\@ptsize.clo} % откуда тащит файлы этот инпут
 \RequirePackage{exscale}
+% устанавливаются значения каких-то параметров
 \setlength\lineskip{1\p@}
 \setlength\normallineskip{1\p@}
 \renewcommand\baselinestretch{}
@@ -124,6 +114,8 @@
 \@lowpenalty   51
 \@medpenalty  151
 \@highpenalty 301
+
+% что это и зачем оно надо?
 \setcounter{topnumber}{2}
 \renewcommand\topfraction{.7}
 \setcounter{bottomnumber}{1}
@@ -134,36 +126,18 @@
 \setcounter{dbltopnumber}{2}
 \renewcommand\dbltopfraction{.7}
 \renewcommand\dblfloatpagefraction{.5}
-\if@twoside
-  \def\ps@headings{%
-      \let\@oddfoot\@empty\let\@evenfoot\@empty
-      \def\@evenhead{\thepage\hfil\slshape\leftmark}%
-      \def\@oddhead{{\slshape\rightmark}\hfil\thepage}%
-      \let\@mkboth\markboth
-    \def\sectionmark##1{%
-      \markboth {\MakeUppercase{%
-        \ifnum \c@secnumdepth >\z@
-          \thesection\quad
-        \fi
-        ##1}}{}}%
-    \def\subsectionmark##1{%
-      \markright {%
-        \ifnum \c@secnumdepth >\@ne
-          \thesubsection\quad
-        \fi
-        ##1}}}
-\else
-  \def\ps@headings{%
+
+% зачем это и как оно работает?
+\def\ps@headings{%
     \let\@oddfoot\@empty
     \def\@oddhead{{\slshape\rightmark}\hfil\thepage}%
     \let\@mkboth\markboth
     \def\sectionmark##1{%
-      \markright {\MakeUppercase{%
-        \ifnum \c@secnumdepth >\m@ne
-          \thesection\quad
-        \fi
-        ##1}}}}
-\fi
+        \markright {\MakeUppercase{%
+            \ifnum \c@secnumdepth >\m@ne
+                \thesection\quad
+            \fi
+##1}}}}
 \def\ps@myheadings{%
     \let\@oddfoot\@empty\let\@evenfoot\@empty
     \def\@evenhead{\thepage\hfil\slshape\leftmark}%
@@ -171,8 +145,8 @@
     \let\@mkboth\@gobbletwo
     \let\sectionmark\@gobble
     \let\subsectionmark\@gobble
-    }
-  \if@titlepage
+}
+\if@titlepage
   \newcommand\maketitle{\begin{titlepage}%
   \let\footnotesize\small
   \let\footnoterule\relax
@@ -204,10 +178,10 @@
   \global\let\author\relax
   \global\let\date\relax
   \global\let\and\relax
-}
+  }
 \else
-\newcommand\maketitle{\par
-  \begingroup
+  \newcommand\maketitle{\par
+    \begingroup
     \renewcommand\thefootnote{\@fnsymbol\c@footnote}%
     \def\@makefnmark{\rlap{\@textsuperscript{\normalfont\@thefnmark}}}%
     \long\def\@makefntext##1{\parindent 1em\noindent
@@ -239,6 +213,8 @@
   \global\let\date\relax
   \global\let\and\relax
 }
+
+% что это такое?
 \def\@maketitle{%
   \newpage
   \null
@@ -258,19 +234,25 @@
   \par
   \vskip 1.5em}
 \fi
-\setcounter{secnumdepth}{3}
+
+\setcounter{secnumdepth}{3} % wtf?
+
+% объявляются счётчики
 \newcounter {part}
 \newcounter {section}
 \newcounter {subsection}[section]
 \newcounter {subsubsection}[subsection]
 \newcounter {paragraph}[subsubsection]
 \newcounter {subparagraph}[paragraph]
+% представление счётчиков
 \renewcommand\thepart         {\@Roman\c@part}
 \renewcommand\thesection      {\@arabic\c@section}
 \renewcommand\thesubsection   {\thesection.\@arabic\c@subsection}
 \renewcommand\thesubsubsection{\thesubsection .\@arabic\c@subsubsection}
 \renewcommand\theparagraph    {\thesubsubsection.\@arabic\c@paragraph}
 \renewcommand\thesubparagraph {\theparagraph.\@arabic\c@subparagraph}
+
+% объявление команд секционирования
 \newcommand\part{%
    \if@noskipsec \leavevmode \fi\par
    \addvspace{4ex}%
@@ -324,6 +306,7 @@
                                        {3.25ex \@plus1ex \@minus .2ex}%
                                        {-1em}%
                                       {\normalfont\normalsize\bfseries}}
+% задание размеров. что и зачем?
 \if@twocolumn
   \setlength\leftmargini  {2em}
 \else
@@ -346,6 +329,8 @@
 \@beginparpenalty -\@lowpenalty
 \@endparpenalty   -\@lowpenalty
 \@itempenalty     -\@lowpenalty
+
+% ещё немного представлений для счётчиков. почему не все в одном месте?
 \renewcommand\theenumi{\@arabic\c@enumi}
 \renewcommand\theenumii{\@alph\c@enumii}
 \renewcommand\theenumiii{\@roman\c@enumiii}
@@ -361,6 +346,9 @@
 \newcommand\labelitemii{\normalfont\bfseries \textendash}
 \newcommand\labelitemiii{\textasteriskcentered}
 \newcommand\labelitemiv{\textperiodcentered}
+
+
+% создание окружений. что и зачем здесь?
 \newenvironment{description}
                {\list{}{\labelwidth\z@ \itemindent-\leftmargin
                         \let\makelabel\descriptionlabel}}
@@ -429,6 +417,8 @@
   \setcounter{section}{0}%
   \setcounter{subsection}{0}%
   \gdef\thesection{\@Alph\c@section}}
+
+% снова длины. Почему бы всё в одном месте не определить?
 \setlength\arraycolsep{5\p@}
 \setlength\tabcolsep{6\p@}
 \setlength\arrayrulewidth{.4\p@}
@@ -437,7 +427,11 @@
 \skip\@mpfootins = \skip\footins
 \setlength\fboxsep{3\p@}
 \setlength\fboxrule{.4\p@}
+
+% опять счётчики и представления
 \renewcommand\theequation{\@arabic\c@equation}
+
+% плавющие объекты -- фигуры и таблицы
 \newcounter{figure}
 \gdef\thefigure{\@arabic\c@figure}
 \def\fps@figure{tbp}
@@ -476,6 +470,8 @@
     \hb@xt@\hsize{\hfil\box\@tempboxa\hfil}%
   \fi
   \vskip\belowcaptionskip}
+
+% шрифты. что делает эта команда?
 \DeclareOldFontCommand{\rm}{\normalfont\rmfamily}{\mathrm}
 \DeclareOldFontCommand{\sf}{\normalfont\sffamily}{\mathsf}
 \DeclareOldFontCommand{\tt}{\normalfont\ttfamily}{\mathtt}
@@ -485,16 +481,22 @@
 \DeclareOldFontCommand{\sc}{\normalfont\scshape}{\@nomath\sc}
 \DeclareRobustCommand*\cal{\@fontswitch\relax\mathcal}
 \DeclareRobustCommand*\mit{\@fontswitch\relax\mathnormal}
+
+% определение странных вещей
 \newcommand\@pnumwidth{1.55em}
 \newcommand\@tocrmarg{2.55em}
 \newcommand\@dotsep{4.5}
+
+% установили глубину содержания
 \setcounter{tocdepth}{3}
+% содержание
 \newcommand\tableofcontents{%
     \section*{\contentsname
         \@mkboth{%
            \MakeUppercase\contentsname}{\MakeUppercase\contentsname}}%
     \@starttoc{toc}%
     }
+% что это за сущности вида "\l@..."?
 \newcommand*\l@part[2]{%
   \ifnum \c@tocdepth >-2\relax
     \addpenalty\@secpenalty
@@ -526,6 +528,7 @@
 \newcommand*\l@subsubsection{\@dottedtocline{3}{3.8em}{3.2em}}
 \newcommand*\l@paragraph{\@dottedtocline{4}{7.0em}{4.1em}}
 \newcommand*\l@subparagraph{\@dottedtocline{5}{10em}{5em}}
+% клёвая команда, судя по названию. Но нам она нужна?
 \newcommand\listoffigures{%
     \section*{\listfigurename
       \@mkboth{\MakeUppercase\listfigurename}%
@@ -540,8 +543,10 @@
     \@starttoc{lot}%
     }
 \let\l@table\l@figure
+
+% библиография
 \newdimen\bibindent
-\setlength\bibindent{1.5em}
+\setlength\bibindent{1.5em} % в каком месте эта идентация торчит?
 \newenvironment{thebibliography}[1]
      {\section*{\refname
         \@mkboth{\MakeUppercase\refname}{\MakeUppercase\refname}}%
@@ -558,8 +563,10 @@
      {\def\@noitemerr
        {\@latex@warning{Empty `thebibliography' environment}}%
       \endlist}
+% что это?
 \newcommand\newblock{\hskip .11em\@plus.33em\@minus.07em}
 \let\@openbib@code\@empty
+% и что это за окружение?
 \newenvironment{theindex}
                {\if@twocolumn
                   \@restonecolfalse
@@ -575,18 +582,23 @@
                 \parskip\z@ \@plus .3\p@\relax
                 \let\item\@idxitem}
                {\if@restonecol\onecolumn\else\clearpage\fi}
+% что это за команды?
 \newcommand\@idxitem{\par\hangindent 40\p@}
 \newcommand\subitem{\@idxitem \hspace*{20\p@}}
 \newcommand\subsubitem{\@idxitem \hspace*{30\p@}}
 \newcommand\indexspace{\par \vskip 10\p@ \@plus5\p@ \@minus3\p@\relax}
+% это подчёркивание над сносками?
 \renewcommand\footnoterule{%
   \kern-3\p@
   \hrule\@width.4\columnwidth
   \kern2.6\p@}
+% а это что?
 \newcommand\@makefntext[1]{%
     \parindent 1em%
     \noindent
     \hb@xt@1.8em{\hss\@makefnmark}#1}
+
+% определения
 \newcommand\contentsname{Contents}
 \newcommand\listfigurename{List of Figures}
 \newcommand\listtablename{List of Tables}
@@ -619,6 +631,9 @@
 \endinput
 %%
 %% End of file `extarticle.cls'.
+%%
+%% А вот это нужно записать с минимумом использованных пакетов
+%%
 \RequirePackage[utf8]{inputenc}
 \RequirePackage[paper=a4paper, top=1cm, right=1cm, bottom=1.5cm, left=2cm]{geometry}
 \RequirePackage{setspace}
@@ -649,10 +664,8 @@
 \titlespacing*{\subsection}{\parindent}{*4}{*4}
 
 \RequirePackage[square, numbers, sort&compress]{natbib}
-\makeatletter
 \bibliographystyle{unsrt}
 \renewcommand{\@biblabel}[1]{#1.}
-\makeatother
 
 \newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1\textwidth}}
 \renewcommand{\arraystretch}{1.2}
