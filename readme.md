@@ -22,6 +22,7 @@ TODO
 
 ## Текущее состояние (v0.1.9)
 требуется сделать к v0.2.0:
+
 1. досконально разобраться в коде hedsemwork и довести код до рабочего состояния
 2. на базе hedsemwork сделать hedlabwork, hedlectures и hedreport
 3. убрать hedrussian
