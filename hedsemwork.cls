@@ -1,6 +1,8 @@
-% copied from extarticle.cls
+% метаинформация
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{hedsemwork}[2013/08/30 v0.1.9]
+\ProvidesClass{hedsemwork}[2013/09/21 v0.1.9]
+
+% объявление команды для размера шрифта
 \newcommand\@ptsize{}
 
 % зачем нужны следующие 2 строчки?
@@ -15,22 +17,27 @@
 \@twocolumnfalse
 
 % Размер шрифта как опция
-\DeclareOption{8pt}{\renewcommand\@ptsize{8}}
-\DeclareOption{9pt}{\renewcommand\@ptsize{9}}
-\DeclareOption{10pt}{\renewcommand\@ptsize{10}}
-\DeclareOption{11pt}{\renewcommand\@ptsize{11}}
+% Оставил только 2 реально используемых варианта
 \DeclareOption{12pt}{\renewcommand\@ptsize{12}}
 \DeclareOption{14pt}{\renewcommand\@ptsize{14}}
-\DeclareOption{17pt}{\renewcommand\@ptsize{17}}
-\DeclareOption{20pt}{\renewcommand\@ptsize{20}}
 
 % теперь остальные опции
+% нужно продумать концепции draft и final, и по возможности либо избавиться от
+% них, либо связать их с опциями [no]titlepage
 \DeclareOption{draft}{\setlength\overfullrule{5pt}}
 \DeclareOption{final}{\setlength\overfullrule{0pt}}
+% вдруг захочется собрать без титульника, чтобы кому-нибудь продемонстрировать
+% содержание без лишних листов
 \DeclareOption{titlepage}{\@titlepagetrue}
 \DeclareOption{notitlepage}{\@titlepagefalse}
+
+% опции, меняющие отображение формул
+% leqno отображает номер формулы слева
+% fleqn выравнивает формулу по левому краю вместо центрирования
+% http://texblog.org/tag/fleqn/#formula
 \DeclareOption{leqno}{\input{leqno.clo}}
 \DeclareOption{fleqn}{\input{fleqn.clo}}
+% опция библиографии
 \DeclareOption{openbib}{%
   \AtEndOfPackage{%
    \renewcommand\@openbib@code{%

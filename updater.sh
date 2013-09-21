@@ -14,14 +14,30 @@ if [[ $VERBOSE ]]; then
     echo
 fi
 
-for i in $added $modified; do
-    name=$(echo $i | cut -d . -f 1)
-    ext=$(echo $i | cut -d . -f 2)
+update_version_info_in ()
+{
+    name=$(echo $1 | cut -d . -f 1)
+    ext=$(echo $1 | cut -d . -f 2)
     if [[ $ext == "cls" ]]; then
-        echo "Обновление даты в $i"
-        sed -i "/ProvidesClass/ s:\[[0-9/ A-Za-z.]\+\]:\[$day v$version\]:" $i
+        sign="ProvidesClass"
     elif [[ $ext == "sty" ]]; then
-        echo "Обновление даты в $i"
-        sed -i "/ProvidesPackage/ s:\[[0-9/ A-Za-z.]\+\]:\[$day v$version\]:" $i
+        sign="ProvidesPackage"
+    else
+        # невозможная ни в каком другом месте строка, не попадающая под шаблон
+        sign="182f893f1518ca161126bd42f8a051e4"
     fi
+    [ $VERBOSE ] && echo "Обновление информации о версии в $1…"
+    sed -i "/$sign/ s:\[[0-9/ A-Za-z.]\+\]:\[$day v$version\]:" $1
+}
+
+remove_trailing_spaces_from ()
+{
+    [ $VERBOSE ] && echo "Удаление ненужных пробелов и табуляций в $1…"
+    sed -i "s:[ \t]\+\$::g" $1
+}
+
+for file in $added $modified; do
+    update_version_info_in $file
+    remove_trailing_spaces_from $file
 done
+
