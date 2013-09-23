@@ -24,7 +24,7 @@
 % теперь остальные опции
 % нужно продумать концепции draft и final, и по возможности либо избавиться от
 % них, либо связать их с опциями [no]titlepage
-\DeclareOption{draft}{\setlength\overfullrule{5pt}}
+\DeclareOption{draft}{3\setlength\overfullrule{5pt}}
 \DeclareOption{final}{\setlength\overfullrule{0pt}}
 % вдруг захочется собрать без титульника, чтобы кому-нибудь продемонстрировать
 % содержание без лишних листов
@@ -111,28 +111,25 @@
       {<5><6><7><8><9>%
       <10><10.95><12><14.4><17.28><20.74><24.88><29.86><35.83><42.99><51.59>cmbxti10%
       }{}
-\input{size\@ptsize.clo} % откуда тащит файлы этот инпут
+\input{size\@ptsize.clo} % tex/latex/base и tex/latex/extsizes
 \RequirePackage{exscale}
-% устанавливаются значения каких-то параметров
-\setlength\lineskip{1\p@}
-\setlength\normallineskip{1\p@}
-\renewcommand\baselinestretch{}
-\setlength\parskip{0\p@ \@plus \p@}
-\@lowpenalty   51
-\@medpenalty  151
-\@highpenalty 301
+% устанавливаются значения параметров
+\setlength\lineskip{1\p@} % высота строки
+\setlength\normallineskip{1\p@} % на шрифте размера normal
+\renewcommand\baselinestretch{} % wat?
+\setlength\parskip{0\p@ \@plus \p@} % отсуп между абзацами в две высоты строки
+\@lowpenalty   51 %
+\@medpenalty  151 % назначение штрафов
+\@highpenalty 301 %
 
 % что это и зачем оно надо?
-\setcounter{topnumber}{2}
-\renewcommand\topfraction{.7}
-\setcounter{bottomnumber}{1}
-\renewcommand\bottomfraction{.3}
-\setcounter{totalnumber}{3}
-\renewcommand\textfraction{.2}
-\renewcommand\floatpagefraction{.5}
-\setcounter{dbltopnumber}{2}
-\renewcommand\dbltopfraction{.7}
-\renewcommand\dblfloatpagefraction{.5}
+\setcounter{topnumber}{2} % макс. число плавающих объектов вверху страницы
+\renewcommand\topfraction{.7} % макс. часть страницы под float-объекты вверху
+\setcounter{bottomnumber}{1} % макс. число float-объектов внизу
+\renewcommand\bottomfraction{.3} % макс. часть страницы под float-объекты внизу
+\setcounter{totalnumber}{3} % макс. число float-объектов на странице
+\renewcommand\textfraction{.2} % мин. часть страницы, отведенная под текст
+\renewcommand\floatpagefraction{.5} % мин. часть floatpage, отведенная под float
 
 % зачем это и как оно работает?
 \def\ps@headings{%
@@ -153,6 +150,8 @@
     \let\sectionmark\@gobble
     \let\subsectionmark\@gobble
 }
+
+% look here! There's a strange titlepage!
 \if@titlepage
   \newcommand\maketitle{\begin{titlepage}%
   \let\footnotesize\small
@@ -240,9 +239,9 @@
   \end{center}%
   \par
   \vskip 1.5em}
-\fi
+\fi % end of \if@titlepage
 
-\setcounter{secnumdepth}{3} % wtf?
+\setcounter{secnumdepth}{3} % глубина нумерации семантических элементов
 
 % объявляются счётчики
 \newcounter {part}
@@ -314,22 +313,13 @@
                                        {-1em}%
                                       {\normalfont\normalsize\bfseries}}
 % задание размеров. что и зачем?
-\if@twocolumn
-  \setlength\leftmargini  {2em}
-\else
   \setlength\leftmargini  {2.5em}
-\fi
 \leftmargin  \leftmargini
 \setlength\leftmarginii  {2.2em}
 \setlength\leftmarginiii {1.87em}
 \setlength\leftmarginiv  {1.7em}
-\if@twocolumn
-  \setlength\leftmarginv  {.5em}
-  \setlength\leftmarginvi {.5em}
-\else
   \setlength\leftmarginv  {1em}
   \setlength\leftmarginvi {1em}
-\fi
 \setlength  \labelsep  {.5em}
 \setlength  \labelwidth{\leftmargini}
 \addtolength\labelwidth{-\labelsep}
