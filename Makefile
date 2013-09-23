@@ -10,5 +10,5 @@ install: clean
 	@echo "Create directory..."
 	install -dm 755 $(INSTALL_PATH)/hed
 	@echo "Install files..."
-	install -m 644 *.{sty,cls} $(INSTALL_PATH)/hed/
+	install -m 644 source/* $(INSTALL_PATH)/hed/
 
