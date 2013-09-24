@@ -346,12 +346,18 @@
 
 
 % создание окружений. что и зачем здесь?
+%
+% окружение описательного характера description
+% http://en.wikibooks.org/wiki/LaTeX/List_Structures#Description
 \newenvironment{description}
                {\list{}{\labelwidth\z@ \itemindent-\leftmargin
                         \let\makelabel\descriptionlabel}}
                {\endlist}
 \newcommand*\descriptionlabel[1]{\hspace\labelsep
                                 \normalfont\bfseries #1}
+
+% окружение для реферата/аннотации к работе
+% http://en.wikibooks.org/wiki/LaTeX/Document_Structure#Abstract
 \if@titlepage
   \newenvironment{abstract}{%
       \titlepage
@@ -375,6 +381,9 @@
       \fi}
       {\if@twocolumn\else\endquotation\fi}
 \fi
+
+% следующие трм:
+% http://en.wikibooks.org/wiki/LaTeX/Paragraph_Formatting#Quoting_text
 \newenvironment{verse}
                {\let\\\@centercr
                 \list{}{\itemsep      \z@
@@ -395,6 +404,9 @@
                {\list{}{\rightmargin\leftmargin}%
                 \item\relax}
                {\endlist}
+
+
+% окружение для титульной страницы
 \newenvironment{titlepage}
     {%
       \if@twocolumn
@@ -410,6 +422,8 @@
         \setcounter{page}\@ne
      \fi
     }
+
+% приложение
 \newcommand\appendix{\par
   \setcounter{section}{0}%
   \setcounter{subsection}{0}%
