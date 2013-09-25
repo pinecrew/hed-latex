@@ -244,14 +244,12 @@
 \setcounter{secnumdepth}{3} % глубина нумерации семантических элементов
 
 % объявляются счётчики
-\newcounter {part}
 \newcounter {section}
 \newcounter {subsection}[section]
 \newcounter {subsubsection}[subsection]
 \newcounter {paragraph}[subsubsection]
 \newcounter {subparagraph}[paragraph]
 % представление счётчиков
-\renewcommand\thepart         {\@Roman\c@part}
 \renewcommand\thesection      {\@arabic\c@section}
 \renewcommand\thesubsection   {\thesection.\@arabic\c@subsection}
 \renewcommand\thesubsubsection{\thesubsection .\@arabic\c@subsubsection}
@@ -259,39 +257,6 @@
 \renewcommand\thesubparagraph {\theparagraph.\@arabic\c@subparagraph}
 
 % объявление команд секционирования
-\newcommand\part{%
-   \if@noskipsec \leavevmode \fi\par
-   \addvspace{4ex}%
-   \@afterindentfalse
-   \secdef\@part\@spart}
-
-\def\@part[#1]#2{%
-    \ifnum \c@secnumdepth >\m@ne
-      \refstepcounter{part}%
-      \addcontentsline{toc}{part}{\thepart\hspace{1em}#1}%
-    \else
-      \addcontentsline{toc}{part}{#1}%
-    \fi
-    {\parindent \z@ \raggedright
-     \interlinepenalty \@M
-     \normalfont
-     \ifnum \c@secnumdepth >\m@ne
-       \Large\bfseries \partname~\thepart
-       \par\nobreak
-     \fi
-     \huge \bfseries #2%
-     \markboth{}{}\par}%
-    \nobreak
-    \vskip 3ex
-    \@afterheading}
-\def\@spart#1{%
-    {\parindent \z@ \raggedright
-     \interlinepenalty \@M
-     \normalfont
-     \huge \bfseries #1\par}%
-     \nobreak
-     \vskip 3ex
-     \@afterheading}
 \newcommand\section{\@startsection {section}{1}{\z@}%
                                    {-3.5ex \@plus -1ex \@minus -.2ex}%
                                    {2.3ex \@plus.2ex}%
@@ -494,9 +459,9 @@
 \DeclareRobustCommand*\mit{\@fontswitch\relax\mathnormal}
 
 % определение странных вещей
-\newcommand\@pnumwidth{1.55em}
-\newcommand\@tocrmarg{2.55em}
-\newcommand\@dotsep{4.5}
+\newcommand\@pnumwidth{1.55em}% место для номеров страниц в toc, lof и lot
+\newcommand\@tocrmarg{2.55em} % wtf?
+\newcommand\@dotsep{4.5}      % расстояние между точками в toc, lof и lot
 
 % установили глубину содержания
 \setcounter{tocdepth}{3}
@@ -508,19 +473,6 @@
     \@starttoc{toc}%
     }
 % что это за сущности вида "\l@..."?
-\newcommand*\l@part[2]{%
-  \ifnum \c@tocdepth >-2\relax
-    \addpenalty\@secpenalty
-    \addvspace{2.25em \@plus\p@}%
-    \begingroup
-      \setlength\@tempdima{3em}%
-      \parindent \z@ \rightskip \@pnumwidth
-      \parfillskip -\@pnumwidth
-      {\leavevmode
-       \large \bfseries #1\hfil \hb@xt@\@pnumwidth{\hss #2}}\par
-       \nobreak
-    \endgroup
-  \fi}
 \newcommand*\l@section[2]{%
   \ifnum \c@tocdepth >\z@
     \addpenalty\@secpenalty
@@ -539,7 +491,7 @@
 \newcommand*\l@subsubsection{\@dottedtocline{3}{3.8em}{3.2em}}
 \newcommand*\l@paragraph{\@dottedtocline{4}{7.0em}{4.1em}}
 \newcommand*\l@subparagraph{\@dottedtocline{5}{10em}{5em}}
-% клёвая команда, судя по названию. Но нам она нужна?
+% клёвая команда, выводит список фигур в стиле содержания
 \newcommand\listoffigures{%
     \section*{\listfigurename
       \@mkboth{\MakeUppercase\listfigurename}%
@@ -617,7 +569,6 @@
 \newcommand\indexname{Index}
 \newcommand\figurename{Figure}
 \newcommand\tablename{Table}
-\newcommand\partname{Part}
 \newcommand\appendixname{Appendix}
 \newcommand\abstractname{Abstract}
 \newcommand\today{\ifcase\month\or
