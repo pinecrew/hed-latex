@@ -24,7 +24,7 @@
 % теперь остальные опции
 % нужно продумать концепции draft и final, и по возможности либо избавиться от
 % них, либо связать их с опциями [no]titlepage
-\DeclareOption{draft}{3\setlength\overfullrule{5pt}}
+\DeclareOption{draft}{\setlength\overfullrule{5pt}}
 \DeclareOption{final}{\setlength\overfullrule{0pt}}
 % вдруг захочется собрать без титульника, чтобы кому-нибудь продемонстрировать
 % содержание без лишних листов
@@ -264,13 +264,13 @@
                                      {2ex}%
                                      {\normalfont\normalsize\bfseries}}
 % задание размеров. что и зачем?
-  \setlength\leftmargini  {2.5em}
-\leftmargin  \leftmargini
+\setlength\leftmargini  {2.5em}
+\leftmargin \leftmargini
 \setlength\leftmarginii  {2.2em}
 \setlength\leftmarginiii {1.87em}
 \setlength\leftmarginiv  {1.7em}
-  \setlength\leftmarginv  {1em}
-  \setlength\leftmarginvi {1em}
+\setlength\leftmarginv  {1em}
+\setlength\leftmarginvi {1em}
 \setlength  \labelsep  {.5em}
 \setlength  \labelwidth{\leftmargini}
 \addtolength\labelwidth{-\labelsep}
@@ -332,7 +332,7 @@
 
 % следующие трм:
 % http://en.wikibooks.org/wiki/LaTeX/Paragraph_Formatting#Quoting_text
-% verse → epigraph
+% verse → epigraph, только зачем это в семестровой
 \newenvironment{verse}
                {\let\\\@centercr
                 \list{}{\itemsep      \z@
@@ -453,6 +453,7 @@
     \@starttoc{toc}%
     }
 % что это за сущности вида "\l@..."?
+% по ходу дела, это способ отображения в toc, lof, lot
 \newcommand*\l@section[2]{%
   \ifnum \c@tocdepth >\z@
     \addpenalty\@secpenalty
@@ -469,6 +470,7 @@
   \fi}
 \newcommand*\l@subsection{\@dottedtocline{2}{1.5em}{2.3em}}
 \newcommand*\l@subsubsection{\@dottedtocline{3}{3.8em}{3.2em}}
+
 % клёвая команда, выводит список фигур в стиле содержания
 \newcommand\listoffigures{%
     \section*{\listfigurename
@@ -564,9 +566,7 @@
 %%
 %% А вот это нужно записать с минимумом использованных пакетов
 %%
-\RequirePackage[utf8]{inputenc}
 \RequirePackage[paper=a4paper, top=1cm, right=1cm, bottom=1.5cm, left=2cm]{geometry}
-\RequirePackage{setspace}
 \RequirePackage{ifthen}
 \RequirePackage{array}
 \onehalfspacing
