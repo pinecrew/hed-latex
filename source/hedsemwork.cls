@@ -247,20 +247,18 @@
 \newcounter {section}
 \newcounter {subsection}[section]
 \newcounter {subsubsection}[subsection]
-\newcounter {paragraph}[subsubsection]
-\newcounter {subparagraph}[paragraph]
 % представление счётчиков
 \renewcommand\thesection      {\@arabic\c@section}
 \renewcommand\thesubsection   {\thesection.\@arabic\c@subsection}
 \renewcommand\thesubsubsection{\thesubsection .\@arabic\c@subsubsection}
-\renewcommand\theparagraph    {\thesubsubsection.\@arabic\c@paragraph}
-\renewcommand\thesubparagraph {\theparagraph.\@arabic\c@subparagraph}
 
 % объявление команд секционирования
-\newcommand\section{\@startsection {section}{1}{\z@}%
-                                   {-3.5ex \@plus -1ex \@minus -.2ex}%
-                                   {2.3ex \@plus.2ex}%
-                                   {\normalfont\Large\bfseries}}
+\newcommand\section{\@startsection {section}
+                                   {1}  % уровень секционирования
+                                   {\z@}% отступ слева
+                                   {3ex}% отступ сверху
+                                   {3ex}% отступ снизу
+                                   {\normalfont\Large\bfseries}} % шрифт
 \newcommand\subsection{\@startsection{subsection}{2}{\z@}%
                                      {-3.25ex\@plus -1ex \@minus -.2ex}%
                                      {1.5ex \@plus .2ex}%
@@ -269,14 +267,6 @@
                                      {-3.25ex\@plus -1ex \@minus -.2ex}%
                                      {1.5ex \@plus .2ex}%
                                      {\normalfont\normalsize\bfseries}}
-\newcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
-                                    {3.25ex \@plus1ex \@minus.2ex}%
-                                    {-1em}%
-                                    {\normalfont\normalsize\bfseries}}
-\newcommand\subparagraph{\@startsection{subparagraph}{5}{\parindent}%
-                                       {3.25ex \@plus1ex \@minus .2ex}%
-                                       {-1em}%
-                                      {\normalfont\normalsize\bfseries}}
 % задание размеров. что и зачем?
   \setlength\leftmargini  {2.5em}
 \leftmargin  \leftmargini
@@ -489,8 +479,6 @@
   \fi}
 \newcommand*\l@subsection{\@dottedtocline{2}{1.5em}{2.3em}}
 \newcommand*\l@subsubsection{\@dottedtocline{3}{3.8em}{3.2em}}
-\newcommand*\l@paragraph{\@dottedtocline{4}{7.0em}{4.1em}}
-\newcommand*\l@subparagraph{\@dottedtocline{5}{10em}{5em}}
 % клёвая команда, выводит список фигур в стиле содержания
 \newcommand\listoffigures{%
     \section*{\listfigurename
@@ -620,10 +608,6 @@
 {\thesubsection}
 {1em}{}
 
-% Настройка вертикальных и горизонтальных отступов
-\titlespacing*{\chapter}{0pt}{-30pt}{8pt}
-\titlespacing*{\section}{\parindent}{*4}{*4}
-\titlespacing*{\subsection}{\parindent}{*4}{*4}
 
 \RequirePackage[square, numbers, sort&compress]{natbib}
 \bibliographystyle{unsrt}
