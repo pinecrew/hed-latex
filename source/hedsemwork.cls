@@ -193,17 +193,9 @@
     \long\def\@makefntext##1{\parindent 1em\noindent
             \hb@xt@1.8em{%
                 \hss\@textsuperscript{\normalfont\@thefnmark}}##1}%
-    \if@twocolumn
-      \ifnum \col@number=\@ne
-        \@maketitle
-      \else
-        \twocolumn[\@maketitle]%
-      \fi
-    \else
       \newpage
       \global\@topnum\z@   % Prevents figures from going at top of page.
       \@maketitle
-    \fi
     \thispagestyle{plain}\@thanks
   \endgroup
   \setcounter{footnote}{0}%
@@ -254,18 +246,22 @@
 
 % объявление команд секционирования
 \newcommand\section{\@startsection {section}
-                                   {1}  % уровень секционирования
-                                   {\z@}% отступ слева
-                                   {3ex}% отступ сверху
-                                   {3ex}% отступ снизу
-                                   {\normalfont\Large\bfseries}} % шрифт
-\newcommand\subsection{\@startsection{subsection}{2}{\z@}%
-                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
-                                     {1.5ex \@plus .2ex}%
-                                     {\normalfont\large\bfseries}}
-\newcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%
-                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
-                                     {1.5ex \@plus .2ex}%
+                                     {1}  % уровень секционирования
+                                     {\z@}% отступ слева
+                                     {3ex}% отступ сверху
+                                     {3ex}% отступ снизу
+                                     {\normalfont\normalsize\bfseries}} % шрифт
+\newcommand\subsection{\@startsection{subsection}
+                                     {2}
+                                     {\z@}%
+                                     {2ex}%
+                                     {2ex}%
+                                     {\normalfont\normalsize\bfseries}}
+\newcommand\subsubsection{\@startsection{subsubsection}
+                                     {3}
+                                     {\z@}%
+                                     {2ex}%
+                                     {2ex}%
                                      {\normalfont\normalsize\bfseries}}
 % задание размеров. что и зачем?
   \setlength\leftmargini  {2.5em}
@@ -325,20 +321,18 @@
      {\par\vfil\null\endtitlepage}
 \else
   \newenvironment{abstract}{%
-      \if@twocolumn
-        \section*{\abstractname}%
-      \else
         \small
         \begin{center}%
           {\bfseries \abstractname\vspace{-.5em}\vspace{\z@}}%
         \end{center}%
         \quotation
-      \fi}
-      {\if@twocolumn\else\endquotation\fi}
+        \endquotation
+  }
 \fi
 
 % следующие трм:
 % http://en.wikibooks.org/wiki/LaTeX/Paragraph_Formatting#Quoting_text
+% verse → epigraph
 \newenvironment{verse}
                {\let\\\@centercr
                 \list{}{\itemsep      \z@
@@ -364,11 +358,7 @@
 % окружение для титульной страницы
 \newenvironment{titlepage}
     {%
-      \if@twocolumn
-        \@restonecoltrue\onecolumn
-      \else
         \@restonecolfalse\newpage
-      \fi
       \thispagestyle{empty}%
       \setcounter{page}\@ne
     }%
@@ -519,11 +509,7 @@
 \let\@openbib@code\@empty
 % и что это за окружение?
 \newenvironment{theindex}
-               {\if@twocolumn
-                  \@restonecolfalse
-                \else
-                  \@restonecoltrue
-                \fi
+               {\@restonecoltrue
                 \columnseprule \z@
                 \columnsep 35\p@
                 \twocolumn[\section*{\indexname}]%
@@ -571,13 +557,7 @@
 \else
   \raggedbottom
 \fi
-\if@twocolumn
-  \twocolumn
-  \sloppy
-  \flushbottom
-\else
-  \onecolumn
-\fi
+\onecolumn
 \endinput
 %%
 %% End of file `extarticle.cls'.
@@ -596,17 +576,6 @@
 
 \parindent=1.25cm
 
-\RequirePackage{titlesec}
-
-\titleformat{\section}
-{\normalsize\bfseries}
-{\thesection}
-{1em}{}
-
-\titleformat{\subsection}
-{\normalsize\bfseries}
-{\thesubsection}
-{1em}{}
 
 
 \RequirePackage[square, numbers, sort&compress]{natbib}
