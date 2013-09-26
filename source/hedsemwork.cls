@@ -332,16 +332,6 @@
 
 % следующие трм:
 % http://en.wikibooks.org/wiki/LaTeX/Paragraph_Formatting#Quoting_text
-% verse → epigraph, только зачем это в семестровой
-\newenvironment{verse}
-               {\let\\\@centercr
-                \list{}{\itemsep      \z@
-                        \itemindent   -1.5em%
-                        \listparindent\itemindent
-                        \rightmargin  \leftmargin
-                        \advance\leftmargin 1.5em}%
-                \item\relax}
-               {\endlist}
 \newenvironment{quotation}
                {\list{}{\listparindent 1.5em%
                         \itemindent    \listparindent
@@ -509,18 +499,6 @@
 % что это?
 \newcommand\newblock{\hskip .11em\@plus.33em\@minus.07em}
 \let\@openbib@code\@empty
-% и что это за окружение?
-\newenvironment{theindex}
-               {\@restonecoltrue
-                \columnseprule \z@
-                \columnsep 35\p@
-                \twocolumn[\section*{\indexname}]%
-                \@mkboth{\MakeUppercase\indexname}%
-                        {\MakeUppercase\indexname}%
-                \thispagestyle{plain}\parindent\z@
-                \parskip\z@ \@plus .3\p@\relax
-                \let\item\@idxitem}
-               {\if@restonecol\onecolumn\else\clearpage\fi}
 % что это за команды?
 \newcommand\@idxitem{\par\hangindent 40\p@}
 \newcommand\subitem{\@idxitem \hspace*{20\p@}}
