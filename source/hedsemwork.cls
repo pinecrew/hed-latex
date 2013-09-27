@@ -2,18 +2,12 @@
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 \ProvidesClass{hedsemwork}[2013/09/21 v0.1.9]
 
-% зачем нужны следующие 2 строчки?
+% зачем нужна следующая строчка?
 \newif\if@restonecol
 \newif\if@titlepage
 
 \@titlepagefalse
 
-% Жёстко задаём размер бумаги (А4), одностороннюю печать и расположение
-% текста в 1 колонку
-\setlength\paperheight{297mm} \setlength\paperwidth{210mm}
-% кишки у geometry не очень
-\RequirePackage{geometry}
-\geometry{top=2cm, right=1cm, bottom=2cm, left=2cm}
 \@twosidefalse \@mparswitchfalse
 \@twocolumnfalse
 
@@ -118,6 +112,13 @@
 \@lowpenalty   51 %
 \@medpenalty  151 % назначение штрафов
 \@highpenalty 301 %
+
+
+% Жёстко задаём размер бумаги (А4)
+\setlength\paperheight{297mm} \setlength\paperwidth{210mm}
+% кишки у geometry не очень
+\RequirePackage{geometry}
+\geometry{top=2cm, right=1cm, bottom=2cm, left=2cm}
 
 % что это и зачем оно надо?
 \setcounter{topnumber}{2} % макс. число плавающих объектов вверху страницы
