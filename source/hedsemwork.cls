@@ -153,84 +153,136 @@
 
 % look here! There's a strange titlepage!
 \if@titlepage
-  \newcommand\maketitle{\begin{titlepage}%
-  \let\footnotesize\small
-  \let\footnoterule\relax
-  \let \footnote \thanks
-  \null\vfil
-  \vskip 60\p@
-  \begin{center}%
-    {\LARGE \@title \par}%
-    \vskip 3em%
-    {\large
-     \lineskip .75em%
-      \begin{tabular}[t]{c}%
-        \@author
-      \end{tabular}\par}%
-      \vskip 1.5em%
-    {\large \@date \par}%       % Set date in \large size.
-  \end{center}\par
-  \@thanks
-  \vfil\null
-  \end{titlepage}%
-  \setcounter{footnote}{0}%
-  \global\let\thanks\relax
-  \global\let\maketitle\relax
-  \global\let\@thanks\@empty
-  \global\let\@author\@empty
-  \global\let\@date\@empty
-  \global\let\@title\@empty
-  \global\let\title\relax
-  \global\let\author\relax
-  \global\let\date\relax
-  \global\let\and\relax
+  \RequirePackage[utf8]{inputenc}    %%%% DANGER for non-unicode latexers!!!!
+  \def\faculty#1{\gdef\@faculty{#1}}
+  \def\@faculty{\@latex@error{No \noexpand\faculty given}\@ehc}
+  \def\department#1{\gdef\@department{#1}}
+  \def\@department{\@latex@error{No \noexpand\department given}\@ehc}
+  \def\subject#1{\gdef\@subject{#1}}
+  \def\@subject{\@latex@error{No \noexpand\subject given}\@ehc}
+  \def\student#1{\gdef\@student{#1}}
+  \def\@student{\@latex@error{No \noexpand\student given}\@ehc}
+  \def\teacher#1{\gdef\@teacher{#1}}
+  \def\@teacher{\@latex@error{No \noexpand\teacher given}\@ehc}
+  \newcommand\maketitle{
+    \begin{titlepage}
+      %\singlespacing
+      \begin{center}
+        Министерство образования и науки Российской Федерации \\
+        Федеральное государственное бюджетное образовательное \\
+        учреждение высшего профессионального образования \\
+        <<Волгоградский государственный технический университет>> \\
+        \@faculty \\
+        Кафедра \@department
+      \end{center}
+      \vspace{9em}
+      \begin{center}
+        \large Семестровая работа
+        %\ifthenelse{\equal{\semnumber}{}}{\!\!}{№\semnumber}
+        по дисциплине
+        \\ <<\@subject>>
+      \end{center}
+      %\ifthenelse{\equal{\variant}{}}{\vspace{5em}}{
+        %\vspace{1em}
+        %\begin{center}
+          %Вариант №\@variant
+        %\end{center}
+        %\vspace{3em}
+      %}
+
+      \begin{flushright}
+        \begin{minipage}{.40\textwidth}
+          Выполнил%\ifthenelse{\equal{#7}{f}}{а}{}:
+          \\ \@student \\
+          \vspace{1em}\\
+          Проверил%\ifthenelse{\equal{#9}{f}}{а}{}:
+          \\ \@teacher
+        % \vspace{1em}\\
+        % Дата сдачи\\семестровой\\
+        % на проверку: \hrulefill
+        % \vspace{1em}\\
+        % Оценка \rule{2cm}{0.5pt} б, \hrulefill
+        \end{minipage}
+      \end{flushright}
+      \vspace{\fill}
+      \begin{center}
+        Волгоград, \the\year
+      \end{center}
+    \end{titlepage}
+    \setcounter{page}{2}
+    \setcounter{footnote}{0}%
+    \global\let\thanks\relax
+    \global\let\maketitle\relax
+    \global\let\@thanks\@empty
+    \global\let\@author\@empty
+    \global\let\@date\@empty
+    \global\let\@title\@empty
+    \global\let\title\relax
+    \global\let\author\relax
+    \global\let\date\relax
+    \global\let\and\relax
+    \global\let\faculty\relax
+    \global\let\department\relax
+    \global\let\subject\relax
+    \global\let\semnumber\relax
+    \global\let\variant\relax
+    \global\let\student\relax
+    \global\let\teacher\relax
+    \global\let\@faculty\@empty
+    \global\let\@department\@empty
+    \global\let\@subject\@empty
+    \global\let\@semnumber\@empty
+    \global\let\@variant\@empty
+    \global\let\@student\@empty
+    \global\let\@teacher\@empty
   }
 \else
-  \newcommand\maketitle{\par
-    \begingroup
-    \renewcommand\thefootnote{\@fnsymbol\c@footnote}%
-    \def\@makefnmark{\rlap{\@textsuperscript{\normalfont\@thefnmark}}}%
-    \long\def\@makefntext##1{\parindent 1em\noindent
-            \hb@xt@1.8em{%
-                \hss\@textsuperscript{\normalfont\@thefnmark}}##1}%
-      \newpage
-      \global\@topnum\z@   % Prevents figures from going at top of page.
-      \@maketitle
-    \thispagestyle{plain}\@thanks
-  \endgroup
-  \setcounter{footnote}{0}%
-  \global\let\thanks\relax
-  \global\let\maketitle\relax
-  \global\let\@maketitle\relax
-  \global\let\@thanks\@empty
-  \global\let\@author\@empty
-  \global\let\@date\@empty
-  \global\let\@title\@empty
-  \global\let\title\relax
-  \global\let\author\relax
-  \global\let\date\relax
-  \global\let\and\relax
+  \newcommand\maketitle{
+    %\par
+    %\begingroup
+    %\renewcommand\thefootnote{\@fnsymbol\c@footnote}%
+    %\def\@makefnmark{\rlap{\@textsuperscript{\normalfont\@thefnmark}}}%
+    %\long\def\@makefntext##1{\parindent 1em\noindent
+            %\hb@xt@1.8em{%
+                %\hss\@textsuperscript{\normalfont\@thefnmark}}##1}%
+      %\newpage
+      %\global\@topnum\z@   % Prevents figures from going at top of page.
+      %\@maketitle
+    %\thispagestyle{plain}\@thanks
+  %\endgroup
+  %\setcounter{footnote}{0}%
+  %\global\let\thanks\relax
+  %\global\let\maketitle\relax
+  %\global\let\@maketitle\relax
+  %\global\let\@thanks\@empty
+  %\global\let\@author\@empty
+  %\global\let\@date\@empty
+  %\global\let\@title\@empty
+  %\global\let\title\relax
+  %\global\let\author\relax
+  %\global\let\date\relax
+  %\global\let\and\relax
 }
 
 % что это такое?
-\def\@maketitle{%
-  \newpage
-  \null
-  \vskip 2em%
-  \begin{center}%
-  \let \footnote \thanks
-    {\LARGE \@title \par}%
-    \vskip 1.5em%
-    {\large
-      \lineskip .5em%
-      \begin{tabular}[t]{c}%
-        \@author
-      \end{tabular}\par}%
-    \vskip 1em%
-    {\large \@date}%
-  \end{center}%
-  \par
-  \vskip 1.5em}
+%\def\@maketitle{%
+  %\newpage
+  %\null
+  %\vskip 2em%
+  %\begin{center}%
+  %\let \footnote \thanks
+    %{\LARGE \@title \par}%
+    %\vskip 1.5em%
+    %{\large
+      %\lineskip .5em%
+      %\begin{tabular}[t]{c}%
+        %\@author
+      %\end{tabular}\par}%
+    %\vskip 1em%
+    %{\large \@date}%
+  %\end{center}%
+  %\par
+  %\vskip 1.5em}
 \fi % end of \if@titlepage
 
 \setcounter{secnumdepth}{3} % глубина нумерации семантических элементов
@@ -545,7 +597,6 @@
 %% А вот это нужно записать с минимумом использованных пакетов
 %%
 \RequirePackage[paper=a4paper, top=1cm, right=1cm, bottom=1.5cm, left=2cm]{geometry}
-\RequirePackage{ifthen}
 \RequirePackage{array}
 \onehalfspacing
 
@@ -563,53 +614,3 @@
 \newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1\textwidth}}
 \renewcommand{\arraystretch}{1.2}
 
-% \maketitlepage{факультет}{кафедра}{дисциплина}{номер работы}{номер варианта}
-% {студент}{пол студента}{преподаватель}{пол преподавателя}
-% Пол: f -- женский, всё остальное -- мужской.
-% Вариант: если варианта нет -- оставить пустым.
-\newcommand{\maketitlepage}[9]{
-    \begin{titlepage}
-    \singlespacing
-        \newpage
-        \begin{center}
-    Министерство образования и науки Российской Федерации \\
-        Федеральное государственное бюджетное образовательное \\
-        учреждение высшего профессионального образования \\
-        <<Волгоградский государственный технический университет>> \\
-#1 \\
-        Кафедра #2
-        \end{center}
-    \vspace{9em}
-    \begin{center}
-    \large Семестровая работа
-        \ifthenelse{\equal{#4}{}}{\!\!}{№#4} по дисциплине
-        \\ <<#3>>
-        \end{center}
-    \ifthenelse{\equal{#5}{}}{\vspace{5em}}{
-        \vspace{1em}
-        \begin{center}
-        Вариант №#5
-            \end{center}
-        \vspace{3em}
-    }
-
-    \begin{flushright}
-    \begin{minipage}{.40\textwidth}
-    Выполнил\ifthenelse{\equal{#7}{f}}{а}{}:\\#6\\
-        \vspace{1em}\\
-        Проверил\ifthenelse{\equal{#9}{f}}{а}{}:\\#8
-        % \vspace{1em}\\
-        % Дата сдачи\\семестровой\\
-        % на проверку: \hrulefill
-        % \vspace{1em}\\
-        % Оценка \rule{2cm}{0.5pt} б, \hrulefill
-        \end{minipage}
-    \end{flushright}
-    \vspace{\fill}
-    \begin{center}
-    Волгоград, \the\year
-        \end{center}
-
-    \end{titlepage}
-    \setcounter{page}{2}
-}
