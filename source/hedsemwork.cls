@@ -2,22 +2,24 @@
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 \ProvidesClass{hedsemwork}[2013/09/21 v0.1.9]
 
-% объявление команды для размера шрифта
-\newcommand\@ptsize{}
-
 % зачем нужны следующие 2 строчки?
 \newif\if@restonecol
 \newif\if@titlepage
 
 \@titlepagefalse
+
 % Жёстко задаём размер бумаги (А4), одностороннюю печать и расположение
 % текста в 1 колонку
 \setlength\paperheight{297mm} \setlength\paperwidth{210mm}
+% кишки у geometry не очень
+\RequirePackage{geometry}
+\geometry{top=2cm, right=1cm, bottom=2cm, left=2cm}
 \@twosidefalse \@mparswitchfalse
 \@twocolumnfalse
 
 % Размер шрифта как опция
 % Оставил только 2 реально используемых варианта
+\newcommand\@ptsize{}
 \DeclareOption{12pt}{\renewcommand\@ptsize{12}}
 \DeclareOption{14pt}{\renewcommand\@ptsize{14}}
 
@@ -31,12 +33,6 @@
 \DeclareOption{titlepage}{\@titlepagetrue}
 \DeclareOption{notitlepage}{\@titlepagefalse}
 
-% опции, меняющие отображение формул
-% leqno отображает номер формулы слева
-% fleqn выравнивает формулу по левому краю вместо центрирования
-% http://texblog.org/tag/fleqn/#formula
-\DeclareOption{leqno}{\input{leqno.clo}}
-\DeclareOption{fleqn}{\input{fleqn.clo}}
 % опция библиографии
 \DeclareOption{openbib}{%
   \AtEndOfPackage{%
@@ -111,6 +107,7 @@
       {<5><6><7><8><9>%
       <10><10.95><12><14.4><17.28><20.74><24.88><29.86><35.83><42.99><51.59>cmbxti10%
       }{}
+
 \input{size\@ptsize.clo} % tex/latex/base и tex/latex/extsizes
 \RequirePackage{exscale}
 % устанавливаются значения параметров
@@ -151,9 +148,10 @@
     \let\subsectionmark\@gobble
 }
 
-% look here! There's a strange titlepage!
+% титульник
 \if@titlepage
   \RequirePackage[utf8]{inputenc}    %%%% DANGER for non-unicode latexers!!!!
+  % объявление новых переменных для титульника
   \def\faculty#1{\gdef\@faculty{#1}}
   \def\@faculty{\@latex@error{No \noexpand\faculty given}\@ehc}
   \def\department#1{\gdef\@department{#1}}
@@ -164,6 +162,7 @@
   \def\@student{\@latex@error{No \noexpand\student given}\@ehc}
   \def\teacher#1{\gdef\@teacher{#1}}
   \def\@teacher{\@latex@error{No \noexpand\teacher given}\@ehc}
+
   \newcommand\maketitle{
     \begin{titlepage}
       %\singlespacing
@@ -348,8 +347,8 @@
 \newcommand\labelitemiv{\textperiodcentered}
 
 
-% создание окружений. что и зачем здесь?
-%
+% создание окружений
+% ------------------
 % окружение описательного характера description
 % http://en.wikibooks.org/wiki/LaTeX/List_Structures#Description
 \newenvironment{description}
@@ -382,7 +381,7 @@
   }
 \fi
 
-% следующие трм:
+% цитаты
 % http://en.wikibooks.org/wiki/LaTeX/Paragraph_Formatting#Quoting_text
 \newenvironment{quotation}
                {\list{}{\listparindent 1.5em%
@@ -590,27 +589,19 @@
   \raggedbottom
 \fi
 \onecolumn
-\endinput
-%%
-%% End of file `extarticle.cls'.
-%%
-%% А вот это нужно записать с минимумом использованных пакетов
-%%
-\RequirePackage[paper=a4paper, top=1cm, right=1cm, bottom=1.5cm, left=2cm]{geometry}
-\RequirePackage{array}
-\onehalfspacing
 
 \RequirePackage{graphicx}
-\graphicspath{{plots/}, {images/}}
 
 \parindent=1.25cm
 
+% сделать через нативную библиографию
+%\RequirePackage[square, numbers, sort&compress]{natbib}
+%\bibliographystyle{unsrt}
+%\renewcommand{\@biblabel}[1]{#1.}
 
-
-\RequirePackage[square, numbers, sort&compress]{natbib}
-\bibliographystyle{unsrt}
-\renewcommand{\@biblabel}[1]{#1.}
-
+% удобная штука
+\RequirePackage{array}
 \newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1\textwidth}}
 \renewcommand{\arraystretch}{1.2}
 
+\endinput
