@@ -43,19 +43,8 @@
 % опции по умолчанию
 \ExecuteOptions{14pt,final}
 
-% fntguide
-% --------
-% \DeclareFontShape{кодировка}{семейство шрифтов}{толстота}{начертание}
-% {размеры}{команда, выполняющаяся после загрузки любого шрифта с таким
-% начертанием}
-
-% толстота: m (medium), b (bold), bx (bold extended), sb (semi-bold) и
-% c (condensed)
-
-% начертания: n (normal, roman), it (italic), sl (slanted, oblique), sc (caps)
-
 \ProcessOptions
-\input{size\@ptsize.clo} % tex/latex/base и tex/latex/extsizes
+\input{size\@ptsize.clo} % берутся из tex/latex/base и tex/latex/extsizes
 \RequirePackage{exscale}
 % устанавливаются значения параметров
 \setlength\lineskip{1\p@} % высота строки
@@ -206,52 +195,7 @@
     \global\let\@teacher\@empty
   }
 \else
-  \newcommand\maketitle{
-    %\par
-    %\begingroup
-    %\renewcommand\thefootnote{\@fnsymbol\c@footnote}%
-    %\def\@makefnmark{\rlap{\@textsuperscript{\normalfont\@thefnmark}}}%
-    %\long\def\@makefntext##1{\parindent 1em\noindent
-            %\hb@xt@1.8em{%
-                %\hss\@textsuperscript{\normalfont\@thefnmark}}##1}%
-      %\newpage
-      %\global\@topnum\z@   % Prevents figures from going at top of page.
-      %\@maketitle
-    %\thispagestyle{plain}\@thanks
-  %\endgroup
-  %\setcounter{footnote}{0}%
-  %\global\let\thanks\relax
-  %\global\let\maketitle\relax
-  %\global\let\@maketitle\relax
-  %\global\let\@thanks\@empty
-  %\global\let\@author\@empty
-  %\global\let\@date\@empty
-  %\global\let\@title\@empty
-  %\global\let\title\relax
-  %\global\let\author\relax
-  %\global\let\date\relax
-  %\global\let\and\relax
-}
-
-% что это такое?
-%\def\@maketitle{%
-  %\newpage
-  %\null
-  %\vskip 2em%
-  %\begin{center}%
-  %\let \footnote \thanks
-    %{\LARGE \@title \par}%
-    %\vskip 1.5em%
-    %{\large
-      %\lineskip .5em%
-      %\begin{tabular}[t]{c}%
-        %\@author
-      %\end{tabular}\par}%
-    %\vskip 1em%
-    %{\large \@date}%
-  %\end{center}%
-  %\par
-  %\vskip 1.5em}
+  \newcommand\maketitle{}
 \fi % end of \if@titlepage
 
 \setcounter{secnumdepth}{3} % глубина нумерации семантических элементов
