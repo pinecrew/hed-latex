@@ -116,7 +116,10 @@
   \def\@subject{\@latex@error{No \noexpand\subject given}\@ehc}
 
   \def\semnum#1{\gdef\@semnum{#1}}
-  \def\@semnum{\@latex@error{No \noexpand\semnum given}\@ehc}
+  \def\@semnum{}
+
+  \def\variant#1{\gdef\@variant{#1}}
+  \def\@variant{}
 
   \def\student#1{\gdef\@student{#1}}
   \def\@student{\@latex@error{No \noexpand\student given}\@ehc}
@@ -137,16 +140,24 @@
       \end{center}
       \vspace{9em}
       \begin{center}
-        \large Семестровая работа \@semnum по дисциплине \\
+        \large Семестровая работа
+        \if\@semnum
+        \else
+          №\@semnum\ 
+        \fi
+        по дисциплине \\
         <<\@subject>>
       \end{center}
-      %\ifthenelse{\equal{\variant}{}}{\vspace{5em}}{
-        %\vspace{1em}
-        %\begin{center}
-          %Вариант №\@variant
-        %\end{center}
-        %\vspace{3em}
-      %}
+      \if\@variant
+      % наблюдается странный артефакт вида *=*
+        \vspace{5em}
+      \else
+        \vspace{1em}
+        \begin{center}
+          Вариант №\@variant
+        \end{center}
+        \vspace{3em}
+      \fi
 
       \begin{flushright}
         \begin{minipage}{.40\textwidth}
