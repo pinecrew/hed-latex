@@ -5,11 +5,12 @@
 % зачем нужна следующая строчка?
 \newif\if@restonecol
 \newif\if@titlepage
-
 \@titlepagefalse
 
-\@twosidefalse \@mparswitchfalse
-\@twocolumnfalse
+
+\@twosidefalse    % чётные и нечётные страницы не различаются
+\@mparswitchfalse
+\@twocolumnfalse  % текст в одну колонку
 
 % Размер шрифта как опция
 % Оставил только 2 реально используемых варианта
@@ -42,66 +43,18 @@
 % опции по умолчанию
 \ExecuteOptions{14pt,final}
 
-% что тут происходит?
-\ProcessOptions
-\def\EC@family#1#2#3#4#5{%
-  \DeclareFontShape{#1}{#2}{#3}{#4}%
-  {<5><6><7><8><9><10><10.95><12><14.4>%
-   <17.28><20.74><24.88><29.86><35.83><42.99><51.59>genb*#5}{}}
-\EC@family{T1}{cmr}{m}{n}{ecrm}
-\EC@family{T1}{cmr}{m}{sl}{ecsl}
-\EC@family{T1}{cmr}{m}{it}{ecti}
-\EC@family{T1}{cmr}{m}{sc}{eccc}
-\EC@family{T1}{cmr}{bx}{n}{ecbx}
-\EC@family{T1}{cmr}{b}{n}{ecrb}
-\EC@family{T1}{cmr}{bx}{it}{ecbi}
-\EC@family{T1}{cmr}{bx}{sl}{ecbl}
-\EC@family{T1}{cmr}{bx}{sc}{ecxc}
-\EC@family{T1}{cmr}{m}{ui}{ecui}
-\DeclareFontShape{OT1}{cmr}{m}{n}%
-     {<5><6><7><8><9><10><12>gen*cmr%
-      <10.95>cmr10%
-      <14.4>cmr12%
-      <17.28><20.74><24.88><29.86><35.83><42.99><51.59>cmr17}{}
-\DeclareFontShape{OT1}{cmr}{m}{sl}%
-     {<5><6><7>cmsl8%
-      <8><9>gen*cmsl%
-      <10><10.95>cmsl10%
-      <12><14.4><17.28><20.74><24.88><29.86><35.83><42.99><51.59>cmsl12%
-      }{}
-\DeclareFontShape{OT1}{cmr}{m}{it}%
-     {<5><6><7>cmti7%
-      <8>cmti8%
-      <9>cmti9%
-      <10><10.95>cmti10%
-      <12><14.4><17.28><20.74><24.88><29.86><35.83><42.99><51.59>cmti12%
-      }{}
-\DeclareFontShape{OT1}{cmr}{m}{sc}%
-     {<5><6><7><8><9><10><10.95><12>%
-      <14.4><17.28><20.74><24.88><29.86><35.83><42.99><51.59>cmcsc10%
-      }{}
-\DeclareFontShape{OT1}{cmr}{m}{ui}
-   {<5><6><7><8><9><10><10.95><12>%
-      <14.4><17.28><20.74><24.88><29.86><35.83><42.99><51.59>cmu10%
-      }{}
-\DeclareFontShape{OT1}{cmr}{b}{n}
-     {<5><6><7><8><9><10><10.95><12>%
-      <14.4><17.28><20.74><24.88><29.86><35.83><42.99><51.59>cmb10%
-      }{}
-\DeclareFontShape{OT1}{cmr}{bx}{n}
-   {<5><6><7><8><9>gen*cmbx%
-      <10><10.95>cmbx10%
-      <12><14.4><17.28><20.74><24.88><29.86><35.83><42.99><51.59>cmbx12%
-      }{}
-\DeclareFontShape{OT1}{cmr}{bx}{sl}
-      {<5><6><7><8><9>%
-      <10><10.95><12><14.4><17.28><20.74><24.88><29.86><35.83><42.99><51.59>cmbxsl10%
-      }{}
-\DeclareFontShape{OT1}{cmr}{bx}{it}
-      {<5><6><7><8><9>%
-      <10><10.95><12><14.4><17.28><20.74><24.88><29.86><35.83><42.99><51.59>cmbxti10%
-      }{}
+% fntguide
+% --------
+% \DeclareFontShape{кодировка}{семейство шрифтов}{толстота}{начертание}
+% {размеры}{команда, выполняющаяся после загрузки любого шрифта с таким
+% начертанием}
 
+% толстота: m (medium), b (bold), bx (bold extended), sb (semi-bold) и
+% c (condensed)
+
+% начертания: n (normal, roman), it (italic), sl (slanted, oblique), sc (caps)
+
+\ProcessOptions
 \input{size\@ptsize.clo} % tex/latex/base и tex/latex/extsizes
 \RequirePackage{exscale}
 % устанавливаются значения параметров
@@ -155,12 +108,19 @@
   % объявление новых переменных для титульника
   \def\faculty#1{\gdef\@faculty{#1}}
   \def\@faculty{\@latex@error{No \noexpand\faculty given}\@ehc}
+
   \def\department#1{\gdef\@department{#1}}
   \def\@department{\@latex@error{No \noexpand\department given}\@ehc}
+
   \def\subject#1{\gdef\@subject{#1}}
   \def\@subject{\@latex@error{No \noexpand\subject given}\@ehc}
+
+  \def\semnum#1{\gdef\@semnum{#1}}
+  \def\@semnum{\@latex@error{No \noexpand\semnum given}\@ehc}
+
   \def\student#1{\gdef\@student{#1}}
   \def\@student{\@latex@error{No \noexpand\student given}\@ehc}
+
   \def\teacher#1{\gdef\@teacher{#1}}
   \def\@teacher{\@latex@error{No \noexpand\teacher given}\@ehc}
 
@@ -177,10 +137,8 @@
       \end{center}
       \vspace{9em}
       \begin{center}
-        \large Семестровая работа
-        %\ifthenelse{\equal{\semnumber}{}}{\!\!}{№\semnumber}
-        по дисциплине
-        \\ <<\@subject>>
+        \large Семестровая работа \@semnum по дисциплине \\
+        <<\@subject>>
       \end{center}
       %\ifthenelse{\equal{\variant}{}}{\vspace{5em}}{
         %\vspace{1em}
@@ -224,14 +182,14 @@
     \global\let\faculty\relax
     \global\let\department\relax
     \global\let\subject\relax
-    \global\let\semnumber\relax
+    \global\let\semnum\relax
     \global\let\variant\relax
     \global\let\student\relax
     \global\let\teacher\relax
     \global\let\@faculty\@empty
     \global\let\@department\@empty
     \global\let\@subject\@empty
-    \global\let\@semnumber\@empty
+    \global\let\@semnum\@empty
     \global\let\@variant\@empty
     \global\let\@student\@empty
     \global\let\@teacher\@empty
