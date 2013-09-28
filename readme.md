@@ -16,7 +16,18 @@ __hed__ (от __h__igher __ed__ucation) &mdash; это набор средств
 TODO
 
 ## Использование
+
+    \documentclass{hedsemwork}
+    \usepackage[utf8]{inputenc}
+    \usepackage[russian]{babel}
+    \begin{document}
+        …
+    \end{document}
+
 ### Классы документов
+
+    * hedsemwork — семестровые работы
+
 ### Пакеты
 ### Преамбулы
 
