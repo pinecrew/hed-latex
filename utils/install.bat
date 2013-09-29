@@ -32,16 +32,16 @@ if exist "%hedd%" (
 )
 
 :copy
-<nul set /p str="Copying files to MikTeX...           "
+<nul set /p str="Copying files to the directory...    "
 cd %~dp0
 copy /Y hed* "%hedd%" > nul
 if %ERRORLEVEL% == 0 (
     echo [DONE]
     echo.
-    echo Go to MikTeX Settings and push the "Update Formats" and "Refresh FNDB" buttons
+    echo Go to the MikTeX Settings and push the "Update Formats" and "Refresh FNDB" buttons
 ) else (
     echo [FAIL]
-    echo Can't copy files into directory! Exiting...
+    echo Can't copy files into the directory! Exiting...
 )
 
 :exit
