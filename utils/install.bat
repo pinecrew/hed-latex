@@ -38,7 +38,7 @@ copy /Y hed* "%hedd%" > nul
 if %ERRORLEVEL% == 0 (
     echo [DONE]
     echo.
-    echo Go to the MikTeX Settings and push the "Update Formats" and "Refresh FNDB" buttons
+    echo Go to the MikTeX Settings and push the "Refresh FNDB" button
 ) else (
     echo [FAIL]
     echo Can't copy files into the directory! Exiting...
