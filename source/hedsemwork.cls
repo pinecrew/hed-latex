@@ -2,35 +2,27 @@
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 \ProvidesClass{hedsemwork}[2013/09/21 v0.1.9]
 
-% зачем нужна следующая строчка?
+% объявление булевых переменных
 \newif\if@restonecol
 \newif\if@titlepage
 \@titlepagefalse
 
-
-\@twosidefalse    % чётные и нечётные страницы не различаются
-\@mparswitchfalse
-\@twocolumnfalse  % текст в одну колонку
-
-% Размер шрифта как опция
-% Оставил только 2 реально используемых варианта
+% Опции
+% -----
+% Размер шрифта
+% 2 реально используемых варианта
 \newcommand\@ptsize{}
 \DeclareOption{12pt}{\renewcommand\@ptsize{12}}
 \DeclareOption{14pt}{\renewcommand\@ptsize{14}}
 
-% теперь остальные опции
-% нужно продумать концепции draft и final, и по возможности либо избавиться от
-% них, либо связать их с опциями [no]titlepage
-\DeclareOption{draft}{\setlength\overfullrule{5pt}}
-\DeclareOption{final}{\setlength\overfullrule{0pt}}
-% вдруг захочется собрать без титульника, чтобы кому-нибудь продемонстрировать
-% содержание без лишних листов
+% наличие титульного листа
 \DeclareOption{titlepage}{\@titlepagetrue}
 \DeclareOption{notitlepage}{\@titlepagefalse}
 
-% опция библиографии
+
+% библиография (не тронуто)
 \DeclareOption{openbib}{%
-  \AtEndOfPackage{%
+  \AtEndOfPackage{% отложенное исполнение -- исполняется в конце класса
    \renewcommand\@openbib@code{%
       \advance\leftmargin\bibindent
       \itemindent -\bibindent
@@ -40,10 +32,18 @@
    \renewcommand\newblock{\par}}%
 }
 
-% опции по умолчанию
-\ExecuteOptions{14pt,final}
-
+% устанавливаем опции по умолчанию
+\ExecuteOptions{14pt,titlepage}
+% выполняем действия для выбранных опций
 \ProcessOptions
+
+% Треш
+% ----
+\@twosidefalse    % чётные и нечётные страницы не различаются
+\@mparswitchfalse
+\@twocolumnfalse  % текст в одну колонку
+
+% форматирование текста
 \input{size\@ptsize.clo} % берутся из tex/latex/base и tex/latex/extsizes
 \RequirePackage{exscale}
 % устанавливаются значения параметров
@@ -56,9 +56,8 @@
 \@highpenalty 301 %
 
 
-% Жёстко задаём размер бумаги (А4)
+% размер листа
 \setlength\paperheight{297mm} \setlength\paperwidth{210mm}
-% кишки у geometry не очень
 \RequirePackage{geometry}
 \geometry{top=2cm, right=1cm, bottom=2cm, left=2cm}
 
@@ -91,31 +90,32 @@
     \let\subsectionmark\@gobble
 }
 
-% титульник
+% титульный лист
+% --------------
+% переменные для титульного листа
+\def\faculty#1{\gdef\@faculty{#1}}
+\def\@faculty{\@latex@error{No \noexpand\faculty given}\@ehc}
+
+\def\department#1{\gdef\@department{#1}}
+\def\@department{\@latex@error{No \noexpand\department given}\@ehc}
+
+\def\subject#1{\gdef\@subject{#1}}
+\def\@subject{\@latex@error{No \noexpand\subject given}\@ehc}
+
+\def\semnum#1{\gdef\@semnum{#1}}
+\def\@semnum{}
+
+\def\variant#1{\gdef\@variant{#1}}
+\def\@variant{}
+
+\def\student#1{\gdef\@student{#1}}
+\def\@student{\@latex@error{No \noexpand\student given}\@ehc}
+
+\def\teacher#1{\gdef\@teacher{#1}}
+\def\@teacher{\@latex@error{No \noexpand\teacher given}\@ehc}
+% если нужен титульный лист
 \if@titlepage
-  \RequirePackage[utf8]{inputenc}    %%%% DANGER for non-unicode latexers!!!!
-  % объявление новых переменных для титульника
-  \def\faculty#1{\gdef\@faculty{#1}}
-  \def\@faculty{\@latex@error{No \noexpand\faculty given}\@ehc}
-
-  \def\department#1{\gdef\@department{#1}}
-  \def\@department{\@latex@error{No \noexpand\department given}\@ehc}
-
-  \def\subject#1{\gdef\@subject{#1}}
-  \def\@subject{\@latex@error{No \noexpand\subject given}\@ehc}
-
-  \def\semnum#1{\gdef\@semnum{#1}}
-  \def\@semnum{}
-
-  \def\variant#1{\gdef\@variant{#1}}
-  \def\@variant{}
-
-  \def\student#1{\gdef\@student{#1}}
-  \def\@student{\@latex@error{No \noexpand\student given}\@ehc}
-
-  \def\teacher#1{\gdef\@teacher{#1}}
-  \def\@teacher{\@latex@error{No \noexpand\teacher given}\@ehc}
-
+  \RequirePackage[utf8]{inputenc}    %%%% для русского на титульном листе
   \newcommand\maketitle{
     \begin{titlepage}
       %\singlespacing
@@ -194,12 +194,14 @@
     \global\let\@student\@empty
     \global\let\@teacher\@empty
   }
+% если не нужен титульный лист
 \else
   \newcommand\maketitle{}
 \fi % end of \if@titlepage
 
+% Семантические элементы
+% ----------------------
 \setcounter{secnumdepth}{3} % глубина нумерации семантических элементов
-
 % объявляются счётчики
 \newcounter {section}
 \newcounter {subsection}[section]
@@ -228,7 +230,7 @@
                                      {2ex}%
                                      {2ex}%
                                      {\normalfont\normalsize\bfseries}}
-% задание размеров. что и зачем?
+% --- списки ---
 \setlength\leftmargini  {2.5em}
 \leftmargin \leftmargini
 \setlength\leftmarginii  {2.2em}
@@ -243,7 +245,6 @@
 \@endparpenalty   -\@lowpenalty
 \@itempenalty     -\@lowpenalty
 
-% ещё немного представлений для счётчиков. почему не все в одном месте?
 \renewcommand\theenumi{\@arabic\c@enumi}
 \renewcommand\theenumii{\@alph\c@enumii}
 \renewcommand\theenumiii{\@roman\c@enumiii}
@@ -259,10 +260,9 @@
 \newcommand\labelitemii{\normalfont\bfseries \textendash}
 \newcommand\labelitemiii{\textasteriskcentered}
 \newcommand\labelitemiv{\textperiodcentered}
+% ××× списки ×××
 
-
-% создание окружений
-% ------------------
+% --- окружения ---
 % окружение описательного характера description
 % http://en.wikibooks.org/wiki/LaTeX/List_Structures#Description
 \newenvironment{description}
@@ -322,6 +322,7 @@
         \setcounter{page}\@ne
      \fi
     }
+% ××× окружения ×××
 
 % приложение
 \newcommand\appendix{\par
@@ -342,7 +343,7 @@
 % опять счётчики и представления
 \renewcommand\theequation{\@arabic\c@equation}
 
-% плавющие объекты -- фигуры и таблицы
+% --- изображения ---
 \newcounter{figure}
 \gdef\thefigure{\@arabic\c@figure}
 \def\fps@figure{tbp}
@@ -355,6 +356,9 @@
 \newenvironment{figure*}
                {\@dblfloat{figure}}
                {\end@dblfloat}
+% ××× изображения ×××
+
+% --- таблицы ---
 \newcounter{table}
 \gdef\thetable{\@arabic\c@table}
 \def\fps@table{tbp}
@@ -367,6 +371,9 @@
 \newenvironment{table*}
                {\@dblfloat{table}}
                {\end@dblfloat}
+% ××× таблицы ×××
+
+% --- подписи к таблицам и изображениям ---
 \newlength\abovecaptionskip
 \newlength\belowcaptionskip
 \setlength\abovecaptionskip{10\p@}
@@ -381,6 +388,7 @@
     \hb@xt@\hsize{\hfil\box\@tempboxa\hfil}%
   \fi
   \vskip\belowcaptionskip}
+% ××× подписи к таблицам и изображениям ×××
 
 % шрифты. что делает эта команда?
 \DeclareOldFontCommand{\rm}{\normalfont\rmfamily}{\mathrm}
@@ -398,9 +406,10 @@
 \newcommand\@tocrmarg{2.55em} % wtf?
 \newcommand\@dotsep{4.5}      % расстояние между точками в toc, lof и lot
 
-% установили глубину содержания
-\setcounter{tocdepth}{3}
-% содержание
+
+% --- оглавление ---
+\setcounter{tocdepth}{3}        % установили глубину оглавления
+
 \newcommand\tableofcontents{%
     \section*{\contentsname
         \@mkboth{%
@@ -426,7 +435,7 @@
 \newcommand*\l@subsection{\@dottedtocline{2}{1.5em}{2.3em}}
 \newcommand*\l@subsubsection{\@dottedtocline{3}{3.8em}{3.2em}}
 
-% клёвая команда, выводит список фигур в стиле содержания
+% список изображений
 \newcommand\listoffigures{%
     \section*{\listfigurename
       \@mkboth{\MakeUppercase\listfigurename}%
@@ -434,6 +443,8 @@
     \@starttoc{lof}%
     }
 \newcommand*\l@figure{\@dottedtocline{1}{1.5em}{2.3em}}
+
+% список таблиц
 \newcommand\listoftables{%
     \section*{\listtablename
       \@mkboth{%
@@ -441,6 +452,7 @@
     \@starttoc{lot}%
     }
 \let\l@table\l@figure
+% ××× оглавление ×××
 
 % библиография
 \newdimen\bibindent
