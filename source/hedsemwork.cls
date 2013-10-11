@@ -261,14 +261,13 @@
 % http://en.wikibooks.org/wiki/LaTeX/Document_Structure#Abstract
 \if@titlepage
   \newenvironment{abstract}{%
-      \titlepage
       \null\vfil
       \@beginparpenalty\@lowpenalty
       \begin{center}%
         \bfseries \abstractname
         \@endparpenalty\@M
       \end{center}}%
-     {\par\vfil\null\endtitlepage}
+     {\par\vfil\null\newpage}
 \else
   \newenvironment{abstract}{%
         \small
@@ -304,7 +303,7 @@
     }%
     {\if@restonecol\twocolumn \else \newpage \fi
      \if@twoside\else
-        \setcounter{page}\@ne
+        \setcounter{page}{2}
      \fi
     }
 % ××× окружения ×××
