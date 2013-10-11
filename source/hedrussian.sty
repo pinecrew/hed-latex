@@ -4,23 +4,6 @@
 \RequirePackage[russian]{babel}
 \RequirePackage[T2A]{fontenc}
 \RequirePackage{indentfirst}
-\RequirePackage{pscyr}
-
-\renewcommand{\theenumi}{\arabic{enumi}}
-\renewcommand{\labelenumi}{\arabic{enumi}.}
-\renewcommand{\theenumii}{.\arabic{enumii}}
-\renewcommand{\labelenumii}{\arabic{enumi}.\arabic{enumii}.}
-\renewcommand{\theenumiii}{.\arabic{enumiii}}
-\renewcommand{\labelenumiii}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.}
-
-% Гостовсие подписи
-\RequirePackage{caption}
-\DeclareCaptionLabelFormat{figure}{Рисунок #2}
-\DeclareCaptionLabelFormat{table}{Таблица #2}
-\DeclareCaptionLabelSeparator{sep}{~---~}
-\captionsetup{labelsep=sep,justification=centering,font=small}
-\captionsetup[figure]{labelformat=figure}
-\captionsetup[table]{labelformat=table}
 
 \DeclareOption{report}{%
     \renewcommand{\thechapter}{\arabic{chapter}}

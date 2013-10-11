@@ -32,6 +32,12 @@
    \renewcommand\newblock{\par}}%
 }
 
+\newif\if@pscyr
+\@pscyrfalse
+\DeclareOption{pscyr}{
+  \@pscyrtrue
+}
+
 % устанавливаем опции по умолчанию
 \ExecuteOptions{14pt,titlepage}
 % выполняем действия для выбранных опций
@@ -46,6 +52,7 @@
 % форматирование текста
 \input{size\@ptsize.clo} % берутся из tex/latex/base и tex/latex/extsizes
 \RequirePackage{exscale}
+\RequirePackage{indentfirst}
 % устанавливаются значения параметров
 \setlength\lineskip{1\p@} % высота строки
 \setlength\normallineskip{1\p@} % на шрифте размера normal
@@ -70,26 +77,6 @@
 \renewcommand\textfraction{.2} % мин. часть страницы, отведенная под текст
 \renewcommand\floatpagefraction{.5} % мин. часть floatpage, отведенная под float
 
-% зачем это и как оно работает?
-\def\ps@headings{%
-    \let\@oddfoot\@empty
-    \def\@oddhead{{\slshape\rightmark}\hfil\thepage}%
-    \let\@mkboth\markboth
-    \def\sectionmark##1{%
-        \markright {\MakeUppercase{%
-            \ifnum \c@secnumdepth >\m@ne
-                \thesection\quad
-            \fi
-##1}}}}
-\def\ps@myheadings{%
-    \let\@oddfoot\@empty\let\@evenfoot\@empty
-    \def\@evenhead{\thepage\hfil\slshape\leftmark}%
-    \def\@oddhead{{\slshape\rightmark}\hfil\thepage}%
-    \let\@mkboth\@gobbletwo
-    \let\sectionmark\@gobble
-    \let\subsectionmark\@gobble
-}
-
 % титульный лист
 % --------------
 % переменные для титульного листа
@@ -103,10 +90,10 @@
 \def\@subject{\@latex@error{No \noexpand\subject given}\@ehc}
 
 \def\semnum#1{\gdef\@semnum{#1}}
-\def\@semnum{}
+%\def\@semnum{}
 
 \def\variant#1{\gdef\@variant{#1}}
-\def\@variant{}
+%\def\@variant{}
 
 \def\student#1{\gdef\@student{#1}}
 \def\@student{\@latex@error{No \noexpand\student given}\@ehc}
@@ -130,15 +117,15 @@
       \vspace{9em}
       \begin{center}
         \large Семестровая работа
-        \if\@semnum
+        \ifx\@semnum\undefined
         \else
           №\@semnum\ 
         \fi
         по дисциплине \\
         <<\@subject>>
       \end{center}
-      \if\@variant
-      % наблюдается странный артефакт вида *=*
+      \ifx\@variant\undefined
+        % при использовании if наблюдается странный артефакт вида *=*
         \vspace{5em}
       \else
         \vspace{1em}
@@ -169,30 +156,30 @@
     \end{titlepage}
     \setcounter{page}{2}
     \setcounter{footnote}{0}%
-    \global\let\thanks\relax
-    \global\let\maketitle\relax
-    \global\let\@thanks\@empty
     \global\let\@author\@empty
     \global\let\@date\@empty
+    \global\let\@department\@empty
+    \global\let\@faculty\@empty
+    \global\let\@semnum\@empty
+    \global\let\@student\@empty
+    \global\let\@subject\@empty
+    \global\let\@teacher\@empty
+    \global\let\@thanks\@empty
     \global\let\@title\@empty
-    \global\let\title\relax
+    \global\let\@variant\@empty
+    \global\let\and\relax
     \global\let\author\relax
     \global\let\date\relax
-    \global\let\and\relax
-    \global\let\faculty\relax
     \global\let\department\relax
-    \global\let\subject\relax
+    \global\let\faculty\relax
+    \global\let\maketitle\relax
     \global\let\semnum\relax
-    \global\let\variant\relax
     \global\let\student\relax
+    \global\let\subject\relax
     \global\let\teacher\relax
-    \global\let\@faculty\@empty
-    \global\let\@department\@empty
-    \global\let\@subject\@empty
-    \global\let\@semnum\@empty
-    \global\let\@variant\@empty
-    \global\let\@student\@empty
-    \global\let\@teacher\@empty
+    \global\let\thanks\relax
+    \global\let\title\relax
+    \global\let\variant\relax
   }
 % если не нужен титульный лист
 \else
@@ -245,14 +232,12 @@
 \@endparpenalty   -\@lowpenalty
 \@itempenalty     -\@lowpenalty
 
-\renewcommand\theenumi{\@arabic\c@enumi}
-\renewcommand\theenumii{\@alph\c@enumii}
-\renewcommand\theenumiii{\@roman\c@enumiii}
-\renewcommand\theenumiv{\@Alph\c@enumiv}
-\newcommand\labelenumi{\theenumi.}
-\newcommand\labelenumii{(\theenumii)}
-\newcommand\labelenumiii{\theenumiii.}
-\newcommand\labelenumiv{\theenumiv.}
+\renewcommand{\theenumi}{\arabic{enumi}}
+\newcommand{\labelenumi}{\arabic{enumi}.}
+\renewcommand{\theenumii}{.\arabic{enumii}}
+\newcommand{\labelenumii}{\arabic{enumi}.\arabic{enumii}.}
+\renewcommand{\theenumiii}{.\arabic{enumiii}}
+\newcommand{\labelenumiii}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.}
 \renewcommand\p@enumii{\theenumi}
 \renewcommand\p@enumiii{\theenumi(\theenumii)}
 \renewcommand\p@enumiv{\p@enumiii\theenumiii}
@@ -388,8 +373,20 @@
     \hb@xt@\hsize{\hfil\box\@tempboxa\hfil}%
   \fi
   \vskip\belowcaptionskip}
+
+% Гостовсие подписи
+\RequirePackage{caption}
+\DeclareCaptionLabelFormat{figure}{Рисунок #2}
+\DeclareCaptionLabelFormat{table}{Таблица #2}
+\DeclareCaptionLabelSeparator{sep}{~---~}
+\captionsetup{labelsep=sep,justification=centering,font=small}
+\captionsetup[figure]{labelformat=figure}
+\captionsetup[table]{labelformat=table}
 % ××× подписи к таблицам и изображениям ×××
 
+\if@pscyr
+  \RequirePackage{pscyr}
+\fi
 % шрифты. что делает эта команда?
 \DeclareOldFontCommand{\rm}{\normalfont\rmfamily}{\mathrm}
 \DeclareOldFontCommand{\sf}{\normalfont\sffamily}{\mathsf}
@@ -515,8 +512,6 @@
   \raggedbottom
 \fi
 \onecolumn
-
-\RequirePackage{graphicx}
 
 \parindent=1.25cm
 

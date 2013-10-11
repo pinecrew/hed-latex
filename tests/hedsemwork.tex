@@ -1,20 +1,21 @@
 \documentclass[14pt,final,titlepage]{hedsemwork}
 \usepackage[russian]{babel}
 \usepackage[utf8]{inputenc}
-\usepackage{pscyr}
+\usepackage{graphicx}
 
-\begin{document}
 \faculty{Факультет электроники и вычислительной техники}
 \department{<<Физика>>}
 \subject{Электродинамика}
-%\semnum{1}
-%\variant{1}
+% \semnum{}
+% \variant{}
 \student{Иванов И. И.}
 \teacher{Петров П. П.}
+
+\begin{document}
 \maketitle
 \begin{abstract}
-    Это \underline{аннотация} или \emph{реферат}. Вроде поведение с \textbf{титульником} и без него
-    \textit{отличается}.
+    Это \underline{аннотация} или \emph{реферат}. Вроде поведение с
+    \textbf{титульником} и без него \textit{отличается}.
 \end{abstract}
 \tableofcontents
 \section{Секция}
@@ -62,5 +63,29 @@
     \item[Определение] Это список определений...
     \item[Вопрос] А оно нам нужно?
 \end{description}
+
+Списки:
+\begin{itemize}
+    \item один
+    \begin{itemize}
+         \item один один
+         \begin{itemize}
+             \item один один один
+         \end{itemize}
+         \item один два
+     \end{itemize} 
+     \item два
+\end{itemize}
+\begin{enumerate}
+    \item один
+    \begin{enumerate}
+         \item один один
+         \begin{enumerate}
+             \item один один один
+         \end{enumerate}
+         \item один два
+     \end{enumerate} 
+     \item два
+\end{enumerate}
 \listoffigures
 \end{document}
