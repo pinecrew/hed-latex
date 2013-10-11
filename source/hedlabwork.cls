@@ -1,358 +1,144 @@
+% метаинформация
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{hedlabwork}[2013/08/30 v0.1.9]
-\newcommand\@ptsize{}
+\ProvidesClass{hedlabwork}[2013/09/21 v0.1.9]
+
+% объявление булевых переменных
 \newif\if@restonecol
-\newif\if@titlepage
-\@titlepagefalse
-\DeclareOption{a4paper}
-   {\setlength\paperheight {297mm}%
-    \setlength\paperwidth  {210mm}}
-\DeclareOption{a5paper}
-   {\setlength\paperheight {210mm}%
-    \setlength\paperwidth  {148mm}}
-\DeclareOption{b5paper}
-   {\setlength\paperheight {250mm}%
-    \setlength\paperwidth  {176mm}}
-\DeclareOption{letterpaper}
-   {\setlength\paperheight {11in}%
-    \setlength\paperwidth  {8.5in}}
-\DeclareOption{legalpaper}
-   {\setlength\paperheight {14in}%
-    \setlength\paperwidth  {8.5in}}
-\DeclareOption{executivepaper}
-   {\setlength\paperheight {10.5in}%
-    \setlength\paperwidth  {7.25in}}
-\DeclareOption{landscape}
-   {\setlength\@tempdima   {\paperheight}%
-    \setlength\paperheight {\paperwidth}%
-    \setlength\paperwidth  {\@tempdima}}
-\DeclareOption{8pt}{\renewcommand\@ptsize{8}}
-\DeclareOption{9pt}{\renewcommand\@ptsize{9}}
-\DeclareOption{10pt}{\renewcommand\@ptsize{10}}
-\DeclareOption{11pt}{\renewcommand\@ptsize{11}}
+
+% Опции
+% -----
+% Размер шрифта
+% 2 реально используемых варианта
+\newcommand\@ptsize{}
 \DeclareOption{12pt}{\renewcommand\@ptsize{12}}
 \DeclareOption{14pt}{\renewcommand\@ptsize{14}}
-\DeclareOption{17pt}{\renewcommand\@ptsize{17}}
-\DeclareOption{20pt}{\renewcommand\@ptsize{20}}
 
-\DeclareOption{oneside}{\@twosidefalse \@mparswitchfalse}
-\DeclareOption{twoside}{\@twosidetrue  \@mparswitchtrue}
-\DeclareOption{draft}{\setlength\overfullrule{5pt}}
-\DeclareOption{final}{\setlength\overfullrule{0pt}}
-\DeclareOption{titlepage}{\@titlepagetrue}
-\DeclareOption{notitlepage}{\@titlepagefalse}
-\DeclareOption{onecolumn}{\@twocolumnfalse}
-\DeclareOption{twocolumn}{\@twocolumntrue}
-\DeclareOption{leqno}{\input{leqno.clo}}
-\DeclareOption{fleqn}{\input{fleqn.clo}}
-\DeclareOption{openbib}{%
-  \AtEndOfPackage{%
-   \renewcommand\@openbib@code{%
-      \advance\leftmargin\bibindent
-      \itemindent -\bibindent
-      \listparindent \itemindent
-      \parsep \z@
-      }%
-   \renewcommand\newblock{\par}}%
+\newif\if@pscyr
+\@pscyrfalse
+\DeclareOption{pscyr}{
+  \@pscyrtrue
 }
-\ExecuteOptions{letterpaper,10pt,oneside,onecolumn,final}
+
+% устанавливаем опции по умолчанию
+\ExecuteOptions{12pt}
+% выполняем действия для выбранных опций
 \ProcessOptions
-\def\EC@family#1#2#3#4#5{%
-  \DeclareFontShape{#1}{#2}{#3}{#4}%
-  {<5><6><7><8><9><10><10.95><12><14.4>%
-   <17.28><20.74><24.88><29.86><35.83><42.99><51.59>genb*#5}{}}
-\EC@family{T1}{cmr}{m}{n}{ecrm}
-\EC@family{T1}{cmr}{m}{sl}{ecsl}
-\EC@family{T1}{cmr}{m}{it}{ecti}
-\EC@family{T1}{cmr}{m}{sc}{eccc}
-\EC@family{T1}{cmr}{bx}{n}{ecbx}
-\EC@family{T1}{cmr}{b}{n}{ecrb}
-\EC@family{T1}{cmr}{bx}{it}{ecbi}
-\EC@family{T1}{cmr}{bx}{sl}{ecbl}
-\EC@family{T1}{cmr}{bx}{sc}{ecxc}
-\EC@family{T1}{cmr}{m}{ui}{ecui}
-\DeclareFontShape{OT1}{cmr}{m}{n}%
-     {<5><6><7><8><9><10><12>gen*cmr%
-      <10.95>cmr10%
-      <14.4>cmr12%
-      <17.28><20.74><24.88><29.86><35.83><42.99><51.59>cmr17}{}
-\DeclareFontShape{OT1}{cmr}{m}{sl}%
-     {<5><6><7>cmsl8%
-      <8><9>gen*cmsl%
-      <10><10.95>cmsl10%
-      <12><14.4><17.28><20.74><24.88><29.86><35.83><42.99><51.59>cmsl12%
-      }{}
-\DeclareFontShape{OT1}{cmr}{m}{it}%
-     {<5><6><7>cmti7%
-      <8>cmti8%
-      <9>cmti9%
-      <10><10.95>cmti10%
-      <12><14.4><17.28><20.74><24.88><29.86><35.83><42.99><51.59>cmti12%
-      }{}
-\DeclareFontShape{OT1}{cmr}{m}{sc}%
-     {<5><6><7><8><9><10><10.95><12>%
-      <14.4><17.28><20.74><24.88><29.86><35.83><42.99><51.59>cmcsc10%
-      }{}
-\DeclareFontShape{OT1}{cmr}{m}{ui}
-   {<5><6><7><8><9><10><10.95><12>%
-      <14.4><17.28><20.74><24.88><29.86><35.83><42.99><51.59>cmu10%
-      }{}
-\DeclareFontShape{OT1}{cmr}{b}{n}
-     {<5><6><7><8><9><10><10.95><12>%
-      <14.4><17.28><20.74><24.88><29.86><35.83><42.99><51.59>cmb10%
-      }{}
-\DeclareFontShape{OT1}{cmr}{bx}{n}
-   {<5><6><7><8><9>gen*cmbx%
-      <10><10.95>cmbx10%
-      <12><14.4><17.28><20.74><24.88><29.86><35.83><42.99><51.59>cmbx12%
-      }{}
-\DeclareFontShape{OT1}{cmr}{bx}{sl}
-      {<5><6><7><8><9>%
-      <10><10.95><12><14.4><17.28><20.74><24.88><29.86><35.83><42.99><51.59>cmbxsl10%
-      }{}
-\DeclareFontShape{OT1}{cmr}{bx}{it}
-      {<5><6><7><8><9>%
-      <10><10.95><12><14.4><17.28><20.74><24.88><29.86><35.83><42.99><51.59>cmbxti10%
-      }{}
-\input{size\@ptsize.clo}
+
+% Треш
+% ----
+\@twosidefalse    % чётные и нечётные страницы не различаются
+\@mparswitchfalse
+\@twocolumnfalse  % текст в одну колонку
+
+% форматирование текста
+\input{size\@ptsize.clo} % берутся из tex/latex/base и tex/latex/extsizes
 \RequirePackage{exscale}
-\setlength\lineskip{1\p@}
-\setlength\normallineskip{1\p@}
-\renewcommand\baselinestretch{}
-\setlength\parskip{0\p@ \@plus \p@}
-\@lowpenalty   51
-\@medpenalty  151
-\@highpenalty 301
-\setcounter{topnumber}{2}
-\renewcommand\topfraction{.7}
-\setcounter{bottomnumber}{1}
-\renewcommand\bottomfraction{.3}
-\setcounter{totalnumber}{3}
-\renewcommand\textfraction{.2}
-\renewcommand\floatpagefraction{.5}
-\setcounter{dbltopnumber}{2}
-\renewcommand\dbltopfraction{.7}
-\renewcommand\dblfloatpagefraction{.5}
-\if@twoside
-  \def\ps@headings{%
-      \let\@oddfoot\@empty\let\@evenfoot\@empty
-      \def\@evenhead{\thepage\hfil\slshape\leftmark}%
-      \def\@oddhead{{\slshape\rightmark}\hfil\thepage}%
-      \let\@mkboth\markboth
-    \def\sectionmark##1{%
-      \markboth {\MakeUppercase{%
-        \ifnum \c@secnumdepth >\z@
-          \thesection\quad
-        \fi
-        ##1}}{}}%
-    \def\subsectionmark##1{%
-      \markright {%
-        \ifnum \c@secnumdepth >\@ne
-          \thesubsection\quad
-        \fi
-        ##1}}}
-\else
-  \def\ps@headings{%
-    \let\@oddfoot\@empty
-    \def\@oddhead{{\slshape\rightmark}\hfil\thepage}%
-    \let\@mkboth\markboth
-    \def\sectionmark##1{%
-      \markright {\MakeUppercase{%
-        \ifnum \c@secnumdepth >\m@ne
-          \thesection\quad
-        \fi
-        ##1}}}}
-\fi
-\def\ps@myheadings{%
-    \let\@oddfoot\@empty\let\@evenfoot\@empty
-    \def\@evenhead{\thepage\hfil\slshape\leftmark}%
-    \def\@oddhead{{\slshape\rightmark}\hfil\thepage}%
-    \let\@mkboth\@gobbletwo
-    \let\sectionmark\@gobble
-    \let\subsectionmark\@gobble
-    }
-  \if@titlepage
-  \newcommand\maketitle{\begin{titlepage}%
-  \let\footnotesize\small
-  \let\footnoterule\relax
-  \let \footnote \thanks
-  \null\vfil
-  \vskip 60\p@
-  \begin{center}%
-    {\LARGE \@title \par}%
-    \vskip 3em%
-    {\large
-     \lineskip .75em%
-      \begin{tabular}[t]{c}%
-        \@author
-      \end{tabular}\par}%
-      \vskip 1.5em%
-    {\large \@date \par}%       % Set date in \large size.
-  \end{center}\par
-  \@thanks
-  \vfil\null
-  \end{titlepage}%
-  \setcounter{footnote}{0}%
-  \global\let\thanks\relax
-  \global\let\maketitle\relax
-  \global\let\@thanks\@empty
-  \global\let\@author\@empty
-  \global\let\@date\@empty
-  \global\let\@title\@empty
-  \global\let\title\relax
-  \global\let\author\relax
-  \global\let\date\relax
-  \global\let\and\relax
+\RequirePackage{indentfirst}
+% устанавливаются значения параметров
+\setlength\lineskip{1\p@} % высота строки
+\setlength\normallineskip{1\p@} % на шрифте размера normal
+\renewcommand\baselinestretch{} % wat?
+\setlength\parskip{0\p@ \@plus \p@} % отсуп между абзацами в две высоты строки
+\@lowpenalty   51 %
+\@medpenalty  151 % назначение штрафов
+\@highpenalty 301 %
+
+
+% размер листа
+\setlength\paperheight{297mm} \setlength\paperwidth{210mm}
+\RequirePackage{geometry}
+\geometry{top=2cm, right=1cm, bottom=2cm, left=2cm}
+
+% что это и зачем оно надо?
+\setcounter{topnumber}{2} % макс. число плавающих объектов вверху страницы
+\renewcommand\topfraction{.7} % макс. часть страницы под float-объекты вверху
+\setcounter{bottomnumber}{1} % макс. число float-объектов внизу
+\renewcommand\bottomfraction{.3} % макс. часть страницы под float-объекты внизу
+\setcounter{totalnumber}{3} % макс. число float-объектов на странице
+\renewcommand\textfraction{.2} % мин. часть страницы, отведенная под текст
+\renewcommand\floatpagefraction{.5} % мин. часть floatpage, отведенная под float
+
+% заголовок
+\def\labnum#1{\gdef\@labnum{#1}}
+\def\@labnum{\@latex@error{No \noexpand\labnum given}\@ehc}
+
+\def\labname#1{\gdef\@labname{#1}}
+\def\@labname{\@latex@error{No \noexpand\labname given}\@ehc}
+
+\def\student#1{\gdef\@student{#1}}
+\def\@student{\@latex@error{No \noexpand\student given}\@ehc}
+
+\RequirePackage{multirow}
+\RequirePackage[utf8]{inputenc}
+\newcommand{\makeheader}{
+      \begin{table}[h!]
+        \center
+        \begin{tabular}{|C{.5}|C{.2}|C{.25}|} \hline
+            \multicolumn{1}{|c|}
+            {\multirow{4}{*}{Лабораторная работа №\@labnum}}
+            & Студент, группа & \@student \\ \cline{2-3}
+            & Дата выполнения & \@date \\ \cline{2-3}
+            & Подпись & \\ \cline{2-3}
+            \multicolumn{1}{|c|}{\multirow{3}{*}{\@labname}}
+            & Дата отчёта & \\ \cline{2-3}
+            & Оценка & \\ \cline{2-3}
+            & Подпись & \\ \hline
+        \end{tabular}
+    \end{table}
 }
-\else
-\newcommand\maketitle{\par
-  \begingroup
-    \renewcommand\thefootnote{\@fnsymbol\c@footnote}%
-    \def\@makefnmark{\rlap{\@textsuperscript{\normalfont\@thefnmark}}}%
-    \long\def\@makefntext##1{\parindent 1em\noindent
-            \hb@xt@1.8em{%
-                \hss\@textsuperscript{\normalfont\@thefnmark}}##1}%
-    \if@twocolumn
-      \ifnum \col@number=\@ne
-        \@maketitle
-      \else
-        \twocolumn[\@maketitle]%
-      \fi
-    \else
-      \newpage
-      \global\@topnum\z@   % Prevents figures from going at top of page.
-      \@maketitle
-    \fi
-    \thispagestyle{plain}\@thanks
-  \endgroup
-  \setcounter{footnote}{0}%
-  \global\let\thanks\relax
-  \global\let\maketitle\relax
-  \global\let\@maketitle\relax
-  \global\let\@thanks\@empty
-  \global\let\@author\@empty
-  \global\let\@date\@empty
-  \global\let\@title\@empty
-  \global\let\title\relax
-  \global\let\author\relax
-  \global\let\date\relax
-  \global\let\and\relax
-}
-\def\@maketitle{%
-  \newpage
-  \null
-  \vskip 2em%
-  \begin{center}%
-  \let \footnote \thanks
-    {\LARGE \@title \par}%
-    \vskip 1.5em%
-    {\large
-      \lineskip .5em%
-      \begin{tabular}[t]{c}%
-        \@author
-      \end{tabular}\par}%
-    \vskip 1em%
-    {\large \@date}%
-  \end{center}%
-  \par
-  \vskip 1.5em}
-\fi
-\setcounter{secnumdepth}{3}
-\newcounter {part}
+
+% Семантические элементы
+% ----------------------
+\setcounter{secnumdepth}{3} % глубина нумерации семантических элементов
+% объявляются счётчики
 \newcounter {section}
 \newcounter {subsection}[section]
 \newcounter {subsubsection}[subsection]
-\newcounter {paragraph}[subsubsection]
-\newcounter {subparagraph}[paragraph]
-\renewcommand\thepart         {\@Roman\c@part}
+% представление счётчиков
 \renewcommand\thesection      {\@arabic\c@section}
 \renewcommand\thesubsection   {\thesection.\@arabic\c@subsection}
 \renewcommand\thesubsubsection{\thesubsection .\@arabic\c@subsubsection}
-\renewcommand\theparagraph    {\thesubsubsection.\@arabic\c@paragraph}
-\renewcommand\thesubparagraph {\theparagraph.\@arabic\c@subparagraph}
-\newcommand\part{%
-   \if@noskipsec \leavevmode \fi\par
-   \addvspace{4ex}%
-   \@afterindentfalse
-   \secdef\@part\@spart}
 
-\def\@part[#1]#2{%
-    \ifnum \c@secnumdepth >\m@ne
-      \refstepcounter{part}%
-      \addcontentsline{toc}{part}{\thepart\hspace{1em}#1}%
-    \else
-      \addcontentsline{toc}{part}{#1}%
-    \fi
-    {\parindent \z@ \raggedright
-     \interlinepenalty \@M
-     \normalfont
-     \ifnum \c@secnumdepth >\m@ne
-       \Large\bfseries \partname~\thepart
-       \par\nobreak
-     \fi
-     \huge \bfseries #2%
-     \markboth{}{}\par}%
-    \nobreak
-    \vskip 3ex
-    \@afterheading}
-\def\@spart#1{%
-    {\parindent \z@ \raggedright
-     \interlinepenalty \@M
-     \normalfont
-     \huge \bfseries #1\par}%
-     \nobreak
-     \vskip 3ex
-     \@afterheading}
-\newcommand\section{\@startsection {section}{1}{\z@}%
-                                   {-3.5ex \@plus -1ex \@minus -.2ex}%
-                                   {2.3ex \@plus.2ex}%
-                                   {\normalfont\Large\bfseries}}
-\newcommand\subsection{\@startsection{subsection}{2}{\z@}%
-                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
-                                     {1.5ex \@plus .2ex}%
-                                     {\normalfont\large\bfseries}}
-\newcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%
-                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
-                                     {1.5ex \@plus .2ex}%
+% объявление команд секционирования
+\newcommand\section{\@startsection {section}
+                                     {1}  % уровень секционирования
+                                     {\z@}% отступ слева
+                                     {3ex}% отступ сверху
+                                     {3ex}% отступ снизу
+                                     {\normalfont\normalsize\bfseries}} % шрифт
+\newcommand\subsection{\@startsection{subsection}
+                                     {2}
+                                     {\z@}%
+                                     {2ex}%
+                                     {2ex}%
                                      {\normalfont\normalsize\bfseries}}
-\newcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
-                                    {3.25ex \@plus1ex \@minus.2ex}%
-                                    {-1em}%
-                                    {\normalfont\normalsize\bfseries}}
-\newcommand\subparagraph{\@startsection{subparagraph}{5}{\parindent}%
-                                       {3.25ex \@plus1ex \@minus .2ex}%
-                                       {-1em}%
-                                      {\normalfont\normalsize\bfseries}}
-\if@twocolumn
-  \setlength\leftmargini  {2em}
-\else
-  \setlength\leftmargini  {2.5em}
-\fi
-\leftmargin  \leftmargini
+\newcommand\subsubsection{\@startsection{subsubsection}
+                                     {3}
+                                     {\z@}%
+                                     {2ex}%
+                                     {2ex}%
+                                     {\normalfont\normalsize\bfseries}}
+% --- списки ---
+\setlength\leftmargini  {2.5em}
+\leftmargin \leftmargini
 \setlength\leftmarginii  {2.2em}
 \setlength\leftmarginiii {1.87em}
 \setlength\leftmarginiv  {1.7em}
-\if@twocolumn
-  \setlength\leftmarginv  {.5em}
-  \setlength\leftmarginvi {.5em}
-\else
-  \setlength\leftmarginv  {1em}
-  \setlength\leftmarginvi {1em}
-\fi
+\setlength\leftmarginv  {1em}
+\setlength\leftmarginvi {1em}
 \setlength  \labelsep  {.5em}
 \setlength  \labelwidth{\leftmargini}
 \addtolength\labelwidth{-\labelsep}
 \@beginparpenalty -\@lowpenalty
 \@endparpenalty   -\@lowpenalty
 \@itempenalty     -\@lowpenalty
-\renewcommand\theenumi{\@arabic\c@enumi}
-\renewcommand\theenumii{\@alph\c@enumii}
-\renewcommand\theenumiii{\@roman\c@enumiii}
-\renewcommand\theenumiv{\@Alph\c@enumiv}
-\newcommand\labelenumi{\theenumi.}
-\newcommand\labelenumii{(\theenumii)}
-\newcommand\labelenumiii{\theenumiii.}
-\newcommand\labelenumiv{\theenumiv.}
+
+\renewcommand{\theenumi}{\arabic{enumi}}
+\newcommand{\labelenumi}{\arabic{enumi}.}
+\renewcommand{\theenumii}{.\arabic{enumii}}
+\newcommand{\labelenumii}{\arabic{enumi}.\arabic{enumii}.}
+\renewcommand{\theenumiii}{.\arabic{enumiii}}
+\newcommand{\labelenumiii}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.}
 \renewcommand\p@enumii{\theenumi}
 \renewcommand\p@enumiii{\theenumi(\theenumii)}
 \renewcommand\p@enumiv{\p@enumiii\theenumiii}
@@ -360,44 +146,20 @@
 \newcommand\labelitemii{\normalfont\bfseries \textendash}
 \newcommand\labelitemiii{\textasteriskcentered}
 \newcommand\labelitemiv{\textperiodcentered}
+% ××× списки ×××
+
+% --- окружения ---
+% окружение описательного характера description
+% http://en.wikibooks.org/wiki/LaTeX/List_Structures#Description
 \newenvironment{description}
                {\list{}{\labelwidth\z@ \itemindent-\leftmargin
                         \let\makelabel\descriptionlabel}}
                {\endlist}
 \newcommand*\descriptionlabel[1]{\hspace\labelsep
                                 \normalfont\bfseries #1}
-\if@titlepage
-  \newenvironment{abstract}{%
-      \titlepage
-      \null\vfil
-      \@beginparpenalty\@lowpenalty
-      \begin{center}%
-        \bfseries \abstractname
-        \@endparpenalty\@M
-      \end{center}}%
-     {\par\vfil\null\endtitlepage}
-\else
-  \newenvironment{abstract}{%
-      \if@twocolumn
-        \section*{\abstractname}%
-      \else
-        \small
-        \begin{center}%
-          {\bfseries \abstractname\vspace{-.5em}\vspace{\z@}}%
-        \end{center}%
-        \quotation
-      \fi}
-      {\if@twocolumn\else\endquotation\fi}
-\fi
-\newenvironment{verse}
-               {\let\\\@centercr
-                \list{}{\itemsep      \z@
-                        \itemindent   -1.5em%
-                        \listparindent\itemindent
-                        \rightmargin  \leftmargin
-                        \advance\leftmargin 1.5em}%
-                \item\relax}
-               {\endlist}
+
+% цитаты
+% http://en.wikibooks.org/wiki/LaTeX/Paragraph_Formatting#Quoting_text
 \newenvironment{quotation}
                {\list{}{\listparindent 1.5em%
                         \itemindent    \listparindent
@@ -409,25 +171,8 @@
                {\list{}{\rightmargin\leftmargin}%
                 \item\relax}
                {\endlist}
-\newenvironment{titlepage}
-    {%
-      \if@twocolumn
-        \@restonecoltrue\onecolumn
-      \else
-        \@restonecolfalse\newpage
-      \fi
-      \thispagestyle{empty}%
-      \setcounter{page}\@ne
-    }%
-    {\if@restonecol\twocolumn \else \newpage \fi
-     \if@twoside\else
-        \setcounter{page}\@ne
-     \fi
-    }
-\newcommand\appendix{\par
-  \setcounter{section}{0}%
-  \setcounter{subsection}{0}%
-  \gdef\thesection{\@Alph\c@section}}
+
+% снова длины. Почему бы всё в одном месте не определить?
 \setlength\arraycolsep{5\p@}
 \setlength\tabcolsep{6\p@}
 \setlength\arrayrulewidth{.4\p@}
@@ -436,7 +181,11 @@
 \skip\@mpfootins = \skip\footins
 \setlength\fboxsep{3\p@}
 \setlength\fboxrule{.4\p@}
+
+% опять счётчики и представления
 \renewcommand\theequation{\@arabic\c@equation}
+
+% --- изображения ---
 \newcounter{figure}
 \gdef\thefigure{\@arabic\c@figure}
 \def\fps@figure{tbp}
@@ -449,6 +198,9 @@
 \newenvironment{figure*}
                {\@dblfloat{figure}}
                {\end@dblfloat}
+% ××× изображения ×××
+
+% --- таблицы ---
 \newcounter{table}
 \gdef\thetable{\@arabic\c@table}
 \def\fps@table{tbp}
@@ -461,6 +213,9 @@
 \newenvironment{table*}
                {\@dblfloat{table}}
                {\end@dblfloat}
+% ××× таблицы ×××
+
+% --- подписи к таблицам и изображениям ---
 \newlength\abovecaptionskip
 \newlength\belowcaptionskip
 \setlength\abovecaptionskip{10\p@}
@@ -475,6 +230,21 @@
     \hb@xt@\hsize{\hfil\box\@tempboxa\hfil}%
   \fi
   \vskip\belowcaptionskip}
+
+% Гостовсие подписи
+\RequirePackage{caption}
+\DeclareCaptionLabelFormat{figure}{Рисунок #2}
+\DeclareCaptionLabelFormat{table}{Таблица #2}
+\DeclareCaptionLabelSeparator{sep}{~---~}
+\captionsetup{labelsep=sep,justification=centering,font=small}
+\captionsetup[figure]{labelformat=figure}
+\captionsetup[table]{labelformat=table}
+% ××× подписи к таблицам и изображениям ×××
+
+\if@pscyr
+  \RequirePackage{pscyr}
+\fi
+% шрифты. что делает эта команда?
 \DeclareOldFontCommand{\rm}{\normalfont\rmfamily}{\mathrm}
 \DeclareOldFontCommand{\sf}{\normalfont\sffamily}{\mathsf}
 \DeclareOldFontCommand{\tt}{\normalfont\ttfamily}{\mathtt}
@@ -484,29 +254,24 @@
 \DeclareOldFontCommand{\sc}{\normalfont\scshape}{\@nomath\sc}
 \DeclareRobustCommand*\cal{\@fontswitch\relax\mathcal}
 \DeclareRobustCommand*\mit{\@fontswitch\relax\mathnormal}
-\newcommand\@pnumwidth{1.55em}
-\newcommand\@tocrmarg{2.55em}
-\newcommand\@dotsep{4.5}
-\setcounter{tocdepth}{3}
+
+% определение странных вещей
+\newcommand\@pnumwidth{1.55em}% место для номеров страниц в toc, lof и lot
+\newcommand\@tocrmarg{2.55em} % wtf?
+\newcommand\@dotsep{4.5}      % расстояние между точками в toc, lof и lot
+
+
+% --- оглавление ---
+\setcounter{tocdepth}{3}        % установили глубину оглавления
+
 \newcommand\tableofcontents{%
     \section*{\contentsname
         \@mkboth{%
            \MakeUppercase\contentsname}{\MakeUppercase\contentsname}}%
     \@starttoc{toc}%
     }
-\newcommand*\l@part[2]{%
-  \ifnum \c@tocdepth >-2\relax
-    \addpenalty\@secpenalty
-    \addvspace{2.25em \@plus\p@}%
-    \begingroup
-      \setlength\@tempdima{3em}%
-      \parindent \z@ \rightskip \@pnumwidth
-      \parfillskip -\@pnumwidth
-      {\leavevmode
-       \large \bfseries #1\hfil \hb@xt@\@pnumwidth{\hss #2}}\par
-       \nobreak
-    \endgroup
-  \fi}
+% что это за сущности вида "\l@..."?
+% по ходу дела, это способ отображения в toc, lof, lot
 \newcommand*\l@section[2]{%
   \ifnum \c@tocdepth >\z@
     \addpenalty\@secpenalty
@@ -523,8 +288,8 @@
   \fi}
 \newcommand*\l@subsection{\@dottedtocline{2}{1.5em}{2.3em}}
 \newcommand*\l@subsubsection{\@dottedtocline{3}{3.8em}{3.2em}}
-\newcommand*\l@paragraph{\@dottedtocline{4}{7.0em}{4.1em}}
-\newcommand*\l@subparagraph{\@dottedtocline{5}{10em}{5em}}
+
+% список изображений
 \newcommand\listoffigures{%
     \section*{\listfigurename
       \@mkboth{\MakeUppercase\listfigurename}%
@@ -532,6 +297,8 @@
     \@starttoc{lof}%
     }
 \newcommand*\l@figure{\@dottedtocline{1}{1.5em}{2.3em}}
+
+% список таблиц
 \newcommand\listoftables{%
     \section*{\listtablename
       \@mkboth{%
@@ -539,53 +306,20 @@
     \@starttoc{lot}%
     }
 \let\l@table\l@figure
-\newdimen\bibindent
-\setlength\bibindent{1.5em}
-\newenvironment{thebibliography}[1]
-     {\section*{\refname
-        \@mkboth{\MakeUppercase\refname}{\MakeUppercase\refname}}%
-      \list{\@biblabel{\@arabic\c@enumiv}}%
-           {\settowidth\labelwidth{\@biblabel{#1}}%
-            \leftmargin\labelwidth
-            \advance\leftmargin\labelsep
-            \@openbib@code
-            \usecounter{enumiv}%
-            \let\p@enumiv\@empty
-            \renewcommand\theenumiv{\@arabic\c@enumiv}}%
-      \sloppy\clubpenalty4000\widowpenalty4000%
-      \sfcode`\.\@m}
-     {\def\@noitemerr
-       {\@latex@warning{Empty `thebibliography' environment}}%
-      \endlist}
-\newcommand\newblock{\hskip .11em\@plus.33em\@minus.07em}
-\let\@openbib@code\@empty
-\newenvironment{theindex}
-               {\if@twocolumn
-                  \@restonecolfalse
-                \else
-                  \@restonecoltrue
-                \fi
-                \columnseprule \z@
-                \columnsep 35\p@
-                \twocolumn[\section*{\indexname}]%
-                \@mkboth{\MakeUppercase\indexname}%
-                        {\MakeUppercase\indexname}%
-                \thispagestyle{plain}\parindent\z@
-                \parskip\z@ \@plus .3\p@\relax
-                \let\item\@idxitem}
-               {\if@restonecol\onecolumn\else\clearpage\fi}
-\newcommand\@idxitem{\par\hangindent 40\p@}
-\newcommand\subitem{\@idxitem \hspace*{20\p@}}
-\newcommand\subsubitem{\@idxitem \hspace*{30\p@}}
-\newcommand\indexspace{\par \vskip 10\p@ \@plus5\p@ \@minus3\p@\relax}
+% ××× оглавление ×××
+
+% это подчёркивание над сносками?
 \renewcommand\footnoterule{%
   \kern-3\p@
   \hrule\@width.4\columnwidth
   \kern2.6\p@}
+% а это что?
 \newcommand\@makefntext[1]{%
     \parindent 1em%
     \noindent
     \hb@xt@1.8em{\hss\@makefnmark}#1}
+
+% определения
 \newcommand\contentsname{Contents}
 \newcommand\listfigurename{List of Figures}
 \newcommand\listtablename{List of Tables}
@@ -593,7 +327,6 @@
 \newcommand\indexname{Index}
 \newcommand\figurename{Figure}
 \newcommand\tablename{Table}
-\newcommand\partname{Part}
 \newcommand\appendixname{Appendix}
 \newcommand\abstractname{Abstract}
 \newcommand\today{\ifcase\month\or
@@ -608,51 +341,18 @@
 \else
   \raggedbottom
 \fi
-\if@twocolumn
-  \twocolumn
-  \sloppy
-  \flushbottom
-\else
-  \onecolumn
-\fi
+\onecolumn
+
+\parindent=1.25cm
+
+% сделать через нативную библиографию
+%\RequirePackage[square, numbers, sort&compress]{natbib}
+%\bibliographystyle{unsrt}
+%\renewcommand{\@biblabel}[1]{#1.}
+
+% удобная штука
+\RequirePackage{array}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1\textwidth}}
+\renewcommand{\arraystretch}{1.2}
+
 \endinput
-%%
-%% End of file `extarticle.cls'.
-\renewcommand{\@biblabel}[1]{#1.} % Заменяем библиографию
-
-\RequirePackage{geometry}  % Меняем поля страницы
-\geometry{left=2cm}    % левое поле
-\geometry{right=1.5cm} % правое поле
-\geometry{top=2cm}     % верхнее поле
-\geometry{bottom=2cm}  % нижнее поле
-
-\RequirePackage{titlesec}
-
-\titleformat{\section}[block]
-{\normalfont\large\bfseries\center}{}{.5em}{}
-
-\titleformat{\subsection}[block]
-{\normalfont\bfseries\center}{}{.5em}{}
-
-\RequirePackage{multirow}
-\RequirePackage[column]{prefeatures}
-
-% \makeheader{номер работы}{тема}{студент}{группа}{дата выполнения}
-\newcommand{\makeheader}[5]{
-    \begin{table}[h!]
-        \center
-        \begin{tabular}{|C{.5}|C{.2}|C{.25}|}
-    \hline
-        \multicolumn{1}{|c|}{\multirow{4}{*}{Лабораторная работа
-            \ifthenelse{\equal{#1}{}}{\!\!}{№#1}}} &
-            Студент, группа & #3, #4 \\ \cline{2-3}
-    & Дата выполнения & #5 \\ \cline{2-3}
-    & Подпись &  \\ \cline{2-3}
-    \multicolumn{1}{|c|}{\multirow{3}{*}{#2}}
-    & Дата отчёта & \\ \cline{2-3}
-    & Оценка &  \\ \cline{2-3}
-    & Подпись &  \\ \hline
-        \end{tabular}
-    \end{table}
-}
-
