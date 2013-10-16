@@ -56,7 +56,7 @@ TODO
 | комментарии во всех файлах стилей              |     ·    |
 | описать все использованные приёмы в wiki       |     ·    |
 | определиться c преамбулами                     |     ·    |
-| 0.2 → master                                   |     ·    |
-| citrux/preambles → hed-project/hed-latex       |     ·    |
+| 0.2 → master                                   |  готово  |
+| citrux/preambles → hed-project/hed-latex       |  готово  |
 
 ¹ готово к тестированию
