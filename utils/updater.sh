@@ -16,8 +16,7 @@ fi
 
 update_version_info_in ()
 {
-    name=$(echo $1 | cut -d . -f 1)
-    ext=$(echo $1 | cut -d . -f 2)
+    ext=$(echo $1 | sed 's/.*\.//')
     if [[ $ext == "cls" ]]; then
         sign="ProvidesClass"
     elif [[ $ext == "sty" ]]; then

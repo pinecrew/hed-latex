@@ -36,6 +36,9 @@ TODO
 ### Классы документов
 
 * hedsemwork — семестровые работы
+* hedlabwork — лабораторные работы
+* hedreport — отчёт
+* hedlectures — лекции
 
 ### Пакеты
 ### Преамбулы
@@ -45,13 +48,15 @@ TODO
 |           требуется сделать к v 0.2.0          |  статус  |
 |:-----------------------------------------------|:--------:|
 | разобраться в коде extarticle                  |  готово  |
-| extarticle → hedsemwork                        |  готово  |
-| hedlabwork                                     |в процессе|
-| hedlectures                                    |     ·    |
-| hedreport                                      |     ·    |
-| убрать hedrussian                              |в процессе|
+| extarticle → hedsemwork                        |  готово¹ |
+| hedlabwork                                     |  готово¹ |
+| hedlectures                                    |  готово¹ |
+| hedreport                                      |  готово¹ |
+| убрать hedrussian                              |  готово  |
 | комментарии во всех файлах стилей              |     ·    |
 | описать все использованные приёмы в wiki       |     ·    |
 | определиться c преамбулами                     |     ·    |
 | 0.2 → master                                   |     ·    |
 | citrux/preambles → hed-project/hed-latex       |     ·    |
+
+¹ готово к тестированию
