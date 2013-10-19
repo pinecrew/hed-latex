@@ -1,5 +1,6 @@
 @echo off
 cd %programfiles%
+set /a ex=0
 
 <nul set /p str="Searching for MikTeX directory...    "
 if exist Miktex* (
@@ -17,6 +18,7 @@ echo [DONE]
 
 if exist "%hedd%" (
     echo HEd folder exists...
+    set /a ex=1
     goto copy
 ) else (
     <nul set /p str="Creating HEd directory...            "
@@ -38,7 +40,11 @@ copy /Y hed* "%hedd%" > nul
 if %ERRORLEVEL% == 0 (
     echo [DONE]
     echo.
-    echo Go to the MikTeX Settings and push the "Refresh FNDB" button
+    if %ex%==0 (
+       echo Go to the MikTeX Settings and push the "Refresh FNDB" button
+    ) else (
+       echo Go back to work!
+    )
 ) else (
     echo [FAIL]
     echo Can't copy files into the directory! Exiting...
