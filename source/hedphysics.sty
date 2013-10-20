@@ -1,15 +1,44 @@
-\NeedsTeXFormat{LaTeX2e}[1995/06/01]                                            
-\ProvidesPackage{hedphysics}[2013/08/30 v0.1.9]
+\NeedsTeXFormat{LaTeX2e}[1995/06/01]
+\ProvidesPackage{hedphysics}[2013/10/19 v0.1.9]
 
-\RequirePackage{amsmath}
-\newcommand{\ImUn}{\mathrm{j}}
-% \newcommand{\Ezero}{\varepsilon_0} :: \eps_0 has the same length 
-\newcommand{\eds}{\mathcal{E}}
-\newcommand{\term}[3]{\vphantom{#2}^{#1}#2_{#3}}
-\newcommand{\nucleus}[3]{
-\ensuremath{
-    \phantom{\ensuremath{^{#1}_{#2}}}
-    \llap{\ensuremath{^{#1}}}
-    \llap{\ensuremath{_{\rule{0pt}{.75em}#2}}}
-    \mbox{#3}}
+\newif\if@electricity
+\newif\if@atomic
+\newif\if@nuclear
+\@electricityfalse
+\@atomicfalse
+\@nuclearfalse
+
+\DeclareOption{electricity}{
+    \@electricitytrue
 }
+
+\DeclareOption{atomic}{
+    \@atomictrue
+}
+
+\DeclareOption{nuclear}{
+    \@nucleartrue
+}
+
+\ExecuteOptions{}
+\ProcessOptions
+\if@electricity
+    \newcommand{\ImUn}{\mathrm{j}} % не нужно, так как используется как
+                                   % множитель в аргументе экспоненты
+    \RequirePackage{amssymb}
+    \newcommand{\EMF}{\mathcal{E}}
+\fi
+
+\if@atomic
+    \newcommand{\term}[3]{\ensuremath{\vphantom{#2}^{#1}#2_{#3}}}
+\fi
+
+\if@nuclear
+    \newcommand{\nucleus}[3]{
+    \ensuremath{
+        \phantom{\ensuremath{^{#1}_{#2}}}
+        \llap{\ensuremath{^{#1}}}
+        \llap{\ensuremath{_{\rule{0pt}{.75em}#2}}}
+        \mbox{#3}}
+    }
+\fi

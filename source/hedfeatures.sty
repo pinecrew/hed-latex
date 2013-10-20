@@ -1,9 +1,19 @@
 \NeedsTeXFormat{LaTeX2e}[1995/06/01]
-\ProvidesPackage{hedfeatures}[2013/08/30 v0.1.9]
+\ProvidesPackage{hedfeatures}[2013/10/19 v0.1.9]
 
-\DeclareOption{column}{%
+\newif\if@column
+\@columnfalse
+
+\DeclareOption{column}{
+    \@columntrue
+}
+
+\ExecuteOptions{}
+\ProcessOptions
+
+\if@column
     \RequirePackage{array}
     \newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1\textwidth}}
     \renewcommand{\arraystretch}{1.2}
-}
+\fi
 

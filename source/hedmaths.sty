@@ -40,6 +40,9 @@
 \ProcessOptions
 % прочие обозначения и команды
 \newcommand{\e}{\mathrm{e}} % экспонента
+\newcommand{\const}{\mathrm{const}} % константа
+\newcommand{\midnum}[1]{\left\langle#1\right\rangle} % обозначение среднего
+
 
 \RequirePackage[intlimits,sumlimits,namelimits,centertags]{amsmath}
 \RequirePackage{amssymb}
@@ -57,7 +60,6 @@
 \renewcommand{\ge}{\geqslant}
 \renewcommand{\geq}{\geqslant}
 \renewcommand{\Gamma}{\varGamma}
-
 
 \if@complex
     \renewcommand{\Re}{\mathbf{Re\,}}
@@ -77,7 +79,6 @@
     \newcommand{\limni}{\lim_{n\to\infty}}
     \newcommand{\lni}{\limits_0^\infty}
     \newcommand{\lii}{\limits_{-\infty}^\infty}
-    \newcommand{\midnum}[1]{\left\langle#1\right\rangle}
 \fi
 
 \if@environments
@@ -105,9 +106,7 @@
 \fi
 
 \if@vectors
-    \renewcommand{\divergence}{\mathrm{div\,}}
+    \newcommand{\divergence}{\mathrm{div\,}}
     \newcommand{\gradient}{\mathrm{grad\,}}
     \newcommand{\rotor}{\mathrm{rot\,}}
-    \newcommand{\const}{\mathrm{const}}
-    \renewcommand{\det}{\mathrm{det\,}}
 \fi
