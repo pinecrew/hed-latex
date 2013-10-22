@@ -36,6 +36,7 @@ if exist "%hedd%" (
 :copy
 <nul set /p str="Copying files to the directory...    "
 cd %~dp0
+cd ..\source
 copy /Y hed* "%hedd%" > nul
 if %ERRORLEVEL% == 0 (
     echo [DONE]
