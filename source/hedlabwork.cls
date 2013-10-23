@@ -10,6 +10,7 @@
 % Размер шрифта
 % 2 реально используемых варианта
 \newcommand\@ptsize{}
+\DeclareOption{10pt}{\renewcommand\@ptsize{10}}
 \DeclareOption{12pt}{\renewcommand\@ptsize{12}}
 \DeclareOption{14pt}{\renewcommand\@ptsize{14}}
 
@@ -17,6 +18,12 @@
 \@pscyrfalse
 \DeclareOption{pscyr}{
   \@pscyrtrue
+}
+
+\newif\if@numeric % назвать как-нибудь
+\@numericfalse
+\DeclareOption{nonums}{
+  \@numerictrue
 }
 
 % устанавливаем опции по умолчанию
@@ -79,7 +86,7 @@
             & Студент, группа & \@student \\ \cline{2-3}
             & Дата выполнения & \@date \\ \cline{2-3}
             & Подпись & \\ \cline{2-3}
-            \multicolumn{1}{|c|}{\multirow{3}{*}{\@labname}}
+            \multicolumn{1}{|c|}{\multirow{3}{*}{\@labname}} % косяк с длинными названиями
             & Дата отчёта & \\ \cline{2-3}
             & Оценка & \\ \cline{2-3}
             & Подпись & \\ \hline
@@ -118,6 +125,20 @@
                                      {2ex}%
                                      {2ex}%
                                      {\normalfont\normalsize\bfseries}}
+                                     
+% в лабораторных порой нет особой нужды в секционировании, но есть нужда в заголовках
+\if@numeric
+  \renewcommand\thesection      {}
+  \renewcommand\thesubsection   {}
+  \renewcommand\thesubsubsection{}
+  \renewcommand\section{\@startsection {section}
+    {1}{\z@}{3ex}{3ex}{\normalfont\large\bfseries\centering}}
+  \renewcommand\subsection{\@startsection{subsection}
+    {2}{\z@}{2ex}{2ex}{\normalfont\normalsize\bfseries\centering}}
+  \renewcommand\subsubsection{\@startsection{subsubsection}
+    {3}{\z@}{2ex}{2ex}{\normalfont\normalsize\centering}}
+\fi
+
 % --- списки ---
 \setlength\leftmargini  {2.5em}
 \leftmargin \leftmargini
