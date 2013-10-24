@@ -131,7 +131,7 @@
   \renewcommand\thesection      {}
   \renewcommand\thesubsection   {}
   \renewcommand\thesubsubsection{}
-  \renewcommand\section{\@startsection {section}
+  \renewcommand\section{\@startsection{section}
     {1}{\z@}{3ex}{3ex}{\normalfont\large\bfseries\centering}}
   \renewcommand\subsection{\@startsection{subsection}
     {2}{\z@}{2ex}{2ex}{\normalfont\normalsize\bfseries\centering}}
