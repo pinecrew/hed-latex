@@ -95,10 +95,14 @@
 \def\variant#1{\gdef\@variant{#1}}
 %\def\@variant{}
 
-\def\student#1{\gdef\@student{#1}}
+\def\student[#1]#2{\gdef\@student{#2}\gdef\@studentfemale{#1}}
 \def\@student{\@latex@error{No \noexpand\student given}\@ehc}
+% необходимо сделать #1 необязательным параметром.
+% пока что для лиц мужского пола первый аргумент оставлять пустым, e.g.
+% \student[]{Иванов Сергий Владиславович}, но
+% \student[f]{Петрова Валентина Марковна}
 
-\def\teacher#1{\gdef\@teacher{#1}}
+\def\teacher[#1]#2{\gdef\@teacher{#2}\gdef\@teacherfemale{#1}}
 \def\@teacher{\@latex@error{No \noexpand\teacher given}\@ehc}
 % если нужен титульный лист
 \if@titlepage
@@ -137,10 +141,16 @@
 
       \begin{flushright}
         \begin{minipage}{.40\textwidth}
-          Выполнил%\ifthenelse{\equal{#7}{f}}{а}{}:
+          Выполнил\ifx\@studentfemale\@empty
+          \else
+            а
+          \fi
           \\ \@student \\
           \vspace{1em}\\
-          Проверил%\ifthenelse{\equal{#9}{f}}{а}{}:
+          Проверил\ifx\@teacherfemale\@empty
+          \else
+            а
+          \fi
           \\ \@teacher
         % \vspace{1em}\\
         % Дата сдачи\\семестровой\\
@@ -167,6 +177,8 @@
     \global\let\@thanks\@empty
     \global\let\@title\@empty
     \global\let\@variant\@empty
+    \global\let\@studentfemale\@empty
+    \global\let\@teacherfemale\@empty
     \global\let\and\relax
     \global\let\author\relax
     \global\let\date\relax
@@ -180,6 +192,8 @@
     \global\let\thanks\relax
     \global\let\title\relax
     \global\let\variant\relax
+    \global\let\studentfemale\relax
+    \global\let\teacherfemale\relax
   }
 % если не нужен титульный лист
 \else
