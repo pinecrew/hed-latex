@@ -97,10 +97,10 @@
 
 \def\student[#1]#2{\gdef\@student{#2}\gdef\@studentfemale{#1}}
 \def\@student{\@latex@error{No \noexpand\student given}\@ehc}
-% необходимо сделать #1 необязательным параметром.
-% пока что для лиц мужского пола первый аргумент оставлять пустым, e.g.
-% \student[]{Иванов Сергий Владиславович}, но
-% \student[f]{Петрова Валентина Марковна}
+\def\@femaleletter{f}
+% пол: f -- женский, остальное -- мужской, e.g.
+% сделать #1 необязательным параметром, чтобы прописывать его только
+% при необходимости
 
 \def\teacher[#1]#2{\gdef\@teacher{#2}\gdef\@teacherfemale{#1}}
 \def\@teacher{\@latex@error{No \noexpand\teacher given}\@ehc}
@@ -141,14 +141,12 @@
 
       \begin{flushright}
         \begin{minipage}{.40\textwidth}
-          Выполнил\ifx\@studentfemale\@empty
-          \else
+          Выполнил\ifx\@studentfemale\@femaleletter
             а
           \fi
           \\ \@student \\
           \vspace{1em}\\
-          Проверил\ifx\@teacherfemale\@empty
-          \else
+          Проверил\ifx\@teacherfemale\@femaleletter
             а
           \fi
           \\ \@teacher
