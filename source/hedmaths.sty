@@ -50,7 +50,7 @@
 \RequirePackage{array}
 
 % переобозначение символов
-\renewcommand{\phi}{\varphi}
+\let\oldphi\phi \let\phi\varphi \let\varphi\oldphi % phi <-> varphi
 \renewcommand{\theta}{\vartheta}
 \renewcommand{\kappa}{\varkappa}
 \newcommand{\eps}{\varepsilon}
