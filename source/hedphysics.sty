@@ -20,11 +20,11 @@
     \@nucleartrue
 }
 
-\ExecuteOptions{}
+\ExecuteOptions{electricity,atomic,nuclear}
 \ProcessOptions
 \if@electricity
-    \newcommand{\ImUn}{\mathrm{j}} % не нужно, так как используется как
-                                   % множитель в аргументе экспоненты
+    \newcommand{\Ez}{\varepsilon_0}
+    \newcommand{\Mz}{\mu_0}
     \RequirePackage{amssymb}
     \newcommand{\EMF}{\mathcal{E}}
 \fi
