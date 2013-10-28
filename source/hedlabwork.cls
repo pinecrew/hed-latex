@@ -81,12 +81,11 @@
       \begin{table}[h!]
         \center
         \begin{tabular}{|C{.5}|C{.2}|C{.25}|} \hline
-            \multicolumn{1}{|c|}
-            {\multirow{4}{*}{Лабораторная работа №\@labnum}}
+            \multirow{4}{*}{Лабораторная работа № \@labnum}
             & Студент, группа & \@student \\ \cline{2-3}
             & Дата выполнения & \@date \\ \cline{2-3}
             & Подпись & \\ \cline{2-3}
-            \multicolumn{1}{|c|}{\multirow{3}{*}{\@labname}} % косяк с длинными названиями
+            \multirow{3}{*}{\parbox{.5\textwidth}{\centering\@labname}}
             & Дата отчёта & \\ \cline{2-3}
             & Оценка & \\ \cline{2-3}
             & Подпись & \\ \hline
