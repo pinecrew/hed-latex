@@ -1,3 +1,4 @@
+:: OEM 866
 @echo off
 cd %programfiles%
 set /a ex=0
@@ -53,4 +54,4 @@ if %ERRORLEVEL% == 0 (
 )
 
 :exit
-timeout /t 3 /nobreak > nul
+timeout /t 3 > nul
