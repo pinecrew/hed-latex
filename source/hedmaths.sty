@@ -102,10 +102,17 @@
         {\end{trivlist}\end{quote}}
     \newtheorem{comment}{Комментарий}[section]
     \newtheorem{example}{Пример}[section]
-    \renewenvironment{appendix}[1][Приложение.]
+    \ifx\appendix\undefined
+      \newenvironment{appendix}[1][Приложение.]
         {\begin{trivlist}\item[\hskip \labelsep {\bfseries #1}]
         \setlength{\parindent}{0cm}}
         {\end{trivlist}}
+    \else
+      \renewenvironment{appendix}[1][Приложение.]
+        {\begin{trivlist}\item[\hskip \labelsep {\bfseries #1}]
+        \setlength{\parindent}{0cm}}
+        {\end{trivlist}}
+    \fi
     \newenvironment{conclusion}{\itshape}{}
 \fi
 

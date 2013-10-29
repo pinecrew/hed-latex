@@ -98,7 +98,7 @@
 \def\student[#1]#2{\gdef\@student{#2}\gdef\@studentfemale{#1}}
 \def\@student{\@latex@error{No \noexpand\student given}\@ehc}
 \def\@femaleletter{f}
-% пол: f -- женский, остальное -- мужской, e.g.
+% пол: f -- женский, остальное -- мужской
 % сделать #1 необязательным параметром, чтобы прописывать его только
 % при необходимости
 
