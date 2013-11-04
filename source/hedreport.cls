@@ -39,7 +39,7 @@
 }
 
 % устанавливаем опции по умолчанию
-\ExecuteOptions{14pt,titlepage}
+\ExecuteOptions{14pt,notitlepage}
 % выполняем действия для выбранных опций
 \ProcessOptions
 
@@ -68,7 +68,6 @@
 \RequirePackage{geometry}
 \geometry{top=2cm, right=1cm, bottom=2cm, left=2cm}
 
-% что это и зачем оно надо?
 \setcounter{topnumber}{2} % макс. число плавающих объектов вверху страницы
 \renewcommand\topfraction{.7} % макс. часть страницы под float-объекты вверху
 \setcounter{bottomnumber}{1} % макс. число float-объектов внизу
@@ -79,107 +78,102 @@
 
 % титульный лист
 % --------------
-% переменные для титульного листа
-%\def\faculty#1{\gdef\@faculty{#1}}
-%\def\@faculty{\@latex@error{No \noexpand\faculty given}\@ehc}
-
-%\def\department#1{\gdef\@department{#1}}
-%\def\@department{\@latex@error{No \noexpand\department given}\@ehc}
-
-%\def\subject#1{\gdef\@subject{#1}}
-%\def\@subject{\@latex@error{No \noexpand\subject given}\@ehc}
-
-%\def\semnum#1{\gdef\@semnum{#1}}
-%%\def\@semnum{}
-
-%\def\variant#1{\gdef\@variant{#1}}
-%%\def\@variant{}
-
-%\def\student#1{\gdef\@student{#1}}
-%\def\@student{\@latex@error{No \noexpand\student given}\@ehc}
-
-%\def\teacher#1{\gdef\@teacher{#1}}
-%\def\@teacher{\@latex@error{No \noexpand\teacher given}\@ehc}
 % если нужен титульный лист
 \if@titlepage
+  % переменные для титульного листа
+  \def\faculty#1{\gdef\@faculty{#1}}
+  \def\@faculty{\@latex@error{No \noexpand\faculty given}\@ehc}
+
+  \def\department#1{\gdef\@department{#1}}
+  \def\@department{\@latex@error{No \noexpand\department given}\@ehc}
+
+  \def\subject#1{\gdef\@subject{#1}}
+  \def\@subject{\@latex@error{No \noexpand\subject given}\@ehc}
+
+  \def\topic#1{\gdef\@topic{#1}}
+  \def\@topic{\@latex@error{No \noexpand\topic given}\@ehc}
+
+  \def\@femaleletter{f}
+
+  \def\student[#1]#2{\gdef\@student{#2}\gdef\@studentfemale{#1}}
+  \def\@student{\@latex@error{No \noexpand\student given}\@ehc}
+
+  \def\teacher[#1]#2{\gdef\@teacher{#2}\gdef\@teacherfemale{#1}}
+  \def\@teacher{\@latex@error{No \noexpand\teacher given}\@ehc}
+  
+  \def\type#1{\gdef\@type{#1}}
+  
   \RequirePackage[utf8]{inputenc}    %%%% для русского на титульном листе
   \newcommand\maketitle{
-    %\begin{titlepage}
-      %%\singlespacing
-      %\begin{center}
-        %Министерство образования и науки Российской Федерации \\
-        %Федеральное государственное бюджетное образовательное \\
-        %учреждение высшего профессионального образования \\
-        %<<Волгоградский государственный технический университет>> \\
-        %\@faculty \\
-        %Кафедра \@department
-      %\end{center}
-      %\vspace{9em}
-      %\begin{center}
-        %\large Семестровая работа
-        %\ifx\@semnum\undefined
-        %\else
-          %№\@semnum\~
-        %\fi
-        %по дисциплине \\
-        %<<\@subject>>
-      %\end{center}
-      %\ifx\@variant\undefined
-        %% при использовании if наблюдается странный артефакт вида *=*
-        %\vspace{5em}
-      %\else
-        %\vspace{1em}
-        %\begin{center}
-          %Вариант №\@variant
-        %\end{center}
-        %\vspace{3em}
-      %\fi
+    \begin{titlepage}
+      \begin{center}
+        Министерство образования и науки Российской Федерации \\
+        Федеральное государственное бюджетное образовательное \\
+        учреждение высшего профессионального образования \\
+        <<Волгоградский государственный технический университет>> \\
+        \@faculty \\
+        Кафедра \@department
+      \end{center}
+      \vspace{9em}
+      \begin{center}
+        \large \ifx\@type\undefined
+          Реферат\ 
+        \else
+          \@type\ 
+        \fi
+        по \@subject\ на тему \\
+        <<\@topic>>
+      \end{center}
 
-      %\begin{flushright}
-        %\begin{minipage}{.40\textwidth}
-          %Выполнил%\ifthenelse{\equal{#7}{f}}{а}{}:
-          %\\ \@student \\
-          %\vspace{1em}\\
-          %Проверил%\ifthenelse{\equal{#9}{f}}{а}{}:
-          %\\ \@teacher
-        %% \vspace{1em}\\
-        %% Дата сдачи\\семестровой\\
-        %% на проверку: \hrulefill
-        %% \vspace{1em}\\
-        %% Оценка \rule{2cm}{0.5pt} б, \hrulefill
-        %\end{minipage}
-      %\end{flushright}
-      %\vspace{\fill}
-      %\begin{center}
-        %Волгоград, \the\year
-      %\end{center}
-    %\end{titlepage}
-    %\setcounter{page}{2}
-    %\setcounter{footnote}{0}%
-    %\global\let\@author\@empty
-    %\global\let\@date\@empty
-    %\global\let\@department\@empty
-    %\global\let\@faculty\@empty
-    %\global\let\@semnum\@empty
-    %\global\let\@student\@empty
-    %\global\let\@subject\@empty
-    %\global\let\@teacher\@empty
-    %\global\let\@thanks\@empty
-    %\global\let\@title\@empty
-    %\global\let\@variant\@empty
-    %\global\let\and\relax
-    %\global\let\author\relax
-    %\global\let\date\relax
-    %\global\let\department\relax
-    %\global\let\faculty\relax
-    %\global\let\maketitle\relax
-    %\global\let\semnum\relax
-    %\global\let\student\relax
-    %\global\let\subject\relax
-    %\global\let\teacher\relax
-    %\global\let\thanks\relax
-    %\global\let\title\relax
-    %\global\let\variant\relax
+      \vspace{5em}
+      \begin{flushright}
+        \begin{minipage}{.40\textwidth}
+          Выполнил\ifx\@studentfemale\@femaleletter
+            а
+          \fi
+          \\ \@student \\
+          \vspace{1em}\\
+          Проверил\ifx\@teacherfemale\@femaleletter
+            а
+          \fi
+          \\ \@teacher
+        \end{minipage}
+      \end{flushright}
+      \vspace{\fill}
+      \begin{center}
+        Волгоград, \the\year
+      \end{center}
+    \end{titlepage}
+    \setcounter{page}{2}
+    \setcounter{footnote}{0}%
+    \global\let\@author\@empty
+    \global\let\@date\@empty
+    \global\let\@department\@empty
+    \global\let\@faculty\@empty
+    \global\let\@topic\@empty
+    \global\let\@student\@empty
+    \global\let\@subject\@empty
+    \global\let\@teacher\@empty
+    \global\let\@thanks\@empty
+    \global\let\@title\@empty
+    \global\let\@studentfemale\@empty
+    \global\let\@teacherfemale\@empty
+    \global\let\@type\@empty
+    \global\let\and\relax
+    \global\let\author\relax
+    \global\let\date\relax
+    \global\let\department\relax
+    \global\let\faculty\relax
+    \global\let\maketitle\relax
+    \global\let\topic\relax
+    \global\let\student\relax
+    \global\let\subject\relax
+    \global\let\teacher\relax
+    \global\let\thanks\relax
+    \global\let\title\relax
+    \global\let\studentfemale\relax
+    \global\let\teacherfemale\relax
+    \global\let\type\relax
   }
 % если не нужен титульный лист
 \else
@@ -188,17 +182,65 @@
 
 % Семантические элементы
 % ----------------------
+\newcommand*\chaptermark[1]{}
 \setcounter{secnumdepth}{3} % глубина нумерации семантических элементов
 % объявляются счётчики
-\newcounter {section}
+\newcounter {chapter}
+\newcounter {section}[chapter]
 \newcounter {subsection}[section]
 \newcounter {subsubsection}[subsection]
 % представление счётчиков
-\renewcommand\thesection      {\@arabic\c@section}
+\renewcommand\thechapter      {\@arabic\c@chapter}
+\renewcommand\thesection      {\thechapter.\@arabic\c@section}
 \renewcommand\thesubsection   {\thesection.\@arabic\c@subsection}
-\renewcommand\thesubsubsection{\thesubsection .\@arabic\c@subsubsection}
+\renewcommand\thesubsubsection{\thesubsection.\@arabic\c@subsubsection}
+\newcommand\@chapapp{\chaptername}
 
 % объявление команд секционирования
+% chapter
+\newcommand\chapter{
+                    \thispagestyle{plain}%
+                    \global\@topnum\z@
+                    \@afterindentfalse
+                    \secdef\@chapter\@schapter
+                   }
+\def\@chapter[#1]#2{
+                    \ifnum \c@secnumdepth >\m@ne
+                      \refstepcounter{chapter}%
+                      \typeout{\@chapapp\space\thechapter.}%
+                      \addcontentsline{toc}{chapter}%
+                        {\protect\numberline{\thechapter}#1}%
+                    \else
+                      \addcontentsline{toc}{chapter}{#1}%
+                    \fi
+                    \chaptermark{#1}%
+                    \addtocontents{lof}{\protect\addvspace{10\p@}}%
+                    \addtocontents{lot}{\protect\addvspace{10\p@}}%
+                    \@makechapterhead{#2}%
+                    \@afterheading
+                   }
+\def\@makechapterhead#1{%
+  \vskip 1em%
+  {\parindent \z@ \raggedright \normalfont
+    \ifnum \c@secnumdepth >\m@ne
+        \large\bfseries \@chapapp\space \thechapter.
+    \fi
+    \interlinepenalty\@M
+    \large \bfseries #1\par\nobreak
+    \vskip 1em
+  }}
+% chapter*
+\def\@schapter#1{
+                   \@makeschapterhead{#1}%
+                   \@afterheading
+                }
+\def\@makeschapterhead#1{%
+  \vskip 1em%
+  {\parindent \z@ \raggedright \normalfont
+    \interlinepenalty\@M
+    \large \bfseries #1\par\nobreak
+    \vskip 1em
+  }}
 \newcommand\section{\@startsection {section}
                                      {1}  % уровень секционирования
                                      {\z@}% отступ слева
@@ -310,9 +352,10 @@
 
 % приложение
 \newcommand\appendix{\par
+  \setcounter{chapter}{0}%
   \setcounter{section}{0}%
   \setcounter{subsection}{0}%
-  \gdef\thesection{\@Alph\c@section}}
+  \gdef\thechapter{\@Alph\c@chapter}}
 
 % снова длины. Почему бы всё в одном месте не определить?
 \setlength\arraycolsep{5\p@}
@@ -411,13 +454,14 @@
         \@mkboth{%
            \MakeUppercase\contentsname}{\MakeUppercase\contentsname}}%
     \@starttoc{toc}%
+    \newpage
     }
 % что это за сущности вида "\l@..."?
 % по ходу дела, это способ отображения в toc, lof, lot
-\newcommand*\l@section[2]{%
-  \ifnum \c@tocdepth >\z@
-    \addpenalty\@secpenalty
-    \addvspace{1.0em \@plus\p@}%
+\newcommand*\l@chapter[2]{%
+  \ifnum \c@tocdepth >\m@ne
+    \addpenalty{-\@highpenalty}%
+    \vskip 1.0em \@plus\p@
     \setlength\@tempdima{1.5em}%
     \begingroup
       \parindent \z@ \rightskip \@pnumwidth
@@ -426,10 +470,12 @@
       \advance\leftskip\@tempdima
       \hskip -\leftskip
       #1\nobreak\hfil \nobreak\hb@xt@\@pnumwidth{\hss #2}\par
+      \penalty\@highpenalty
     \endgroup
   \fi}
-\newcommand*\l@subsection{\@dottedtocline{2}{1.5em}{2.3em}}
-\newcommand*\l@subsubsection{\@dottedtocline{3}{3.8em}{3.2em}}
+\newcommand*\l@section{\@dottedtocline{1}{1.5em}{2.3em}}
+\newcommand*\l@subsection{\@dottedtocline{2}{3.8em}{3.2em}}
+\newcommand*\l@subsubsection{\@dottedtocline{3}{7.0em}{4.1em}}
 
 % список изображений
 \newcommand\listoffigures{%
