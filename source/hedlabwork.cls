@@ -20,6 +20,12 @@
   \@pscyrtrue
 }
 
+\newif\if@pages
+\@pagesfalse
+\DeclareOption{pages}{
+  \@pagestrue
+}
+
 \newif\if@numeric % назвать как-нибудь
 \@numericfalse
 \DeclareOption{nonums}{
@@ -355,8 +361,14 @@
   \space\number\day, \number\year}
 \setlength\columnsep{10\p@}
 \setlength\columnseprule{0\p@}
-\pagestyle{plain}
+
 \pagenumbering{arabic}
+\if@pages
+  \pagestyle{plain}
+\else
+  \pagestyle{empty}
+\fi
+
 \if@twoside
 \else
   \raggedbottom
