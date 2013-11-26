@@ -423,6 +423,7 @@
         \@mkboth{%
            \MakeUppercase\contentsname}{\MakeUppercase\contentsname}}%
     \@starttoc{toc}%
+    \newpage
     }
 % что это за сущности вида "\l@..."?
 % по ходу дела, это способ отображения в toc, lof, lot
