@@ -6,12 +6,14 @@
 \newif\if@shortcuts
 \newif\if@environments
 \newif\if@vectors
+\newif\if@root
 
 \@complexfalse
 \@derivativefalse
 \@shortcutsfalse
 \@environmentsfalse
 \@vectorsfalse
+\@rootfalse
 
 % работа с комплексными числами
 \DeclareOption{complex}{%
@@ -36,12 +38,16 @@
     \@vectorstrue
 }
 
+% закрывающийся символ корня
+\DeclareOption{root}{
+    \@roottrue
+}
+
 \ExecuteOptions{complex,derivative,shortcuts,environments,vectors}
 \ProcessOptions
 % прочие обозначения и команды
 \newcommand{\const}{\mathrm{const}} % константа
 \newcommand{\midnum}[1]{\left\langle#1\right\rangle} % обозначение среднего
-
 
 \RequirePackage[intlimits,sumlimits,namelimits,centertags]{amsmath}
 \RequirePackage{amssymb}
@@ -120,4 +126,16 @@
     \newcommand{\divergence}{\mathrm{div\,}}
     \newcommand{\gradient}{\mathrm{grad\,}}
     \newcommand{\rotor}{\mathrm{rot\,}}
+\fi
+
+\if@root
+    \RequirePackage{letltxmacro}
+    \let\oldr@@t\r@@t
+    \def\r@@t#1#2{%
+    \setbox0=\hbox{$\oldr@@t#1{#2\,}$}\dimen0=\ht0
+    \advance\dimen0-0.2\ht0
+    \setbox2=\hbox{\vrule height\ht0 depth -\dimen0}%
+    {\box0\lower0.4pt\box2}}
+    \LetLtxMacro{\oldsqrt}{\sqrt}
+    \renewcommand*{\sqrt}[2][\ ]{\oldsqrt[#1]{#2}}
 \fi
