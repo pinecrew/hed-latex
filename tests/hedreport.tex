@@ -1,9 +1,8 @@
 \documentclass[pscyr,titlepage]{hedreport}
 \usepackage[russian]{babel}
 \usepackage[utf8]{inputenc}
-\usepackage{hedmaths}
+\usepackage[root]{hedmaths}
 \usepackage[nuclear]{hedphysics}
-\usepackage{color}
 
 \student[f]{студентка группы МХ-101\\Рощенко С. А.}
 \teacher[m]{доктор физ.-мат. наук\\Доу Дж. Старший}
@@ -16,17 +15,6 @@
 \begin{document}
 	\maketitle
 	\chapter{This is REPORT!}
-	\begin{flushright}
-		\begin{minipage}{.2\textwidth}
-			\footnotesize
-			--- {\normalsize\color{red} Я}ndex, дай рыбу!\\
-			--- Okay.
-			
-			\hrulefill
-			
-			Автор неизвестен
-		\end{minipage}
-	\end{flushright}
         
 	В ряде недавних экспериментов силовое поле отражает эксимер, дальнейшие выкладки оставим студентам в качестве несложной домашней работы. Силовое поле, очевидно, упруго-пластично. Показательный пример – аллитерация инструментально обнаружима. Симулякр, если рассматривать процессы в рамках специальной теории относительности, вращает аксиоматичный полином, явно демонстрируя всю чушь вышесказанного. Сумма ряда вырождена. Различное расположение представляет собой степенной ряд, явно демонстрируя всю чушь вышесказанного.
 
@@ -39,28 +27,57 @@
 		Вороне где-то Бог послал кусочек сыру...
 	\end{proposition}
 	\begin{comment}
-		наверное TCP/IP пакетом
+		Наверное TCP/IP пакетом
 	\end{comment}
+	\begin{comment}
+		Кто-кто послал?
+	\end{comment}
+	\begin{proposition}
+		У вороны есть сыр.
+	\end{proposition}
+	
 	\begin{lemma}
 		если \( g_1(x), g_2(x) \in R[x] \),
 		то \( C_{g_1g_2} = C_{g_1} C_{g_2} \)
 	\end{lemma}
-	\begin{solution}
-		\( \nucleus{1}{2}{L} - \nucleus{2}{1}{M} = ? \)
-	\end{solution}
-	
-	\begin{quotation}
-		Kill it with fire. It's the best way.
-	\end{quotation}
 	
 	\begin{proof}
 		http://goo.gl/iySIs
 	\end{proof}
+	
+	Как говорил мудрый старейшина:
+	\begin{quotation}
+		Kill it with fire. It's the best way.
+	\end{quotation}
+	
+	\begin{solution}
+		Допустим, что \( \nucleus{1}{2}{L} - \nucleus{2}{1}{M} = 1. \)
+		
+		Тогда
+		\[
+			\sin^2\xi + \cos^2\xi = 
+			\nucleus{1}{2}{L} - \nucleus{2}{1}{M}.
+		\]		
+		Откуда с помощью простых преобразований найдем \( \xi \).
+	\end{solution}
+	
+	\section{Лирическое вступление}
 	\[
 		\dder{}{t}\left( \pder{x}{\kappa} \right) =
 			\ppder{\divergence{\vec{r}}}{\phi}\cdot\rotor{\vec\Gamma} +
-			\frac{\Re{x}}{\Im{\psi^3}} - \pcder{x}{\alpha}{\beta}
+			\frac{\Re{x}}{\Im{\psi^3}} - \pcder{x}{\alpha}{\beta},
 	\]
+	где \( \alpha = \sqrt[3]{\beta + \dfrac{2x}{\kappa}} \).
+	\begin{comment}
+		При использовании пакета опции {\tt root} пакета {\tt{hedmaths}} у корня
+		появится закрывающая черта:
+		\[
+			\Delta\sigma = \sqrt{\left( \pder{\sigma}{J}\Delta J \right)^2 +
+			\left( \pder{\sigma}{U}\Delta U \right)^2 +
+			\left( \pder{\sigma}{T}\Delta T \right)^2 +
+			\left( \pder{\sigma}{T_0}\Delta T_0 \right)^2}.
+		\]
+	\end{comment}
 	\begin{table}[ht]
 		\centering
 		\caption{Пример таблицы с использованием центрирования
