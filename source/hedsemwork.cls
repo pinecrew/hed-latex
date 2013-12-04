@@ -97,8 +97,11 @@
 
 \def\student[#1]#2{\gdef\@student{#2}\gdef\@studentfemale{#1}}
 \def\@student{\@latex@error{No \noexpand\student given}\@ehc}
+
 \def\@femaleletter{f}
-% пол: f -- женский, остальное -- мужской
+\def\@allletter{a}
+
+% пол: f -- женский, a -- множественное число, остальное -- мужской
 % сделать #1 необязательным параметром, чтобы прописывать его только
 % при необходимости
 
@@ -129,7 +132,6 @@
         <<\@subject>>
       \end{center}
       \ifx\@variant\undefined
-        % при использовании if наблюдается странный артефакт вида *=*
         \vspace{5em}
       \else
         \vspace{1em}
@@ -143,6 +145,10 @@
         \begin{minipage}{.40\textwidth}
           Выполнил\ifx\@studentfemale\@femaleletter
             а
+          \else
+            \ifx\@studentfemale\@allletter
+              и
+            \fi
           \fi
           \\ \@student \\
           \vspace{1em}\\

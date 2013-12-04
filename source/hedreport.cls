@@ -100,6 +100,7 @@
   \def\@topic{\@latex@error{No \noexpand\topic given}\@ehc}
 
   \def\@femaleletter{f}
+  \def\@allletter{a}
 
   \def\student[#1]#2{\gdef\@student{#2}\gdef\@studentfemale{#1}}
   \def\@student{\@latex@error{No \noexpand\student given}\@ehc}
@@ -136,6 +137,10 @@
         \begin{minipage}{.40\textwidth}
           Выполнил\ifx\@studentfemale\@femaleletter
             а
+          \else
+            \ifx\@studentfemale\@allletter
+              и
+            \fi
           \fi
           \\ \@student \\
           \vspace{1em}\\
