@@ -1,6 +1,6 @@
 % метаинформация
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{hedsemwork}[2013/09/21 v0.1.9]
+\ProvidesClass{hedsemwork}[2013/12/08 v0.1.99]
 
 % объявление булевых переменных
 \newif\if@restonecol
@@ -126,7 +126,7 @@
         \large Семестровая работа
         \ifx\@semnum\undefined
         \else
-          №\@semnum\ 
+          №\@semnum\
         \fi
         по дисциплине \\
         <<\@subject>>
@@ -539,8 +539,6 @@
 %\renewcommand{\@biblabel}[1]{#1.}
 
 % удобная штука
-\RequirePackage{array}
-\newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1\textwidth}}
-\renewcommand{\arraystretch}{1.2}
+\RequirePackage[column]{hedfeatures}
 
 \endinput

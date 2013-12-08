@@ -1,6 +1,6 @@
 % метаинформация
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{hedreport}[2013/10/16 v0.1.9]
+\ProvidesClass{hedreport}[2013/12/08 v0.1.99]
 
 % объявление булевых переменных
 \newif\if@restonecol
@@ -107,9 +107,9 @@
 
   \def\teacher[#1]#2{\gdef\@teacher{#2}\gdef\@teacherfemale{#1}}
   \def\@teacher{\@latex@error{No \noexpand\teacher given}\@ehc}
-  
+
   \def\type#1{\gdef\@type{#1}}
-  
+
   \RequirePackage[utf8]{inputenc}    %%%% для русского на титульном листе
   \newcommand\maketitle{
     \begin{titlepage}
@@ -124,9 +124,9 @@
       \vspace{9em}
       \begin{center}
         \large \ifx\@type\undefined
-          Реферат\ 
+          Реферат\
         \else
-          \@type\ 
+          \@type\
         \fi
         по \@subject\ на тему \\
         <<\@topic>>
@@ -605,8 +605,6 @@
 %\renewcommand{\@biblabel}[1]{#1.}
 
 % удобная штука
-\RequirePackage{array}
-\newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1\textwidth}}
-\renewcommand{\arraystretch}{1.2}
+\RequirePackage[column]{hedfeatures}
 
 \endinput

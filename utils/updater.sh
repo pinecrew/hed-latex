@@ -3,7 +3,7 @@ VERBOSE=1
 added=$(git status -s | grep "A " | tr -d "A ")
 modified=$(git status -s | grep "M " | tr -d "M ")
 day=$(date +%Y/%m/%d)
-version="0.1.9"
+version="0.1.99"
 
 if [[ $VERBOSE ]]; then
     echo "Новые файлы:"

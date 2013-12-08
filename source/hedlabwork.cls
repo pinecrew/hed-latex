@@ -1,6 +1,6 @@
 % метаинформация
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{hedlabwork}[2013/09/21 v0.1.9]
+\ProvidesClass{hedlabwork}[2013/12/08 v0.1.99]
 
 % объявление булевых переменных
 \newif\if@restonecol
@@ -130,7 +130,7 @@
                                      {2ex}%
                                      {2ex}%
                                      {\normalfont\normalsize\bfseries}}
-                                     
+
 % в лабораторных порой нет особой нужды в секционировании, но есть нужда в заголовках
 \if@numeric
   \renewcommand\thesection      {}
@@ -383,8 +383,6 @@
 %\renewcommand{\@biblabel}[1]{#1.}
 
 % удобная штука
-\RequirePackage{array}
-\newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1\textwidth}}
-\renewcommand{\arraystretch}{1.2}
+\RequirePackage[column]{hedfeatures}
 
 \endinput
