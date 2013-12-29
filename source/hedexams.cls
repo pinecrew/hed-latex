@@ -32,7 +32,7 @@
                     \thispagestyle{plain}%
                     \global\@topnum\z@
                     \@afterindentfalse
-                    \secdef\@chapter\@section
+                    \secdef\@chapter\@schapter
                    }
 \def\@chapter[#1]#2{
                     \ifnum \c@secnumdepth >\m@ne
@@ -41,7 +41,7 @@
                       \addcontentsline{toc}{chapter}%
                         {\protect\numberline{\thechapter}#1}%
                     \else
-                      \addcontentsline{toc}{qusetion}{#1}%
+                      \addcontentsline{toc}{question}{#1}%
                     \fi
                     \chaptermark{#1}%
                     \addtocontents{lof}{\protect\addvspace{10\p@}}%
@@ -49,6 +49,11 @@
                     \@makechapterhead{#2}%
                     \@afterheading
                    }
+\def\@schapter#1{
+    \@makeschapterhead{#1}%
+    \@afterheading
+}
+
 \def\@makechapterhead#1{%
   \vskip 1em%
   {\parindent \z@ \raggedright \normalfont
