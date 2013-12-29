@@ -22,31 +22,26 @@
 % объявляются счётчики
 \newcounter {chapter}
 \newcounter {section}[chapter]
-\newcounter {subsection}[section]
-\newcounter {subsubsection}[subsection]
 % представление счётчиков
-\renewcommand\thechapter      {\@arabic\c@chapter}
-\renewcommand\thesection      {\thechapter.\@arabic\c@section}
-\renewcommand\thesubsection   {\thesection.\@arabic\c@subsection}
-\renewcommand\thesubsubsection{\thesubsection.\@arabic\c@subsubsection}
-\newcommand\@chapapp{\chaptername}
+\renewcommand\thechapter    {\@arabic\c@chapter}
+\renewcommand\thesection {\thechapter.\@arabic\c@section}
+\newcommand\@chapterprefix{Вопрос №}
 
 % объявление команд секционирования
-% chapter
 \newcommand\chapter{
                     \thispagestyle{plain}%
                     \global\@topnum\z@
                     \@afterindentfalse
-                    \secdef\@chapter\@schapter
+                    \secdef\@chapter\@section
                    }
 \def\@chapter[#1]#2{
                     \ifnum \c@secnumdepth >\m@ne
                       \refstepcounter{chapter}%
-                      \typeout{\@chapapp\space\thechapter.}%
+                      \typeout{\@chapterprefix\space\thechapter.}%
                       \addcontentsline{toc}{chapter}%
                         {\protect\numberline{\thechapter}#1}%
                     \else
-                      \addcontentsline{toc}{chapter}{#1}%
+                      \addcontentsline{toc}{qusetion}{#1}%
                     \fi
                     \chaptermark{#1}%
                     \addtocontents{lof}{\protect\addvspace{10\p@}}%
@@ -59,21 +54,9 @@
   {\parindent \z@ \raggedright \normalfont
     \ifnum \c@secnumdepth >\m@ne
         \large\bfseries
-        \@chapapp\space
+        \@chapterprefix\space
         \thechapter.
     \fi
-    \interlinepenalty\@M
-    \large \bfseries #1\par\nobreak
-    \vskip 1em
-  }}
-% chapter*
-\def\@schapter#1{
-                   \@makeschapterhead{#1}%
-                   \@afterheading
-                }
-\def\@makeschapterhead#1{%
-  \vskip 1em%
-  {\parindent \z@ \raggedright \normalfont
     \interlinepenalty\@M
     \large \bfseries #1\par\nobreak
     \vskip 1em
@@ -84,24 +67,12 @@
                                      {3ex}% отступ сверху
                                      {3ex}% отступ снизу
                                      {\normalfont\normalsize\bfseries}} % шрифт
-\newcommand\subsection{\@startsection{subsection}
-                                     {2}
-                                     {\z@}%
-                                     {2ex}%
-                                     {2ex}%
-                                     {\normalfont\normalsize\bfseries}}
-\newcommand\subsubsection{\@startsection{subsubsection}
-                                     {3}
-                                     {\z@}%
-                                     {2ex}%
-                                     {2ex}%
-                                     {\normalfont\normalsize\bfseries}}
 
 % определение странных вещей
 \newcommand\@pnumwidth{1.55em}% место для номеров страниц в toc, lof и lot
 \newcommand\@tocrmarg{2.55em} % wtf?
 \newcommand\@dotsep{4.5}      % расстояние между точками в toc, lof и lot
-\setcounter{tocdepth}{2}        % установили глубину оглавления
+\setcounter{tocdepth}{1}        % установили глубину оглавления
 \newcommand\tableofcontents{%
     \section*{\contentsname
         \@mkboth{%
@@ -125,8 +96,6 @@
   \endgroup
 \fi}
 \newcommand*\l@section{\@dottedtocline{1}{1.5em}{2.3em}}
-\newcommand*\l@subsection{\@dottedtocline{2}{3.8em}{3.2em}}
-\newcommand*\l@subsubsection{\@dottedtocline{3}{7.0em}{4.1em}}
 
 \newcounter{figure}
 \gdef\thefigure{\@arabic\c@figure}
@@ -238,6 +207,8 @@
 
 \RequirePackage[column]{hedfeatures}
 
+\newcommand{\question}[1]{\chapter{#1}}
+\newcommand{\subquestion}[1]{\section{#1}}
 \endinput
 
 
