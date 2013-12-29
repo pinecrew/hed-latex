@@ -5,26 +5,29 @@ base_dir="$(pwd -P)/../"
 [ -d $base_dir/tmp ] && rm -r $base_dir/tmp
 mkdir -p $base_dir/{tmp,build}
 cp  -r $base_dir/tests/* $base_dir/tmp
+
 tests=$(ls ../tests/)
-i=1
+
+i=0
 for t in $tests; do
-    echo "$i) $t"
+    tests_array[$i]=$t
+    let i=$i+1
+done
+
+i=0
+while [ $i -lt ${#tests_array[@]} ]; do
+    echo "$(( $i + 1 ))) ${tests_array[$i]}"
     let i=$i+1
 done
 echo "Выберите, какие тесты проводить:"
 read selected
 cd ../tmp
-i=1
-for t in $tests; do
-    for j in $selected; do
-        if [[ i -eq j ]]; then
-            cd $t &&\
-            cp ../../source/* .
-            latexmk -pdf "test.tex" &&\
-            mv test.pdf ../../build/$t.pdf &&\
-            cd ..
-        fi
-    done
-    let i=$i+1
+for j in $selected; do
+    let j=$j-1
+    cd ${tests_array[j]} &&\
+    cp ../../source/* .
+    latexmk -pdf "test.tex" &&\
+    mv test.pdf ../../build/${tests_array[j]}.pdf &&\
+    cd ..
 done
 
