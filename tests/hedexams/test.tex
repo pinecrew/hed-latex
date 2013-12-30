@@ -2,6 +2,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[russian]{babel}
 \usepackage[derivative]{hedmaths}
+\usepackage{amsmath}
 \usepackage{graphicx}
 \begin{document}
     \tableofcontents
@@ -194,5 +195,147 @@
 Полученная Планком формула хорошо описывает экспериментальную зависимость и из
 неё следуют закон Стефана-Больцмана (интегрированием) и закон смещения Вина
 (дифференцированием).
+
+\question{Оператор момента импульса}
+
+В классической механике моментом импульса материальной точки называют векторное
+произведение радиус-вектора этой точки на её импульс:
+\[
+    \vec{L} = \vec{r}\times\vec{p}.
+\]
+
+Аналогично можно ввести оператор момента импульса:
+\[
+    \hat{\vec{L}} = \hat{\vec{r}}\times\hat{\vec{p}}.
+\]
+
+Распишем этот оператор покоординатно:
+\[
+    \hat{\vec{L}} =
+    \begin{vmatrix}
+        \vec{e}_x & \vec{e}_y & \vec{e}_z \\
+        x         & y         & z         \\
+        \hat{p}_x & \hat{p}_y & \hat{p}_z \\
+    \end{vmatrix} =
+    (y\hat{p}_z - z\hat{p}_y)\vec{e}_x +
+    (z\hat{p}_x - x\hat{p}_z)\vec{e}_y +
+    (x\hat{p}_y - y\hat{p}_x)\vec{e}_z.
+\]
+Учитывая, что
+\[
+    \hat{p}_\alpha = -i\hbar\pder{}{\alpha}, \quad (\alpha \in \{ x,y,z \})
+\]
+для проекций момента импульса на декартовы оси получим:
+\[
+    \left\{
+        \begin{array}{l}
+            \hat{L}_x = -i\hbar\left( y\pder{}{z} - z\pder{}{y} \right),\\
+            \hat{L}_y = -i\hbar\left( z\pder{}{x} - x\pder{}{z} \right),\\
+            \hat{L}_z = -i\hbar\left( x\pder{}{y} - y\pder{}{x} \right).\\
+        \end{array}
+    \right.
+\]
+Запишем теперь коммутационные соотношения для проекций момента:
+\begin{gather*}
+    \left[\hat{L}_x, \hat{L}_y\right] = \hat{L}_x\hat{L}_y - \hat{L}_y\hat{L}_x=
+    (y\hat{p}_z - z\hat{p}_y)(z\hat{p}_x - x\hat{p}_z) -
+    (z\hat{p}_x - x\hat{p}_z)(y\hat{p}_z - z\hat{p}_y) =\\
+    =(y\hat{p}_z z\hat{p}_x - xy\hat{p}_z^2 - z^2\hat{p}_y\hat{p}_x +
+    z\hat{p}_y x\hat{p}_z) -
+    (z\hat{p}_x y\hat{p}_z - xy\hat{p}_z^2 - z^2\hat{p}_x\hat{p}_y +
+    x\hat{p}_z z\hat{p}_y) =\\
+    =x\hat{p}_y [z, \hat{p}_z] - y\hat{p}_x[z, \hat{p}_z]=
+    [z, \hat{p}_z]\hat{L}_z = i\hbar\hat{L}_z.
+\end{gather*}
+Циклически переставляя координаты получим и 2 других коммутационных соотношения:
+\begin{align*}
+    & \left[\hat{L}_y, \hat{L}_z\right] = i\hbar\hat{L}_x,\\
+    & \left[\hat{L}_z, \hat{L}_x\right] = i\hbar\hat{L}_y.
+\end{align*}
+Определим также следующий коммутатор:
+\begin{gather*}
+    \left[ \hat{L}^2, \hat{L}_x \right] = \left[ \hat{L}_x^2, \hat{L}_x \right]
+    + \left[ \hat{L}_y^2, \hat{L}_x \right] +
+    \left[ \hat{L}_z^2, \hat{L}_x \right] =
+    \hat{L}_y\hat{L}_y\hat{L}_x - \hat{L}_x\hat{L}_y\hat{L}_y +
+    \hat{L}_z\hat{L}_z\hat{L}_x - \hat{L}_x\hat{L}_z\hat{L}_z
+\end{gather*}
+Учтём теперь
+\[
+    \hat{L}_x\hat{L}_y = \hat{L}_y\hat{L}_x + i\hbar\hat{L}_z, \quad
+    \hat{L}_x\hat{L}_z = \hat{L}_z\hat{L}_x - i\hbar\hat{L}_y
+\]
+и получим
+\begin{gather*}
+    \left[ \hat{L}^2, \hat{L}_x \right] =
+    \hat{L}_y\hat{L}_x\hat{L}_y - i\hbar\hat{L}_y\hat{L}_z -
+    \hat{L}_y\hat{L}_x\hat{L}_y - i\hbar\hat{L}_z\hat{L}_y +
+    \hat{L}_z\hat{L}_x\hat{L}_z + i\hbar\hat{L}_z\hat{L}_y -
+    \hat{L}_x\hat{L}_z\hat{L}_z + i\hbar\hat{L}_y\hat{L}_z = 0.
+\end{gather*}
+Совершенно аналогично можно показать, что для двух других проекций этот
+коммутатор также будет равен нулю. Отсюда можно сделать вывод, что одновременно
+могут быть определены лишь одна из проекций момента и его величина. Поэтому
+имеет смысл рассмотреть этот оператор в полярных координатах. В них операторы
+проекций момента принимают вид
+\begin{align*}
+    & \hat{L}_x = i\hbar\left(\sin\phi\pder{}{\theta} +
+        \ctg\theta\cos\phi\pder{}{\phi}\right), \\
+    & \hat{L}_y = -i\hbar\left(\cos\phi\pder{}{\theta} -
+        \ctg\theta\sin\phi\pder{}{\phi}\right), \\
+    & \hat{L}_z = -i\hbar\pder{}{\phi}.
+\end{align*}
+Квадрату момента импульса в сферических координатах соответствует оператор
+\[
+    \hat{L}^2 = -\hbar^2\Delta_{\theta,\phi},
+\]
+где
+\[
+    \Delta_{\theta,\phi} = \frac{1}{\sin\theta}\pder{}{\theta}
+        \left(\sin\theta\pder{}{\theta}\right) +
+        \frac{1}{\sin^2\theta}\ppder{}{\phi}
+\]
+сферическая часть оператора Лапласа.
+
+Определим теперь собственные значения операторов \( \hat{L}_z \) и
+\( \hat{L}^2 \). Начнём с проекции:
+\[
+    \hat{L}_z\psi = L_z\psi,
+\]
+\[
+    -i\hbar\pder{\psi}{\phi} = L_z\psi,
+\]
+\[
+    \pder{\psi}{\phi} - i\frac{L_z}{\hbar}\psi = 0.
+\]
+\[
+    \psi = Ae^{i\frac{L_z}{\hbar}\phi}.
+\]
+Полученная функция должна иметь период \( 2\pi \), поэтому
+\[
+    \psi = Ae^{im\phi},
+\]
+\[
+    L_z = m\hbar,\quad m \in \mathbb{Z}.
+\]
+Теперь рассмотрим квадрат момента:
+\[
+    \hat{L}^2\psi = L^2\psi,
+\]
+\[
+    -\hbar^2\Delta_{\theta,\phi}\psi = L^2\psi,
+\]
+\[
+    \Delta_{\theta,\phi}\psi + (\frac{L}{\hbar})^2\psi = 0.
+\]
+Обозначив \( (L/\hbar)^2 = \lambda \) получим уравнение сферических функций:
+\[
+    \frac{1}{\sin\theta}\pder{}{\theta}
+        \left(\sin\theta\pder{\psi}{\theta}\right) +
+        \frac{1}{\sin^2\theta}\ppder{\psi}{\phi} + \lambda\psi = 0,
+\]
+решениями которого являются сферические функции \( Y_{lm} \), а собственные
+значения \( l(l+1),\ l\in\mathbb Z \). Собственные значения модуля момента
+импульса равны \( L = \hbar\sqrt{l(l+1)} \).
 
 \end{document}
