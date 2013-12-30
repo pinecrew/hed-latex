@@ -1,6 +1,12 @@
 :: OEM 866
 @echo off
-cd %programfiles%
+reg query "HKU\S-1-5-19">nul 2>&1 && set /a isAdmin=1 || set /a isAdmin=0
+if %isAdmin%==0 (
+    echo Необходимо запускать с правами администратора!
+    goto exit
+)
+
+cd /d %programfiles%
 set /a ex=0
 
 <nul set /p str="Поиск директории MikTeX...               "
@@ -20,6 +26,9 @@ echo [ГОТОВО]
 if exist "%hedd%" (
     echo Директория HEd существует
     set /a ex=1
+    <nul set /p str="Удаление старой версии...                "
+    del /f /q "%hedd%\" > nul
+    echo [ГОТОВО]
     goto copy
 ) else (
     <nul set /p str="Создание директории для HEd...           "
@@ -36,7 +45,7 @@ if exist "%hedd%" (
 
 :copy
 <nul set /p str="Копирование файлов...                    "
-cd %~dp0
+cd /d %~dp0
 cd ..\source
 copy /Y hed* "%hedd%" > nul
 if %ERRORLEVEL% == 0 (
@@ -54,4 +63,5 @@ if %ERRORLEVEL% == 0 (
 )
 
 :exit
+cd /d %~dp0
 timeout /t 3 > nul
