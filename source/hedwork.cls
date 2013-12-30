@@ -45,7 +45,7 @@
 }
 
 % устанавливаем опции по умолчанию
-\ExecuteOptions{14pt,notitlepage}
+\ExecuteOptions{14pt,titlepage}
 % выполняем действия для выбранных опций
 \ProcessOptions
 
@@ -86,6 +86,7 @@
 % --------------
 % если нужен титульный лист
 \if@titlepage
+  \RequirePackage[utf8]{inputenc}    %%%% для русского на титульном листе
   % переменные для титульного листа
   \def\faculty#1{\gdef\@faculty{#1}}
   \def\@faculty{\@latex@error{No \noexpand\faculty given}\@ehc}
@@ -97,10 +98,9 @@
   \def\@subject{\@latex@error{No \noexpand\subject given}\@ehc}
 
   \def\topic#1{\gdef\@topic{#1}}
-  \def\@topic{\@latex@error{No \noexpand\topic given}\@ehc}
 
-  \def\@femaleletter{f}
-  \def\@allletter{a}
+  \def\@fletter{f}
+  \def\@aletter{a}
 
   \def\student[#1]#2{\gdef\@student{#2}\gdef\@studentfemale{#1}}
   \def\@student{\@latex@error{No \noexpand\student given}\@ehc}
@@ -110,7 +110,10 @@
 
   \def\type#1{\gdef\@type{#1}}
 
-  \RequirePackage[utf8]{inputenc}    %%%% для русского на титульном листе
+  \def\semnum#1{\gdef\@semnum{#1}}
+
+  \def\variant#1{\gdef\@variant{#1}}
+  
   \newcommand\maketitle{
     \begin{titlepage}
       \begin{center}
@@ -124,27 +127,44 @@
       \vspace{9em}
       \begin{center}
         \large \ifx\@type\undefined
-          Реферат\
+          Семестровая работа\
         \else
           \@type\
         \fi
-        по \@subject\ на тему \\
-        <<\@topic>>
+        \ifx\@semnum\undefined
+        \else
+          №\@semnum\
+        \fi
+        по дисциплине\\
+        <<\@subject>>\\
+        \ifx\@topic\undefined
+        \else
+          на тему \\
+          <<\@topic>>
+        \fi
       \end{center}
-
-      \vspace{5em}
+      \ifx\@variant\undefined
+        \vspace{5em}
+      \else
+        \vspace{1em}
+        \begin{center}
+          Вариант №\@variant
+        \end{center}
+        \vspace{3em}
+      \fi
+      
       \begin{flushright}
         \begin{minipage}{.40\textwidth}
-          Выполнил\ifx\@studentfemale\@femaleletter
+          Выполнил\ifx\@studentfemale\@fletter
             а
           \else
-            \ifx\@studentfemale\@allletter
+            \ifx\@studentfemale\@aletter
               и
             \fi
           \fi
           \\ \@student \\
           \vspace{1em}\\
-          Проверил\ifx\@teacherfemale\@femaleletter
+          Проверил\ifx\@teacherfemale\@fletter
             а
           \fi
           \\ \@teacher
@@ -170,6 +190,8 @@
     \global\let\@studentfemale\@empty
     \global\let\@teacherfemale\@empty
     \global\let\@type\@empty
+    \global\let\@variant\@empty
+    \global\let\@semnum\@empty
     \global\let\and\relax
     \global\let\author\relax
     \global\let\date\relax
@@ -185,6 +207,8 @@
     \global\let\studentfemale\relax
     \global\let\teacherfemale\relax
     \global\let\type\relax
+    \global\let\variant\relax
+    \global\let\semnum\relax
   }
 % если не нужен титульный лист
 \else
@@ -591,11 +615,6 @@
 \setlength\columnseprule{0\p@}
 \pagestyle{plain}
 \pagenumbering{arabic}
-\if@twoside
-\else
-  \raggedbottom
-\fi
-\onecolumn
 
 \parindent=1.25cm
 
