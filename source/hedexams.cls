@@ -17,92 +17,48 @@
 \@medpenalty  151 % назначение штрафов
 \@highpenalty 301 %
 
-\newcommand*\chaptermark[1]{}
 \setcounter{secnumdepth}{3} % глубина нумерации семантических элементов
 % объявляются счётчики
-\newcounter {chapter}
-\newcounter {section}[chapter]
+\newcounter {question}
+\newcounter {subquestion}[question]
 % представление счётчиков
-\renewcommand\thechapter    {\@arabic\c@chapter}
-\renewcommand\thesection {\thechapter.\@arabic\c@section}
-\newcommand\@chapterprefix{Вопрос №}
+\renewcommand\thequestion    {\@arabic\c@question.}
+\renewcommand\thesubquestion {\thequestion\@arabic\c@subquestion.}
 
-% объявление команд секционирования
-\newcommand\chapter{
-                    \thispagestyle{plain}%
-                    \global\@topnum\z@
-                    \@afterindentfalse
-                    \secdef\@chapter\@schapter
-                   }
-\def\@chapter[#1]#2{
-                    \ifnum \c@secnumdepth >\m@ne
-                      \refstepcounter{chapter}%
-                      \typeout{\@chapterprefix\space\thechapter.}%
-                      \addcontentsline{toc}{chapter}%
-                        {\protect\numberline{\thechapter}#1}%
-                    \else
-                      \addcontentsline{toc}{question}{#1}%
-                    \fi
-                    \chaptermark{#1}%
-                    \addtocontents{lof}{\protect\addvspace{10\p@}}%
-                    \addtocontents{lot}{\protect\addvspace{10\p@}}%
-                    \@makechapterhead{#2}%
-                    \@afterheading
-                   }
-\def\@schapter#1{
-    \@makeschapterhead{#1}%
-    \@afterheading
-}
+\newcommand\toc{\@startsection {toc}
+                                     {0}  % уровень секционирования
+                                     {\z@}% отступ слева
+                                     {3ex}% отступ сверху
+                                     {3ex}% отступ снизу
+                                     {\normalfont\Large\center}} % шрифт
 
-\def\@makechapterhead#1{%
-  \vskip 1em%
-  {\parindent \z@ \raggedright \normalfont
-    \ifnum \c@secnumdepth >\m@ne
-        \large\bfseries
-        \@chapterprefix\space
-        \thechapter.
-    \fi
-    \interlinepenalty\@M
-    \large \bfseries #1\par\nobreak
-    \vskip 1em
-  }}
-\newcommand\section{\@startsection {section}
+\newcommand\question{\@startsection {question}
                                      {1}  % уровень секционирования
                                      {\z@}% отступ слева
                                      {3ex}% отступ сверху
                                      {3ex}% отступ снизу
-                                     {\normalfont\normalsize\bfseries}} % шрифт
+                                     {\normalfont\large\bfseries}} % шрифт
 
+\newcommand\subquestion{\@startsection {subquestion}
+                                     {2}  % уровень секционирования
+                                     {\z@}% отступ слева
+                                     {3ex}% отступ сверху
+                                     {3ex}% отступ снизу
+                                     {\normalfont\normalsize\bfseries}} % шрифт
 % определение странных вещей
 \newcommand\@pnumwidth{1.55em}% место для номеров страниц в toc, lof и lot
 \newcommand\@tocrmarg{2.55em} % wtf?
 \newcommand\@dotsep{4.5}      % расстояние между точками в toc, lof и lot
 \setcounter{tocdepth}{1}        % установили глубину оглавления
 \newcommand\tableofcontents{%
-    \section*{\contentsname
-        \@mkboth{%
-           \MakeUppercase\contentsname}{\MakeUppercase\contentsname}}%
+    \toc*{Список вопросов}
     \@starttoc{toc}%
     \newpage
     }
-\newcommand*\l@chapter[2]{%
-\ifnum \c@tocdepth >\m@ne
-  \addpenalty{-\@highpenalty}%
-  \vskip 1.0em \@plus\p@
-  \setlength\@tempdima{1.5em}%
-  \begingroup
-    \parindent \z@ \rightskip \@pnumwidth
-    \parfillskip -\@pnumwidth
-    \leavevmode \bfseries
-    \advance\leftskip\@tempdima
-    \hskip -\leftskip
-    #1\nobreak\hfil \nobreak\hb@xt@\@pnumwidth{\hss #2}\par
-    \penalty\@highpenalty
-  \endgroup
-\fi}
-\newcommand*\l@section{\@dottedtocline{1}{1.5em}{2.3em}}
+\newcommand*\l@question{\normalfont\normalsize\bfseries\@dottedtocline{1}{.5em}{2.3em}}
+\newcommand*\l@subquestion{\normalfont\small\@dottedtocline{1}{1.5em}{2.3em}}
 
-\newcounter{figure}
+\newcounter{figure}[question]
 \gdef\thefigure{\@arabic\c@figure}
 \def\fps@figure{tbp}
 \def\ftype@figure{1}
@@ -115,7 +71,7 @@
                {\@dblfloat{figure}}
                {\end@dblfloat}
 % --- таблицы ---
-\newcounter{table}
+\newcounter{table}[question]
 \gdef\thetable{\@arabic\c@table}
 \def\fps@table{tbp}
 \def\ftype@table{2}
@@ -212,8 +168,6 @@
 
 \RequirePackage[column]{hedfeatures}
 
-\newcommand{\question}[1]{\chapter{#1}}
-\newcommand{\subquestion}[1]{\section{#1}}
 \endinput
 
 
