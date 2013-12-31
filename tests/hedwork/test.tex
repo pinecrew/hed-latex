@@ -1,7 +1,9 @@
-\documentclass{hedsemwork}
+\documentclass{hedwork}
 \usepackage[russian]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
+\usepackage[vectors,environments,complex,root]{hedmaths}
+\usepackage[nuclear]{hedphysics}
 
 \faculty{Факультет электроники и вычислительной техники}
 \department{<<Физика>>}
@@ -24,7 +26,7 @@
 \begin{figure}[t]
     \center
     \includegraphics[width=.47\textwidth]{image1.jpg}
-    \caption{Результаты исследования}
+    \caption[Результаты исследования (сон)]{Результаты исследования}
 \end{figure}
 \section{Ещё секция про эпическое интегрирование дифференциальных
 уравнений}
@@ -36,7 +38,7 @@
 \begin{figure}[ht]
     \center
     \includegraphics[width=.47\textwidth]{image2.jpg}
-    \caption{Результаты исследования}
+    \caption[Результаты исследования (поезд)]{Результаты исследования}
 \end{figure}
 
 \section{Немного математики}
@@ -87,5 +89,56 @@
      \end{enumerate} 
      \item два
 \end{enumerate}
+    
+
+\section{Примеры использования пакета hedmaths}
+    
+\begin{solution}
+    Допустим, что \( \nucleus{1}{2}{L} - \nucleus{2}{1}{M} = 1. \)
+
+    Тогда
+    \[
+        \sin^2\xi + \cos^2\xi = 
+        \nucleus{1}{2}{L} - \nucleus{2}{1}{M}.
+    \]
+    Откуда с помощью простых преобразований найдем \( \xi \).
+\end{solution}
+
+\[
+    \dder{}{t}\left( \pder{x}{\kappa} \right) =
+    \ppder{\divergence{\vec{r}}}{\phi}\cdot\rotor{\vec\Gamma} +
+    \frac{\Re{x}}{\Im{\psi^3}} - \average{\pcder{x}{\alpha}{\beta}},
+\]
+где \( \alpha = \sqrt[3]{\beta + \dfrac{2x}{\kappa}} \).
+
+\begin{comment}
+    При использовании пакета опции {\tt root} пакета {\tt{hedmaths}} у корня
+    появится закрывающая черта:
+    \[
+       \Delta\sigma = \sqrt{\left( \pder{\sigma}{J}\Delta J \right)^2 +
+        \left( \pder{\sigma}{U}\Delta U \right)^2 +
+        \left( \pder{\sigma}{T}\Delta T \right)^2 +
+        \left( \pder{\sigma}{T_0}\Delta T_0 \right)^2}.
+    \]
+\end{comment}
+
+\begin{table}[ht]
+    \centering
+    \caption{Пример таблицы с использованием центрированного столбца
+        фиксированного размера}
+    \begin{tabular}{|C{.2}|C{.2}|C{.17}|C{.18}|C{.15}|}
+        \hline
+        Объект & Вид & Контрольный уровень & Прибор & Результат \\ \hline
+        Рабочее место у манипулятора в операторной
+        & Измерение мощности дозы
+        & 1 мкЗв/час & ДРГ-01Т1 МКС-01Р-01
+        & 0,08\( \pm \)0,04 мкЗв/час \\ \hline
+        Захваты манипулятора, поверхности подвижного стола
+        & Контроль р/а загрязнённости методом мазков
+        & Отсутствие снимаемых загрязнений
+        & МКС-01Р-01 & отсутствует \\ \hline
+    \end{tabular}
+\end{table}
+
 \listoffigures
 \end{document}
