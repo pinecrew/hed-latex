@@ -5,8 +5,9 @@
 \ExecuteOptions{}
 
 \ProcessOptions
-\RequirePackage[utf8]{inputenc}    %%%% для русского на титульном листе
+\RequirePackage[utf8]{inputenc}
 \@twosidefalse    % чётные и нечётные страницы не различаются
+\@twocolumnfalse
 \@mparswitchfalse
 \input{size12.clo} % хардкодим размер шрифта
 \setlength\lineskip{1\p@} % высота строки
@@ -17,47 +18,119 @@
 \@medpenalty  151 % назначение штрафов
 \@highpenalty 301 %
 
-\setcounter{secnumdepth}{3} % глубина нумерации семантических элементов
+\setcounter{secnumdepth}{1} % глубина нумерации семантических элементов
 % объявляются счётчики
 \newcounter {question}
 \newcounter {subquestion}[question]
 % представление счётчиков
-\renewcommand\thequestion    {\@arabic\c@question.}
-\renewcommand\thesubquestion {\thequestion\@arabic\c@subquestion.}
+\renewcommand\thequestion    {\@arabic\c@question}
+\renewcommand\thesubquestion {\thequestion.\@arabic\c@subquestion}
 
-\newcommand\toc{\@startsection {toc}
-                                     {0}  % уровень секционирования
-                                     {\z@}% отступ слева
-                                     {3ex}% отступ сверху
-                                     {3ex}% отступ снизу
-                                     {\normalfont\Large\center}} % шрифт
+\newcommand*\questionmark[1]{}
+\newcommand\@questionname{Вопрос №}
+\newcommand\question{
+                    \thispagestyle{plain}%
+                    \global\@topnum\z@
+                    \@afterindentfalse
+                    \secdef\@question\@squestion
+                   }
+\def\@question[#1]#2{
+                    \ifnum \c@secnumdepth >\m@ne
+                      \refstepcounter{question}%
+                      \typeout{\@questionname\thequestion.\space}%
+                      \addcontentsline{toc}{question}%
+                        {\protect\numberline{\thequestion}#1}%
+                    \else
+                      \addcontentsline{toc}{question}{#1}%
+                    \fi
+                    \questionmark{#1}%
+                    \addtocontents{lof}{\protect\addvspace{10\p@}}%
+                    \addtocontents{lot}{\protect\addvspace{10\p@}}%
+                    \@makequestionhead{#2}%
+                    \@afterheading
+                   }
+\def\@makequestionhead#1{%
+  \vskip 1em%
+  {\parindent \z@ \raggedright \normalfont
+    \ifnum \c@secnumdepth >\m@ne
+        \large\bfseries
+        \@questionname\thequestion.\space
+    \fi
+    \interlinepenalty\@M
+    \large \bfseries #1\par\nobreak
+    \vskip 1em
+  }}
+% question*
+\def\@squestion#1{
+                   \@makesquestionhead{#1}%
+                   \@afterheading
+                }
+\def\@makesquestionhead#1{%
+  \vskip 1em%
+  {\parindent \z@ \raggedright \normalfont
+    \interlinepenalty\@M
+    \large \bfseries #1\par\nobreak
+    \vskip 1em
+  }}
 
-\newcommand\question{\@startsection {question}
-                                     {1}  % уровень секционирования
-                                     {\z@}% отступ слева
-                                     {3ex}% отступ сверху
-                                     {3ex}% отступ снизу
-                                     {\normalfont\large\bfseries}} % шрифт
-
-\newcommand\subquestion{\@startsection {subquestion}
-                                     {2}  % уровень секционирования
-                                     {\z@}% отступ слева
-                                     {3ex}% отступ сверху
-                                     {3ex}% отступ снизу
-                                     {\normalfont\normalsize\bfseries}} % шрифт
+\newcommand*\subquestionmark[1]{}
+\newcommand\subquestion{
+                    \thispagestyle{plain}%
+                    \global\@topnum\z@
+                    \@afterindentfalse
+                    \secdef\@subquestion\@ssubquestion
+                   }
+\def\@subquestion[#1]#2{
+                    \ifnum \c@secnumdepth >\z@
+                      \refstepcounter{subquestion}%
+                      \typeout{\thesubquestion.\space}%
+                      \addcontentsline{toc}{subquestion}%
+                        {\protect\numberline{\thesubquestion}#1}%
+                    \else
+                      \addcontentsline{toc}{subquestion}{#1}%
+                    \fi
+                    \subquestionmark{#1}%
+                    \@afterheading
+                   }
+\def\@makesubquestionhead#1{%
+  \vskip 1em%
+  {\parindent \z@ \raggedright \normalfont
+    \ifnum \c@secnumdepth >\z@
+        \normalsize\bfseries
+        \thesubquestion.\space
+    \fi
+    \interlinepenalty\@M
+    \normalsize\bfseries #1\par\nobreak
+    \vskip 1em
+  }}
+% subquestion*
+\def\@ssubquestion#1{
+                   \@makessubquestionhead{#1}%
+                   \@afterheading
+                }
+\def\@makessubquestionhead#1{%
+  \vskip 1em%
+  {\parindent \z@ \raggedright \normalfont
+    \interlinepenalty\@M
+    \normalsize\bfseries #1\par\nobreak
+    \vskip 1em
+  }}
 % определение странных вещей
 \newcommand\@pnumwidth{1.55em}% место для номеров страниц в toc, lof и lot
 \newcommand\@tocrmarg{2.55em} % wtf?
 \newcommand\@dotsep{4.5}      % расстояние между точками в toc, lof и lot
 \setcounter{tocdepth}{1}        % установили глубину оглавления
 \newcommand\tableofcontents{%
-    \toc*{Список вопросов}
+    \begin{center}
+        \Large Список вопросов
+    \end{center}
     \@starttoc{toc}%
     \newpage
     }
-\newcommand*\l@question{\normalfont\normalsize\bfseries\@dottedtocline{1}{.5em}{2.3em}}
+\newcommand*\l@question{\normalfont\normalsize\@dottedtocline{1}{.5em}{2.3em}}
 \newcommand*\l@subquestion{\normalfont\small\@dottedtocline{1}{1.5em}{2.3em}}
 
+% --- изображения ---
 \newcounter{figure}[question]
 \gdef\thefigure{\@arabic\c@figure}
 \def\fps@figure{tbp}
@@ -70,6 +143,8 @@
 \newenvironment{figure*}
                {\@dblfloat{figure}}
                {\end@dblfloat}
+% ××× изображения ×××
+
 % --- таблицы ---
 \newcounter{table}[question]
 \gdef\thetable{\@arabic\c@table}
@@ -169,5 +244,4 @@
 \RequirePackage[column]{hedfeatures}
 
 \endinput
-
 
