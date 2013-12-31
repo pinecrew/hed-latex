@@ -217,7 +217,6 @@
 
 % Семантические элементы
 % ----------------------
-\newcommand*\chaptermark[1]{}
 \setcounter{secnumdepth}{3} % глубина нумерации семантических элементов
 % объявляются счётчики
 \newcounter {chapter}
@@ -233,10 +232,11 @@
 \fi
 \renewcommand\thesubsection   {\thesection.\@arabic\c@subsection}
 \renewcommand\thesubsubsection{\thesubsection.\@arabic\c@subsubsection}
-\newcommand\@chapapp{\chaptername}
 
 % объявление команд секционирования
 % chapter
+\newcommand*\chaptermark[1]{}
+\newcommand\@chapapp{\chaptername}
 \newcommand\chapter{
                     \thispagestyle{plain}%
                     \global\@topnum\z@
