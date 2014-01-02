@@ -242,7 +242,7 @@
 \pagenumbering{arabic}
 
 \RequirePackage[column]{hedfeatures}
-\RequirePackage[colorlinks=true,linkcolor=black,pagecolor=black,filecolor=blue,citecolor=green,urlcolor=blue]{hyperref}
+\RequirePackage[unicode,colorlinks=true,linkcolor=black,filecolor=blue,citecolor=green,urlcolor=blue]{hyperref}
 
 \endinput
 
