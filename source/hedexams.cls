@@ -120,7 +120,7 @@
 \newcommand\@pnumwidth{1.55em}% место для номеров страниц в toc, lof и lot
 \newcommand\@tocrmarg{2.55em} % wtf?
 \newcommand\@dotsep{4.5}      % расстояние между точками в toc, lof и lot
-\setcounter{tocdepth}{1}        % установили глубину оглавления
+\setcounter{tocdepth}{1}      % установили глубину оглавления
 \newcommand\tableofcontents{%
     \begin{center}
         \Large Список вопросов
@@ -128,22 +128,10 @@
     \@starttoc{toc}%
     \newpage
     }
-\newcommand*\l@question[2]{%
-  \ifnum \c@tocdepth >\m@ne
-    \addpenalty{-\@highpenalty}%
-    \vskip 1.0em \@plus\p@
-    \setlength\@tempdima{1.5em}%
-    \begingroup
-      \parindent \z@ \rightskip \@pnumwidth
-      \parfillskip -\@pnumwidth
-      \leavevmode \normalsize\bfseries
-      \advance\leftskip\@tempdima
-      \hskip -\leftskip
-      #1\nobreak\hfil \nobreak\hb@xt@\@pnumwidth{\hss #2}\par
-      \penalty\@highpenalty
-    \endgroup
-  \fi}
-\newcommand*\l@subquestion{\normalfont\small\@dottedtocline{1}{1.5em}{2.3em}}
+\newcommand*\l@question{\normalfont\normalsize\@dottedtocline{1}{1.5em}{2.3em}}
+\newcommand*\l@subquestion{\normalfont\small\@dottedtocline{2}{2.5em}{2.3em}}
+% почему-то второй аргумент никак не влияет на отображение,
+% хотя он отвечает за отступ слева
 
 % --- изображения ---
 \newcounter{figure}[question]
