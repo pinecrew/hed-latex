@@ -43,6 +43,7 @@
                     \else
                       \addcontentsline{toc}{question}{#1}%
                     \fi
+                    \setcounter{equation}{0}%
                     \questionmark{#1}%
                     \addtocontents{lof}{\protect\addvspace{10\p@}}%
                     \addtocontents{lot}{\protect\addvspace{10\p@}}%
@@ -89,7 +90,7 @@
                     \else
                       \addcontentsline{toc}{subquestion}{#1}%
                     \fi
-                    \subquestionmark{#1}%
+                    \@makesubquestionhead{#2}%
                     \@afterheading
                    }
 \def\@makesubquestionhead#1{%
@@ -127,12 +128,26 @@
     \@starttoc{toc}%
     \newpage
     }
-\newcommand*\l@question{\normalfont\normalsize\@dottedtocline{1}{.5em}{2.3em}}
+\newcommand*\l@question[2]{%
+  \ifnum \c@tocdepth >\m@ne
+    \addpenalty{-\@highpenalty}%
+    \vskip 1.0em \@plus\p@
+    \setlength\@tempdima{1.5em}%
+    \begingroup
+      \parindent \z@ \rightskip \@pnumwidth
+      \parfillskip -\@pnumwidth
+      \leavevmode \normalsize\bfseries
+      \advance\leftskip\@tempdima
+      \hskip -\leftskip
+      #1\nobreak\hfil \nobreak\hb@xt@\@pnumwidth{\hss #2}\par
+      \penalty\@highpenalty
+    \endgroup
+  \fi}
 \newcommand*\l@subquestion{\normalfont\small\@dottedtocline{1}{1.5em}{2.3em}}
 
 % --- изображения ---
 \newcounter{figure}[question]
-\gdef\thefigure{\@arabic\c@figure}
+\gdef\thefigure{\thequestion.\@arabic\c@figure}
 \def\fps@figure{tbp}
 \def\ftype@figure{1}
 \def\ext@figure{lof}
@@ -147,7 +162,7 @@
 
 % --- таблицы ---
 \newcounter{table}[question]
-\gdef\thetable{\@arabic\c@table}
+\gdef\thetable{\thequestion.\@arabic\c@table}
 \def\fps@table{tbp}
 \def\ftype@table{2}
 \def\ext@table{lot}
@@ -217,8 +232,8 @@
 \renewcommand\p@enumii{\theenumi}
 \renewcommand\p@enumiii{\theenumi(\theenumii)}
 \renewcommand\p@enumiv{\p@enumiii\theenumiii}
-\newcommand\labelitemi{\textbullet}
-\newcommand\labelitemii{\normalfont\bfseries \textendash}
+\newcommand\labelitemi{\normalfont\bfseries \textendash}
+\newcommand\labelitemii{\textbullet}
 \newcommand\labelitemiii{\textasteriskcentered}
 \newcommand\labelitemiv{\textperiodcentered}
 % ××× списки ×××
@@ -233,6 +248,9 @@
 \setlength\fboxsep{3\p@}
 \setlength\fboxrule{.4\p@}
 
+% --- уравнения ---
+\renewcommand{\theequation}{\thequestion.\@arabic\c@equation}
+% xxx уравнения xxx
 
 \setlength\paperheight{297mm} \setlength\paperwidth{210mm}
 \RequirePackage{geometry}
@@ -242,7 +260,8 @@
 \pagenumbering{arabic}
 
 \RequirePackage[column]{hedfeatures}
-\RequirePackage[unicode,colorlinks=true,linkcolor=black,filecolor=blue,citecolor=green,urlcolor=blue]{hyperref}
+\RequirePackage[unicode,colorlinks=true,linkcolor=black,filecolor=blue,%
+citecolor=green,urlcolor=blue]{hyperref}
 
 \endinput
 

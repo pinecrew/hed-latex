@@ -219,8 +219,12 @@
 % ----------------------
 \setcounter{secnumdepth}{3} % глубина нумерации семантических элементов
 % объявляются счётчики
-\newcounter {chapter}
-\newcounter {section}[chapter]
+\if@chapters
+  \newcounter {chapter}
+  \newcounter {section}[chapter]
+\else
+  \newcounter {section}
+\fi
 \newcounter {subsection}[section]
 \newcounter {subsubsection}[subsection]
 % представление счётчиков
@@ -235,55 +239,55 @@
 
 % объявление команд секционирования
 % chapter
-\newcommand*\chaptermark[1]{}
-\newcommand\@chapapp{\chaptername}
-\newcommand\chapter{
-                    \thispagestyle{plain}%
+\if@chapters
+  \newcommand*\chaptermark[1]{}
+  \newcommand\@chapapp{\chaptername}
+  \newcommand\chapter{
+                      \thispagestyle{plain}%
                     \global\@topnum\z@
-                    \@afterindentfalse
-                    \secdef\@chapter\@schapter
-                   }
-\def\@chapter[#1]#2{
-                    \ifnum \c@secnumdepth >\m@ne
-                      \refstepcounter{chapter}%
-                      \typeout{\@chapapp\space\thechapter.}%
-                      \addcontentsline{toc}{chapter}%
-                        {\protect\numberline{\thechapter}#1}%
-                    \else
-                      \addcontentsline{toc}{chapter}{#1}%
-                    \fi
-                    \chaptermark{#1}%
-                    \addtocontents{lof}{\protect\addvspace{10\p@}}%
-                    \addtocontents{lot}{\protect\addvspace{10\p@}}%
-                    \@makechapterhead{#2}%
-                    \@afterheading
-                   }
-\def\@makechapterhead#1{%
-  \vskip 1em%
-  {\parindent \z@ \raggedright \normalfont
-    \ifnum \c@secnumdepth >\m@ne
-        \large\bfseries
-        \if@chapters
+                      \@afterindentfalse
+                      \secdef\@chapter\@schapter
+                     }
+  \def\@chapter[#1]#2{
+                      \ifnum \c@secnumdepth >\m@ne
+                        \refstepcounter{chapter}%
+                        \typeout{\@chapapp\space\thechapter.}%
+                        \addcontentsline{toc}{chapter}%
+                          {\protect\numberline{\thechapter}#1}%
+                      \else
+                        \addcontentsline{toc}{chapter}{#1}%
+                      \fi
+                      \chaptermark{#1}%
+                      \addtocontents{lof}{\protect\addvspace{10\p@}}%
+                      \addtocontents{lot}{\protect\addvspace{10\p@}}%
+                      \@makechapterhead{#2}%
+                      \@afterheading
+                     }
+  \def\@makechapterhead#1{%
+    \vskip 1em%
+    {\parindent \z@ \raggedright \normalfont
+      \ifnum \c@secnumdepth >\m@ne
+          \large\bfseries
           \@chapapp\space
-        \fi
-        \thechapter.
-    \fi
-    \interlinepenalty\@M
-    \large \bfseries #1\par\nobreak
-    \vskip 1em
-  }}
-% chapter*
-\def\@schapter#1{
-                   \@makeschapterhead{#1}%
-                   \@afterheading
-                }
-\def\@makeschapterhead#1{%
-  \vskip 1em%
-  {\parindent \z@ \raggedright \normalfont
-    \interlinepenalty\@M
-    \large \bfseries #1\par\nobreak
-    \vskip 1em
-  }}
+          \thechapter.
+      \fi
+      \interlinepenalty\@M
+      \large \bfseries #1\par\nobreak
+      \vskip 1em
+    }}
+  % chapter*
+  \def\@schapter#1{
+                     \@makeschapterhead{#1}%
+                     \@afterheading
+                  }
+  \def\@makeschapterhead#1{%
+    \vskip 1em%
+    {\parindent \z@ \raggedright \normalfont
+      \interlinepenalty\@M
+      \large \bfseries #1\par\nobreak
+      \vskip 1em
+    }}
+\fi
 \newcommand\section{\@startsection {section}
                                      {1}  % уровень секционирования
                                      {\z@}% отступ слева
