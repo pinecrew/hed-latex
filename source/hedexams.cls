@@ -254,7 +254,7 @@
 
 \setlength\paperheight{297mm} \setlength\paperwidth{210mm}
 \RequirePackage{geometry}
-\geometry{top=2cm, right=1cm, bottom=2cm, left=2cm}
+\geometry{margin=1cm}
 
 \pagestyle{plain}
 \pagenumbering{arabic}
