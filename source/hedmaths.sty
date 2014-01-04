@@ -47,9 +47,9 @@
 \ProcessOptions
 
 % --- обозначения и команды ---
-\newcommand{\const}{\mathrm{const}} % константа
+\newcommand{\const}{\mathrm{const}}                       % константа
 \newcommand{\average}[1]{\left\langle {#1} \right\rangle} % обозначение среднего
-\newcommand{\abs}[1]{\left|\,\!{#1}\,\!\right|} % обозначение модуля
+\newcommand{\abs}[1]{\left|\,\!{#1}\,\!\right|}           % обозначение модуля
 % xxx обозначения и команды xxx
 
 % --- подключаемые пакеты ---
@@ -65,16 +65,16 @@
 \let\oldtheta\theta \let\theta\vartheta \let\vartheta\oldtheta % theta <-> vartheta
 \let\oldkappa\kappa \let\kappa\varkappa \let\varkappa\oldkappa % kappa <-> varkappa
 \let\oldGamma\Gamma \let\Gamma\varGamma \let\varGamma\oldGamma % Gamma <-> varGamma
-\newcommand{\eps}{\varepsilon}
-\renewcommand{\le}{\leqslant}
-\renewcommand{\leq}{\leqslant}
-\renewcommand{\ge}{\geqslant}
-\renewcommand{\geq}{\geqslant}
+\let\eps\varepsilon                                        % varepsilon -> eps
+\let\le\leqslant                                           %   leqslant -> le
+\let\ge\geqslant                                           %   geqslant -> ge
+\let\leqflat\leq \let\leq\leqslant           % leq -> leqflat; leqslant -> leq
+\let\geqflat\geq \let\geq\geqslant           % geq -> geqflat; geqslant -> geq
 % xxx переобозначение символов xxx
 
 \if@complex
-    \let\oldRe\Re \let\Re\mathbf{Re\,} \let\varRe\oldRe % Re -> varRe; bf{Re} -> Re
-    \let\oldRe\Im \let\Im\mathbf{Im\,} \let\varRe\oldIm % Im -> varIm; bf{Im} -> Im
+    \let\varRe\Re \let\Re\mathbf{Re\,} % Re -> varRe; bf{Re} -> Re
+    \let\varIm\Im \let\Im\mathbf{Im\,} % Im -> varIm; bf{Im} -> Im
 \fi
 
 \if@derivative
