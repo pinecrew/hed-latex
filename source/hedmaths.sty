@@ -45,35 +45,40 @@
 
 \ExecuteOptions{derivative}
 \ProcessOptions
-% прочие обозначения и команды
-\newcommand{\const}{\mathrm{const}} % константа
-\newcommand{\average}[1]{\left\langle#1\right\rangle} % обозначение среднего
-\newcommand{\abs}[1]{\left| #1 \right|}
 
+% --- обозначения и команды ---
+\newcommand{\const}{\mathrm{const}} % константа
+\newcommand{\average}[1]{\left\langle {#1} \right\rangle} % обозначение среднего
+\newcommand{\abs}[1]{\left|\,\!{#1}\,\!\right|} % обозначение модуля
+% xxx обозначения и команды xxx
+
+% --- подключаемые пакеты ---
 \RequirePackage[intlimits,sumlimits,namelimits,centertags]{amsmath}
 \RequirePackage{amssymb}
 \RequirePackage{wasysym}
-\RequirePackage{multirow}
+\RequirePackage{multirow} % зачем он здесь? не математика же
 \RequirePackage{array}
+% xxx подключаемые пакеты xxx
 
-% переобозначение символов
-\let\oldphi\phi \let\phi\varphi \let\varphi\oldphi % phi <-> varphi
-\renewcommand{\theta}{\vartheta}
-\renewcommand{\kappa}{\varkappa}
+% --- переобозначение символов ---
+\let\oldphi\phi \let\phi\varphi \let\varphi\oldphi             %   phi <-> varphi
+\let\oldtheta\theta \let\theta\vartheta \let\vartheta\oldtheta % theta <-> vartheta
+\let\oldkappa\kappa \let\kappa\varkappa \let\varkappa\oldkappa % kappa <-> varkappa
+\let\oldGamma\Gamma \let\Gamma\varGamma \let\varGamma\oldGamma % Gamma <-> varGamma
 \newcommand{\eps}{\varepsilon}
 \renewcommand{\le}{\leqslant}
 \renewcommand{\leq}{\leqslant}
 \renewcommand{\ge}{\geqslant}
 \renewcommand{\geq}{\geqslant}
-\renewcommand{\Gamma}{\varGamma}
+% xxx переобозначение символов xxx
 
 \if@complex
-    \renewcommand{\Re}{\mathbf{Re\,}}
-    \renewcommand{\Im}{\mathbf{Im\,}}
+    \let\oldRe\Re \let\Re\mathbf{Re\,} \let\varRe\oldRe % Re -> varRe; bf{Re} -> Re
+    \let\oldRe\Im \let\Im\mathbf{Im\,} \let\varRe\oldIm % Im -> varIm; bf{Im} -> Im
 \fi
 
 \if@derivative
-    \renewcommand{\d}{\, d}
+    \renewcommand{\d}{\, d} % может стоит использовать \d для обозначения \partial?
     \newcommand{\pder}[2]{\frac{\partial #1}{\partial #2}}
     \newcommand{\ppder}[2]{\frac{\partial^2 #1}{\partial #2^2}}
     \newcommand{\pcder}[3]{\frac{\partial^2 #1}{\partial #2 \partial #3}}
@@ -137,6 +142,6 @@
     \advance\dimen0-0.2\ht0
     \setbox2=\hbox{\vrule height\ht0 depth -\dimen0}%
     {\box0\lower0.4pt\box2}}
-    \LetLtxMacro{\oldsqrt}{\sqrt}
-    \renewcommand*{\sqrt}[2][\ ]{\oldsqrt[#1]{#2}}
+    \LetLtxMacro{\varsqrt}{\sqrt}
+    \renewcommand*{\sqrt}[2][\ ]{\varsqrt[#1]{#2}}
 \fi
