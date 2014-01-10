@@ -228,8 +228,8 @@
 \newcounter {subsection}[section]
 \newcounter {subsubsection}[subsection]
 % представление счётчиков
-\renewcommand\thechapter      {\@arabic\c@chapter}
 \if@chapters
+  \renewcommand\thechapter      {\@arabic\c@chapter}
   \renewcommand\thesection      {\thechapter.\@arabic\c@section}
 \else
   \renewcommand\thesection      {\@arabic\c@section}

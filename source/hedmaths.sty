@@ -73,8 +73,8 @@
 % xxx переобозначение символов xxx
 
 \if@complex
-    \let\varRe\Re \let\Re\mathbf{Re\,} % Re -> varRe; bf{Re} -> Re
-    \let\varIm\Im \let\Im\mathbf{Im\,} % Im -> varIm; bf{Im} -> Im
+    \let\varRe\Re \renewcommand\Re{\mathbf{Re\,}} % Re -> varRe; bf{Re} -> Re
+    \let\varIm\Im \renewcommand\Im{\mathbf{Im\,}} % Im -> varIm; bf{Im} -> Im
 \fi
 
 \if@derivative
