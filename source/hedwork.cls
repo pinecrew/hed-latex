@@ -399,10 +399,13 @@
 
 % приложение
 \newcommand\appendix{\par
+\if@chapters
   \setcounter{chapter}{0}%
+  \gdef\thechapter{\@Alph\c@chapter}
+\fi
   \setcounter{section}{0}%
-  \setcounter{subsection}{0}%
-  \gdef\thechapter{\@Alph\c@chapter}}
+  \setcounter{subsection}{0}%}
+  \gdef\thechapter{\@Alph\c@section}}
 
 % снова длины. Почему бы всё в одном месте не определить?
 \setlength\arraycolsep{5\p@}
