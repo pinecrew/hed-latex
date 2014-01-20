@@ -47,9 +47,10 @@
 \ProcessOptions
 
 % --- обозначения и команды ---
-\newcommand{\const}{\mathrm{const}}                       % константа
-\newcommand{\average}[1]{\left\langle {#1} \right\rangle} % обозначение среднего
-\newcommand{\abs}[1]{\left|\,\!{#1}\,\!\right|}           % обозначение модуля
+\newcommand{\const}{\mathrm{const}}                          % константа
+\newcommand{\average}[1]{\left\langle\strut{#1}
+  \rule{1pt}{0pt}\right\rangle}                              % обозначение среднего
+\newcommand{\abs}[1]{\left|\strut{#1}\rule{1pt}{0pt}\right|} % обозначение модуля
 % xxx обозначения и команды xxx
 
 % --- подключаемые пакеты ---
