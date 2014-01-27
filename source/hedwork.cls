@@ -1,6 +1,6 @@
 % метаинформация
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{hedreport}[2013/12/08 v0.1.99]
+\ProvidesClass{hedwork}[2014/01/27 v0.1.99]
 
 % объявление булевых переменных
 \newif\if@restonecol
@@ -113,7 +113,7 @@
   \def\semnum#1{\gdef\@semnum{#1}}
 
   \def\variant#1{\gdef\@variant{#1}}
-  
+
   \newcommand\maketitle{
     \begin{titlepage}
       \begin{center}
@@ -152,7 +152,7 @@
         \end{center}
         \vspace{3em}
       \fi
-      
+
       \begin{flushright}
         \begin{minipage}{.40\textwidth}
           Выполнил\ifx\@studentfemale\@fletter
