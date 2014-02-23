@@ -39,7 +39,7 @@
 }
 
 % закрывающийся символ корня
-\DeclareOption{root}{
+\DeclareOption{root}{%
     \@roottrue
 }
 
@@ -47,21 +47,24 @@
 \ProcessOptions
 
 % --- обозначения и команды ---
-\newcommand{\const}{\mathrm{const}}                          % константа
-\newcommand{\average}[1]{\left\langle #1 \right\rangle}   % обозначение среднего
-\newcommand{\abs}[1]{\left| #1 \right|} % обозначение модуля
+\newcommand{\const}{\mathrm{const}}                     % константа
+\newcommand{\average}[1]{\left\langle #1 \right\rangle} % обозначение среднего
+\newcommand{\abs}[1]{\left| #1 \right|}                 % обозначение модуля
+\newcommand{\ds}{\displaystyle}                         % полный размер строчной формулы
+\newcommand{\D}{\Delta}
+\newcommand{\dotunder}[1]{\d{#1}}
+\renewcommand{\d}{\delta}
 % xxx обозначения и команды xxx
 
 % --- подключаемые пакеты ---
 \RequirePackage[intlimits,sumlimits,namelimits,centertags]{amsmath}
 \RequirePackage{amssymb}
 \RequirePackage{wasysym}
-\RequirePackage{multirow} % зачем он здесь? не математика же
 \RequirePackage{array}
 % xxx подключаемые пакеты xxx
 
 % --- переобозначение символов ---
-\let\oldphi\phi \let\phi\varphi \let\varphi\oldphi             %   phi <-> varphi
+\let\oldphi  \phi   \let\phi  \varphi   \let\varphi\oldphi     %   phi <-> varphi
 \let\oldtheta\theta \let\theta\vartheta \let\vartheta\oldtheta % theta <-> vartheta
 \let\oldkappa\kappa \let\kappa\varkappa \let\varkappa\oldkappa % kappa <-> varkappa
 \let\oldGamma\Gamma \let\Gamma\varGamma \let\varGamma\oldGamma % Gamma <-> varGamma
@@ -78,18 +81,17 @@
 \fi
 
 \if@derivative
-    \renewcommand{\d}{\, d} % может стоит использовать \d для обозначения \partial?
-    \newcommand{\pder}[2]{\frac{\partial #1}{\partial #2}}
-    \newcommand{\ppder}[2]{\frac{\partial^2 #1}{\partial #2^2}}
+    \newcommand{\pder}[2] {\frac{\partial #1}{\partial #2}}
+    \newcommand{\ppder}[2]{\frac{\partial^2 #1}{\partial {#2}^2}}
     \newcommand{\pcder}[3]{\frac{\partial^2 #1}{\partial #2 \partial #3}}
-    \newcommand{\der}[2]{\frac{d #1}{d #2}}
-    \newcommand{\dder}[2]{\frac{d^2 #1}{d #2^2}}
+    \newcommand{\der}[2]  {\frac{d #1}{d #2}}
+    \newcommand{\dder}[2] {\frac{d^2 #1}{d {#2}^2}}
 \fi
 
 \if@shortcuts
     \newcommand{\limni}{\lim_{n\to\infty}}
-    \newcommand{\lni}{\limits_0^\infty}
-    \newcommand{\lii}{\limits_{-\infty}^\infty}
+    \newcommand{\lni}  {\limits_0^\infty}
+    \newcommand{\lii}  {\limits_{-\infty}^\infty}
 \fi
 
 \if@environments
@@ -130,8 +132,8 @@
 
 \if@vectors
     \newcommand{\divergence}{\mathrm{div\,}}
-    \newcommand{\gradient}{\mathrm{grad\,}}
-    \newcommand{\rotor}{\mathrm{rot\,}}
+    \newcommand{\gradient}  {\mathrm{grad\,}}
+    \newcommand{\rotor}     {\mathrm{rot\,}}
 \fi
 
 \if@root
