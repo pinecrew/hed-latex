@@ -86,7 +86,6 @@
 % --------------
 % если нужен титульный лист
 \if@titlepage
-  \RequirePackage[utf8]{inputenc}    %%%% для русского на титульном листе
   % переменные для титульного листа
   \def\faculty#1{\gdef\@faculty{#1}}
   \def\@faculty{\@latex@error{No \noexpand\faculty given}\@ehc}
@@ -468,6 +467,7 @@
 
 % Гостовсие подписи
 \RequirePackage{caption}
+\RequirePackage[utf8]{inputenc}
 \DeclareCaptionLabelFormat{figure}{Рисунок #2}
 \DeclareCaptionLabelFormat{table}{Таблица #2}
 \DeclareCaptionLabelSeparator{sep}{~---~}
