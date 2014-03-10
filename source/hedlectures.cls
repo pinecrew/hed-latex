@@ -520,6 +520,6 @@
 %\renewcommand{\@biblabel}[1]{#1.}
 
 % удобная штука
-\RequirePackage[column]{hedfeatures}
+\RequirePackage[column,boldvector]{hedfeatures}
 
 \endinput

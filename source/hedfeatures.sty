@@ -2,10 +2,17 @@
 \ProvidesPackage{hedfeatures}[2013/10/19 v0.1.9]
 
 \newif\if@column
+\newif\if@boldvector
+
 \@columnfalse
+\@boldvectorfalse
 
 \DeclareOption{column}{
     \@columntrue
+}
+
+\DeclareOption{boldvector}{
+    \@boldvectortrue
 }
 
 \ExecuteOptions{}
@@ -15,5 +22,10 @@
     \RequirePackage{array}
     \newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1\textwidth}}
     \renewcommand{\arraystretch}{1.2}
+\fi
+
+\if@boldvector
+    \RequirePackage{amssymb}
+    \renewcommand{\vec}[1]{\boldsymbol{#1}}
 \fi
 
