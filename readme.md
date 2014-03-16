@@ -35,7 +35,7 @@ __hed__ (от __h__igher __ed__ucation) — это набор средств д�
 
 ## Использование
 
-    \documentclass{hedsemwork}
+    \documentclass{hedwork}
     \usepackage[utf8]{inputenc}
     \usepackage[russian]{babel}
     \begin{document}
