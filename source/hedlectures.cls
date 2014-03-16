@@ -1,7 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{extbook}
-              [1999/01/07 v1.4a
- NON-Standard LaTeX document class]
+\ProvidesClass{hedlectures}[2014/03/16 v1.0a]
 \newcommand\@ptsize{}
 \newif\if@restonecol
 
