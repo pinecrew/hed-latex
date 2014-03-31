@@ -69,6 +69,7 @@
 \@medpenalty  151 % назначение штрафов
 \@highpenalty 301 %
 
+\RequirePackage[utf8]{inputenc}
 
 % размер листа
 \setlength\paperheight{297mm} \setlength\paperwidth{210mm}
@@ -468,7 +469,6 @@
 
 % Гостовсие подписи
 \RequirePackage{caption}
-\RequirePackage[utf8]{inputenc}
 \DeclareCaptionLabelFormat{figure}{Рисунок #2}
 \DeclareCaptionLabelFormat{table}{Таблица #2}
 \DeclareCaptionLabelSeparator{sep}{~---~}
