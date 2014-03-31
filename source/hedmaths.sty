@@ -30,10 +30,12 @@
     \@shortcutstrue
 }
 
+% различные математические окружения
 \DeclareOption{environments}{%
     \@environmentstrue
 }
 
+% векторные операторы
 \DeclareOption{vectors}{%
     \@vectorstrue
 }
@@ -52,7 +54,7 @@
 \newcommand{\abs}[1]{\left| #1 \right|}                 % обозначение модуля
 \newcommand{\ds}{\displaystyle}                         % полный размер строчной формулы
 \newcommand{\D}{\Delta}
-\newcommand{\dotunder}[1]{\d{#1}}
+\newcommand{\dotunder}[1]{\d{#1}} % необходима для обозначения строчной дельты
 \renewcommand{\d}{\delta}
 % xxx обозначения и команды xxx
 
@@ -77,21 +79,28 @@
 
 \if@complex
     \let\varRe\Re \renewcommand\Re{\mathbf{Re\,}} % Re -> varRe; bf{Re} -> Re
+      % обозначение действительной части
     \let\varIm\Im \renewcommand\Im{\mathbf{Im\,}} % Im -> varIm; bf{Im} -> Im
+      % обозначение мнимой части
 \fi
 
 \if@derivative
     \newcommand{\pder}[2] {\frac{\partial #1}{\partial #2}}
+      % частная производная от #1 по #2
     \newcommand{\ppder}[2]{\frac{\partial^2 #1}{\partial {#2}^2}}
+      % вторая частная производная от #1 по #2
     \newcommand{\pcder}[3]{\frac{\partial^2 #1}{\partial #2 \partial #3}}
+      % вторая частная производная от #1 по #2 и #3
     \newcommand{\der}[2]  {\frac{d #1}{d #2}}
+      % производная от #1 по #2
     \newcommand{\dder}[2] {\frac{d^2 #1}{d {#2}^2}}
+      % вторая производная от #1 по #2
 \fi
 
 \if@shortcuts
-    \newcommand{\limni}{\lim_{n\to\infty}}
-    \newcommand{\lni}  {\limits_0^\infty}
-    \newcommand{\lii}  {\limits_{-\infty}^\infty}
+    \newcommand{\limni}{\lim_{n\to\infty}} % предел при n стремящемся к бесконечности
+    \newcommand{\lni}  {\limits_0^\infty}         % пределы от 0 до бесконечности
+    \newcommand{\lii}  {\limits_{-\infty}^\infty} % пределы от - до + бесконечности
 \fi
 
 \if@environments
@@ -104,18 +113,23 @@
         {\begin{trivlist}\item[\hskip \labelsep {\bfseries #1}]
         \setlength{\parindent}{0cm}}
         {\end{trivlist}\hrulefill}
+
     \newenvironment{solution}[1][Решение.]
         {\begin{trivlist}\item[\hskip \labelsep {\bfseries #1}]
         \setlength{\parindent}{0cm}}
         {\end{trivlist}\hrulefill}
+
     \newenvironment{definition}[1][Определение.]
         {\begin{quote}\begin{trivlist}\item[\hskip \labelsep {\bfseries #1}]}
         {\end{trivlist}\end{quote}}
+
     \newenvironment{remark}[1][Замечание.]
         {\begin{quote}\begin{trivlist}\item[\hskip \labelsep {\bfseries #1}]}
         {\end{trivlist}\end{quote}}
+
     \newtheorem{comment}{Комментарий}[section]
     \newtheorem{example}{Пример}[section]
+
     \ifx\appendix\undefined
       \newenvironment{appendix}[1][Приложение.]
         {\begin{trivlist}\item[\hskip \labelsep {\bfseries #1}]
@@ -127,13 +141,19 @@
         \setlength{\parindent}{0cm}}
         {\end{trivlist}}
     \fi
+
     \newenvironment{conclusion}{\itshape}{}
+
+    \newenvironment{task}[2]  % 1 -- номер задачи, 2 -- текст
+      {Задача #1: \emph{#2} \\ \bigskip \\ \emph{Решение:}}{\newpage}
+    \newenvironment{task*}[2] % со звездой -- без новой страницы
+      {Задача #1: \emph{#2} \\ \bigskip \\ \emph{Решение:}}{}
 \fi
 
 \if@vectors
-    \newcommand{\divergence}{\mathrm{div\,}}
-    \newcommand{\gradient}  {\mathrm{grad\,}}
-    \newcommand{\rotor}     {\mathrm{rot\,}}
+    \newcommand{\divergence}{\mathrm{div\,}}  % дивергенция
+    \newcommand{\gradient}  {\mathrm{grad\,}} % градиент
+    \newcommand{\rotor}     {\mathrm{rot\,}}  % ротор
 \fi
 
 \if@root
