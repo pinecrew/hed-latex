@@ -40,6 +40,7 @@
 \DeclareOption{openany}{\@openrightfalse}
 \DeclareOption{onecolumn}{\@twocolumnfalse}
 \DeclareOption{twocolumn}{\@twocolumntrue}
+\DeclareOption{pscyr}{\AtEndOfPackage{ \RequirePackage{pscyr} }}
 \DeclareOption{openbib}{%
   \AtEndOfPackage{%
    \renewcommand\@openbib@code{%
@@ -102,7 +103,7 @@
       \markboth {%
         \ifnum \c@secnumdepth >\m@ne
           \if@mainmatter
-            \@chapapp\ \thelecture. \ %
+            \@lecapp\ \thelecture. \ %
           \fi
         \fi
         ##1}{}}%
@@ -122,7 +123,7 @@
       \markright {%
         \ifnum \c@secnumdepth >\m@ne
           \if@mainmatter
-            \@chapapp\ \thelecture. \ %
+            \@lecapp\ \thelecture. \ %
           \fi
         \fi
         ##1}}}
@@ -237,7 +238,7 @@
 \renewcommand\thesubsubsection{\thesubsection .\@arabic\c@subsubsection}
 \renewcommand\theparagraph    {\thesubsubsection.\@arabic\c@paragraph}
 \renewcommand\thesubparagraph {\theparagraph.\@arabic\c@subparagraph}
-\newcommand\@chapapp{\lecturename}
+\newcommand\@lecapp{\lecturename}
 \newcommand\frontmatter{%
     \cleardoublepage
   \@mainmatterfalse
@@ -310,7 +311,7 @@
 \def\@lecture[#1]#2{\ifnum \c@secnumdepth >\m@ne
                        \if@mainmatter
                          \refstepcounter{lecture}%
-                         \typeout{\@chapapp\space\thelecture.}%
+                         \typeout{\@lecapp\space\thelecture.}%
                          \addcontentsline{toc}{lecture}%
                                    {\protect\numberline{\thelecture}#1}%
                        \else
@@ -333,7 +334,7 @@
   {\parindent \z@ \raggedright \normalfont
     \ifnum \c@secnumdepth >\m@ne
       \if@mainmatter
-        \huge\bfseries \@chapapp\space \thelecture
+        \huge\bfseries \@lecapp\space \thelecture
         \par\nobreak
         \vskip 20\p@
       \fi
@@ -458,7 +459,7 @@
 \newcommand\appendix{\par
   \setcounter{lecture}{0}%
   \setcounter{section}{0}%
-  \gdef\@chapapp{\appendixname}%
+  \gdef\@lecapp{\appendixname}%
   \gdef\thelecture{\@Alph\c@lecture}}
 \setlength\arraycolsep{5\p@}
 \setlength\tabcolsep{6\p@}
