@@ -8,7 +8,7 @@
 % Опции
 % -----
 % Размер шрифта
-% 2 реально используемых варианта
+% 3 реально используемых варианта
 \newcommand\@ptsize{}
 \DeclareOption{10pt}{\renewcommand\@ptsize{10}}
 \DeclareOption{12pt}{\renewcommand\@ptsize{12}}
