@@ -89,6 +89,8 @@
       % частная производная от #1 по #2
     \newcommand{\ppder}[2]{\frac{\partial^2 #1}{\partial {#2}^2}}
       % вторая частная производная от #1 по #2
+    \newcommand{\pkder}[3]{\frac{\partial^{#3} #1}{\partial {#2}^{#3}}}
+      % частная производная #3 порядка от #1 по #2
     \newcommand{\pcder}[3]{\frac{\partial^2 #1}{\partial #2 \partial #3}}
       % вторая частная производная от #1 по #2 и #3
     \newcommand{\der}[2]  {\frac{d #1}{d #2}}
@@ -144,10 +146,18 @@
 
     \newenvironment{conclusion}{\itshape}{}
 
+    \newcounter{task}
+    \setcounter{task}{0}
+    \gdef\thetask{\arabic{task}}
+    
     \newenvironment{task}[2]  % 1 -- номер задачи, 2 -- текст
-      {Задача #1: \emph{#2}~\\ \bigskip~\\ \emph{Решение:}}{\newpage}
+      {Задача #1: \emph{#2}~\\ \bigskip~\\ \emph{Решение:}
+      \refstepcounter{task}}
+      {\newpage}
     \newenvironment{task*}[2] % со звездой -- без новой страницы
-      {Задача #1: \emph{#2}~\\ \bigskip~\\ \emph{Решение:}}{}
+      {Задача #1: \emph{#2}~\\ \bigskip~\\ \emph{Решение:}
+      \refstepcounter{task}}
+      {}
 \fi
 
 \if@vectors
