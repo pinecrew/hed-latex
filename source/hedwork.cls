@@ -96,7 +96,6 @@
   \def\@department{\@latex@error{No \noexpand\department given}\@ehc}
 
   \def\subject#1{\gdef\@subject{#1}}
-  \def\@subject{\@latex@error{No \noexpand\subject given}\@ehc}
 
   \def\topic#1{\gdef\@topic{#1}}
 
@@ -136,8 +135,11 @@
         \else
           №\@semnum\
         \fi
+        \ifx\@subject\undefined
+        \else
         по дисциплине\\
         <<\@subject>>\\
+        \fi
         \ifx\@topic\undefined
         \else
           на тему \\
@@ -406,7 +408,7 @@
 \fi
   \setcounter{section}{0}%
   \setcounter{subsection}{0}%}
-  \gdef\thechapter{\@Alph\c@section}}
+  \gdef\thesection{\@Alph\c@section}}
 
 % снова длины. Почему бы всё в одном месте не определить?
 \setlength\arraycolsep{5\p@}
