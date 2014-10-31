@@ -86,7 +86,7 @@
 \newcommand{\makeheader}{
       \begin{table}[h!]
         \center
-        \begin{tabular}{|C{.5}|C{.2}|C{.25}|} \hline
+        \begin{tabular}{|C{.5}|C{.2}|C{.2}|} \hline
             \multirow{4}{*}{Лабораторная работа № \@labnum}
             & Студент, группа & \@student \\ \cline{2-3}
             & Дата выполнения & \@date \\ \cline{2-3}
