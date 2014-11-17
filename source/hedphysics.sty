@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}[1995/06/01]
-\ProvidesPackage{hedphysics}[2014/11/16 v0.1.9]
+\ProvidesPackage{hedphysics}[2014/11/17 v0.1.9]
 
 \newif\if@electricity
 \newif\if@atomic
@@ -55,7 +55,7 @@
     \newcommand{\scalar}[2]{\ensuremath{
         \left\langle#1\middle|#2\right\rangle}
     }                                                           % <1|2>
-    \newcommand{\impact}[3]{\ensuremath{\left\langle#1\middle|  % <1|\hat{2}|3>
-        \hat{#2}\middle|#3\right\rangle}
+    \newcommand{\impact}[3]{\ensuremath{\left\langle#1\middle|  % <1|2|3>
+        #2\middle|#3\right\rangle}
     }
 \fi
