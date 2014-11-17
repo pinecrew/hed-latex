@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}[1995/06/01]
-\ProvidesPackage{hedmaths}[2013/10/18 v0.1.9]
+\ProvidesPackage{hedmaths}[2014/11/17 v0.1.9]
 
 \newif\if@complex
 \newif\if@derivative
@@ -48,6 +48,13 @@
 \ExecuteOptions{}
 \ProcessOptions
 
+% --- подключаемые пакеты ---
+\RequirePackage[intlimits,sumlimits,namelimits,centertags]{amsmath}
+\RequirePackage{amssymb}
+\RequirePackage{wasysym}
+\RequirePackage{array}
+% xxx подключаемые пакеты xxx
+
 % --- обозначения и команды ---
 \newcommand{\const}{\mathrm{const}}                     % константа
 \newcommand{\average}[1]{\left\langle #1 \right\rangle} % обозначение среднего
@@ -57,13 +64,6 @@
 \newcommand{\dotunder}[1]{\d{#1}} % необходима для обозначения строчной дельты
 \renewcommand{\d}{\delta}
 % xxx обозначения и команды xxx
-
-% --- подключаемые пакеты ---
-\RequirePackage[intlimits,sumlimits,namelimits,centertags]{amsmath}
-\RequirePackage{amssymb}
-\RequirePackage{wasysym}
-\RequirePackage{array}
-% xxx подключаемые пакеты xxx
 
 % --- переобозначение символов ---
 \let\oldphi  \phi   \let\phi  \varphi   \let\varphi\oldphi     %   phi <-> varphi
