@@ -1,6 +1,6 @@
 % метаинформация
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{hedlab}[2014/01/27 v0.1.99]
+\ProvidesClass{hedlab}[2014/10/31 v0.1.99]
 
 % объявление булевых переменных
 \newif\if@restonecol
