@@ -1,6 +1,6 @@
 % метаинформация
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{hedlab}[2014/10/31 v0.1.99]
+\ProvidesClass{hedlab}[2014/11/18 v0.1.99]
 
 % объявление булевых переменных
 \newif\if@restonecol
@@ -81,6 +81,8 @@
 \def\student#1{\gdef\@student{#1}}
 \def\@student{\@latex@error{No \noexpand\student given}\@ehc}
 
+\def\labdate#1{\gdef\@labdate{#1}}
+
 \RequirePackage{multirow}
 \RequirePackage[utf8]{inputenc}
 \newcommand{\makeheader}{
@@ -89,7 +91,8 @@
         \begin{tabular}{|C{.5}|C{.2}|C{.2}|} \hline
             \multirow{4}{*}{Лабораторная работа № \@labnum}
             & Студент, группа & \@student \\ \cline{2-3}
-            & Дата выполнения & \@date \\ \cline{2-3}
+            & Дата выполнения & \ifx\@labdate\undefined \@date
+            \else\@labdate \fi \\ \cline{2-3}
             & Подпись & \\ \cline{2-3}
             \multirow{3}{*}{\parbox{.5\textwidth}{\centering\@labname}}
             & Дата отчёта & \\ \cline{2-3}
